@@ -10,6 +10,7 @@ services:
       - 8000:8000
     volumes:
       - ./sample_service:/app
+
   postgres:
     build:
         context: ./relational-data
@@ -17,10 +18,22 @@ services:
     volumes:
         - postgres-data:/var/lib/postgresql/data
     environment:
-        - POSTGRES_MULTIPLE_DATABASES=users,boards
+        - POSTGRES_MULTIPLE_DATABASES=boards
         - POSTGRES_PASSWORD=test-databases
     ports:
         - 15432:5432
+
+  boards:
+    build:
+      context: ./boards
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./boards:/app
+    environment:
+      DATABASE_URL: postgresql://boards:password@postgres/boards
+      WAIT_HOSTS: postgres:5432
 
   ghi:
     image: node:lts-bullseye
