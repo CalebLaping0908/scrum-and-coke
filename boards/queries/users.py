@@ -1,8 +1,6 @@
 from pydantic import BaseModel
 from queries.pool import pool
 
-class Error(BaseModel):
-    message: str
 
 class UserIn(BaseModel):
     email: str
@@ -18,7 +16,7 @@ class UserOut(BaseModel):
     employee_number: int
 
 class UserRepository:
-    def create(user: UserIn) -> UserOut:
+    def create(self, user: UserIn) -> UserOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -38,5 +36,4 @@ class UserRepository:
                 )
                 id = result.fetchone()[0]
                 old_data = user.dict()
-                return {"message": "invalid input"}
                 return UserOut(id=id, **old_data)
