@@ -10,3 +10,9 @@ def create_board(
     repo: BoardRepository = Depends()
 ):
     return repo.create(board)
+
+@router.get("/boards", response_model=Union[Error, List[BoardOut]])
+def get_all(
+    repo: BoardRepository = Depends(),
+    ):
+    return repo.get_all()

@@ -31,3 +31,26 @@ class BoardRepository:
                 id = result.fetchone()[0]
                 old_data = board.dict()
                 return BoardOut(id=id, **old_data)
+
+    def get_all(self) -> Union[Error, List[BoardOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT id, name
+                        FROM boards
+                        ORDER BY id
+
+                        """
+                    )
+                    return [
+                        BoardOut(
+                        id=record[0],
+                        name=record[1]
+                    )
+                    for record in db
+                    ]
+
+        except Exception:
+            return {"message": "could not get all boards"}

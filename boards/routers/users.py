@@ -17,3 +17,11 @@ def get_all(
     repo: UserRepository = Depends(),
     ):
     return repo.get_all()
+
+@router.put("/users/{user_id}", response_model=Union[UserOut, Error])
+def update_user(
+    user_id: int,
+    user: UserIn,
+    repo: UserRepository = Depends(),
+) -> Union[UserOut, Error]:
+    return repo.update(user_id, user)
