@@ -29,8 +29,7 @@ class BoardRepository:
                     ]
                 )
                 id = result.fetchone()[0]
-                old_data = board.dict()
-                return BoardOut(id=id, **old_data)
+                return self.board_in_to_out(id, board)
 
     def get_all(self) -> Union[Error, List[BoardOut]]:
         try:
@@ -54,3 +53,28 @@ class BoardRepository:
 
         except Exception:
             return {"message": "could not get all boards"}
+
+    def update(self, board_id: int, board: BoardIn) -> Union[Error, BoardOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE boards
+                        SET name = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            board.name,
+                            board_id
+                        ]
+                    )
+                    return self.board_in_to_out(board_id, board)
+
+        except Exception:
+            return {"message": "could not update board"}
+
+
+    def board_in_to_out(self, id: int, board: BoardIn):
+        old_data = board.dict()
+        return BoardOut(id=id, **old_data)
