@@ -26,8 +26,8 @@ class UserRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        DELETE FROM users            
-                        WHERE id = %s   
+                        DELETE FROM users
+                        WHERE id = %s
                         """,
                         [user_id]
                     )
@@ -35,7 +35,7 @@ class UserRepository:
         except Exception as e:
             print(e)
             return False
-        
+
     def get_one(self, user_id: int) -> Optional[UserOut]:
         try:
             with pool.connection() as conn:
@@ -47,8 +47,8 @@ class UserRepository:
                           , full_name
                           , password
                           , employee_number
-                        FROM users  
-                        WHERE id = %s   
+                        FROM users
+                        WHERE id = %s
                         """,
                         [user_id]
                     )
@@ -73,7 +73,7 @@ class UserRepository:
                           , full_name = %s
                           , password = %s
                           , employee_number = %s
-                        WHERE id = %s   
+                        WHERE id = %s
                         """,
                         [
                             user.email,
@@ -88,7 +88,7 @@ class UserRepository:
             print(e)
             return {"message": "Could not update user"}
 
-        
+
     def get_all(self) -> Union[List[UserOut], Error]:
         try:
             with pool.connection() as conn:
@@ -103,14 +103,14 @@ class UserRepository:
                     return [
                         self.record_to_user_out(record)
                         for record in result
-                    ]                
+                    ]
         except Exception as e:
             print(e)
             return {"message": "Could not get all users"}
-        
+
 
     def create(self, user: UserIn) -> UserOut:
-        try:            
+        try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
@@ -133,11 +133,11 @@ class UserRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not create user"}
-        
+
     def user_in_to_out(self, id: int, user: UserIn):
         old_data = user.dict()
         return UserOut(id=id, **old_data)
-    
+
     def record_to_user_out(self, record):
         return UserOut(
             id=record[0],
@@ -146,9 +146,3 @@ class UserRepository:
             password=record[3],
             employee_number=record[4],
         )
-
-            
-
-
-
-        

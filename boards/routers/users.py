@@ -44,4 +44,3 @@ def get_one_user(
     if user is None:
         response.status_code = 404
     return user
-    

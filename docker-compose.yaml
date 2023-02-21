@@ -1,6 +1,7 @@
 volumes:
   postgres-data:
     external: true
+
 services:
   fastapi:
     build:
