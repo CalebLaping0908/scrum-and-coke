@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from queries.pool import pool
-from typing import List, Union
+from typing import List, Union, Optional
 
 class Error(BaseModel):
     message: str
@@ -48,7 +48,7 @@ class UserRepository:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    db.execute(
+                    result = db.execute(
                         """
                         SELECT id, email, full_name, password, employee_number
                         FROM users
@@ -57,15 +57,9 @@ class UserRepository:
                         """
                     )
                     return [
-                        UserOut(
-                        id=record[0],
-                        email=record[1],
-                        full_name=record[2],
-                        password=record[3],
-                        employee_number=record[4]
-                    )
-                    for record in db
-                    ]
+                        self.record_to_user_out(record)
+                    for record in result
+                ]
 
         except Exception:
             return {"message": "could not get all users"}
@@ -114,7 +108,43 @@ class UserRepository:
         except Exception:
             return False
 
+    def get_one(self, user_id: int) -> Optional[UserOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id
+                            , email
+                            , full_name
+                            , password
+                            , employee_number
+                        FROM users
+                        WHERE id = %s
+                        """,
+                        [user_id]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_user_out(record)
+
+        except Exception as e:
+            print(e)
+            return {"message": "could not get that user"}
+
+
 
     def user_in_to_out(self, id: int, user: UserIn):
         old_data = user.dict()
         return UserOut(id=id, **old_data)
+
+
+    def record_to_user_out(self, record):
+        return UserOut(
+            id=record[0],
+            email=record[1],
+            full_name=record[2],
+            password=record[3],
+            employee_number=record[4]
+        )

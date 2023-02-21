@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from typing import List, Union
+from typing import List, Union, Optional
 from queries.boards import BoardIn, BoardRepository, BoardOut, Error
 
 router = APIRouter()
@@ -34,3 +34,12 @@ def delete_board(
     repo: BoardRepository = Depends(),
 ) -> bool:
     return repo.delete(board_id)
+
+
+@router.get("/boards/{board_id}", response_model=Optional[Union[Error, BoardOut]])
+def get_one_board(
+    board_id: int,
+    repo: BoardRepository = Depends(),
+) -> BoardOut:
+    board = repo.get_one(board_id)
+    return board

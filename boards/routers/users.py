@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 from typing import List, Union, Optional
 from queries.users import UserIn, UserRepository, UserOut, Error
 
@@ -36,9 +36,10 @@ def delete_user(
     return repo.delete(user_id)
 
 
-# @router.get("/users/{user_id}", response_model=Optional)
-# def get_one_user(
-#     user_id: int,
-#     repo: UserRepository = Depends(),
-# ) -> UserOut:
-#     return repo.get_one(user_id)
+@router.get("/users/{user_id}", response_model=Optional[Union[Error, UserOut]])
+def get_one_user(
+    user_id: int,
+    repo: UserRepository = Depends(),
+) -> UserOut:
+    user = repo.get_one(user_id)
+    return user
