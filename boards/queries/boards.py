@@ -74,6 +74,22 @@ class BoardRepository:
         except Exception:
             return {"message": "could not update board"}
 
+    def delete(self, board_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM boards
+                        WHERE id = %s
+                        """,
+                        [board_id]
+                    )
+                    return True
+
+        except Exception:
+            return False
+
 
     def board_in_to_out(self, id: int, board: BoardIn):
         old_data = board.dict()

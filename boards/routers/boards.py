@@ -26,3 +26,11 @@ def update_board(
     repo: BoardRepository = Depends(),
 ) -> Union[BoardOut, Error]:
     return repo.update(board_id, board)
+
+
+@router.delete("/boards/{board_id}", response_model=bool)
+def delete_board(
+    board_id: int,
+    repo: BoardRepository = Depends(),
+) -> bool:
+    return repo.delete(board_id)

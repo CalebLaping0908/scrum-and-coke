@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from typing import List, Union
+from typing import List, Union, Optional
 from queries.users import UserIn, UserRepository, UserOut, Error
 
 router = APIRouter()
@@ -18,6 +18,7 @@ def get_all(
     ):
     return repo.get_all()
 
+
 @router.put("/users/{user_id}", response_model=Union[UserOut, Error])
 def update_user(
     user_id: int,
@@ -25,3 +26,19 @@ def update_user(
     repo: UserRepository = Depends(),
 ) -> Union[UserOut, Error]:
     return repo.update(user_id, user)
+
+
+@router.delete("/users/{user_id}", response_model=bool)
+def delete_user(
+    user_id: int,
+    repo: UserRepository = Depends(),
+) -> bool:
+    return repo.delete(user_id)
+
+
+# @router.get("/users/{user_id}", response_model=Optional)
+# def get_one_user(
+#     user_id: int,
+#     repo: UserRepository = Depends(),
+# ) -> UserOut:
+#     return repo.get_one(user_id)
