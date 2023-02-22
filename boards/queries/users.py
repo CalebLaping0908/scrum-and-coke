@@ -6,6 +6,10 @@ class Error(BaseModel):
     message: str
 
 
+class DuplicateUserError(ValueError):
+    pass
+
+
 class UserIn(BaseModel):
     email: str
     full_name: str
@@ -17,18 +21,21 @@ class UserOut(BaseModel):
     id: int
     email: str
     full_name: str
-    password: str
+    hashed_password: str
     employee_number: int
 
 
+# class UserOutWithPassword(UserOut):
+#     hashed_password: str
+
 class UserRepository:
-    def create(self, user: UserIn) -> Union[Error,UserOut]:
+    def create(self, user: UserIn, hashed_password: str) -> UserOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
                     INSERT INTO users
-                    (email, full_name, password, employee_number)
+                    (email, full_name, hashed_password, employee_number)
                     VALUES
                     (%s, %s, %s, %s)
                     RETURNING id;
@@ -36,12 +43,19 @@ class UserRepository:
                     [
                         user.email,
                         user.full_name,
-                        user.password,
+                        hashed_password,
                         user.employee_number
                     ]
                 )
                 id = result.fetchone()[0]
-                return self.user_in_to_out(id, user)
+                return UserOut(
+                    id=id,
+                    email=user.email,
+                    full_name=user.full_name,
+                    hashed_password=hashed_password,
+                    employee_number=user.employee_number
+                    )
+                # return self.user_in_to_out(id, user)
 
 
     def get_all(self) -> Union[Error, List[UserOut]]:
@@ -108,7 +122,7 @@ class UserRepository:
         except Exception:
             return False
 
-    def get_one(self, user_id: int) -> Optional[UserOut]:
+    def get_one(self, email: str, ) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -117,12 +131,12 @@ class UserRepository:
                         SELECT id
                             , email
                             , full_name
-                            , password
+                            , hashed_password
                             , employee_number
                         FROM users
-                        WHERE id = %s
+                        WHERE email = %s
                         """,
-                        [user_id]
+                        [email]
                     )
                     record = result.fetchone()
                     if record is None:
@@ -145,6 +159,6 @@ class UserRepository:
             id=record[0],
             email=record[1],
             full_name=record[2],
-            password=record[3],
+            hashed_password=record[3],
             employee_number=record[4]
         )
