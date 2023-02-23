@@ -64,7 +64,7 @@ class UserRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, email, full_name, password, employee_number
+                        SELECT id, email, full_name, hashed_password, employee_number
                         FROM users
                         ORDER BY id
 
@@ -88,7 +88,7 @@ class UserRepository:
                         UPDATE users
                         SET email = %s
                         , full_name = %s
-                        , password = %s
+                        , hashed_password = %s
                         , employee_number = %s
                         WHERE id = %s
                         """,
