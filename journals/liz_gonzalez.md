@@ -1,5 +1,16 @@
 ## February 20, 2023
 
+Today, my team and I worked on:
+
+- Getting account authorization set up
+
+We modified our existing user endpoints so we could add in authorization
+functionality. We created an authenticator file, created a hidden variable for our signing key, and spent most of the day attempting to create a new user with the tokens now implemented. When we try to create a new user on Swagger UI, we get a 401 Unauthorized Error. We worked on debugging the code by using print statements but haven't been able to find an answer about why we're getting an error from this request.
+
+I've heard from many people that implementing authentication with jwtdown is a real pain in the butt, and so far I have to agree! But I don't back down from a challenge, so I'm determined and excited to figure this out. I worked on debugging and researching some more on my own after class but still no luck. I have hope that tomorrow we will figure out a solution... **fingers crossed**. Plus, if we're getting the hardest part out of the way, we're gonna have a blast building the rest of our application!
+
+## February 20, 2023
+
 Today, I worked on:
 
 - Creating the boards endpoint,
