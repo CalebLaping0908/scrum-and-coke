@@ -3,7 +3,7 @@ from typing import List, Union, Optional
 from queries.users import UserIn, UserRepository, UserOut, Error, DuplicateUserError
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
-from pydantic import BaseModel, typing
+from pydantic import BaseModel
 
 class UserForm(BaseModel):
     username: str
@@ -37,8 +37,6 @@ async def create_user(
         password=user.password,
        )
     token = await authenticator.login(response, request, form, repo)
-    print("token", token)
-    print("RIGHT HERE account", account)
     return UserToken(user=account, **token.dict())
 
 @router.get("/users", response_model=Union[Error, List[UserOut]])
