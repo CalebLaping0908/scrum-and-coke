@@ -3,13 +3,11 @@ from typing import List, Union, Optional
 from queries.users import UserIn, UserRepository, UserOut, Error, DuplicateUserError
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
-from pydantic import BaseModel
+from pydantic import BaseModel, typing
 
 class UserForm(BaseModel):
     username: str
-    full_name: str
     password: str
-    employee_number: int
 
 class UserToken(Token):
     user: UserOut
@@ -28,20 +26,20 @@ async def create_user(
 ):
     hashed_password = authenticator.hash_password(user.password)
     try:
-        user = repo.create(user, hashed_password)
+        account = repo.create(user, hashed_password)
     except DuplicateUserError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create an account with those credentials",
         )
     form = UserForm(
-        username=user.email,
-        full_name=user.full_name,
-        password=user.hashed_password,
-        employee_number=user.employee_number
-        )
+        username=user.employee_number,
+        password=user.password,
+       )
     token = await authenticator.login(response, request, form, repo)
-    return Token(user=user, **token.dict())
+    print("token", token)
+    print("RIGHT HERE account", account)
+    return UserToken(user=account, **token.dict())
 
 @router.get("/users", response_model=Union[Error, List[UserOut]])
 def get_all(

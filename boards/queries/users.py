@@ -122,7 +122,7 @@ class UserRepository:
         except Exception:
             return False
 
-    def get_one(self, email: str, ) -> UserOut:
+    def get_one(self, employee_number: int, ) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -134,9 +134,9 @@ class UserRepository:
                             , hashed_password
                             , employee_number
                         FROM users
-                        WHERE email = %s
+                        WHERE employee_number = %s
                         """,
-                        [email]
+                        [employee_number]
                     )
                     record = result.fetchone()
                     if record is None:
@@ -155,10 +155,17 @@ class UserRepository:
 
 
     def record_to_user_out(self, record):
-        return UserOut(
-            id=record[0],
-            email=record[1],
-            full_name=record[2],
-            hashed_password=record[3],
-            employee_number=record[4]
-        )
+        return {
+            "id":record[0],
+            "email":record[1],
+            "full_name":record[2],
+            "hashed_password":record[3],
+            "employee_number":record[4]
+            }
+    #     return UserOut(
+            # id=record[0],
+            # email=record[1],
+            # full_name=record[2],
+            # hashed_password=record[3],
+            # employee_number=record[4]
+    #     )

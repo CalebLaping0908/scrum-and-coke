@@ -7,29 +7,31 @@ from queries.users import UserRepository, UserOut, Error
 class MyAuthenticator(Authenticator):
     async def get_account_data(
         self,
-        email: str,
-        users: UserRepository,
+        employee_number: int,
+        repo: UserRepository,
     ):
         # Use your repo to get the account based on the
         # username (which could be an email)
-        return users.get_one(email)
+        return repo.get_one(employee_number)
 
     def get_account_getter(
         self,
-        users: UserRepository = Depends(),
+        repo: UserRepository = Depends(),
     ):
         # Return the accounts. That's it.
-        return users
+        return repo
 
     def get_hashed_password(self, user: UserOut):
         # Return the encrypted password value from your
         # account object
-        return user.hashed_password
+        print("sadlkfadfio;asdaweo;he;io")
+        print("user", user)
+        return user["hashed_password"]
 
-    def get_account_data_for_cookie(self, user: UserOut):
-        # Return the username and the data for the cookie.
-        # You must return TWO values from this method.
-        return user.email, UserOut(**user.dict())
+    # def get_account_data_for_cookie(self, user: UserOut):
+    #     # Return the username and the data for the cookie.
+    #     # You must return TWO values from this method.
+    #     return user.employee_number, UserOut(**user.dict())
 
 
 authenticator = MyAuthenticator(os.environ["SIGNING_KEY"])
