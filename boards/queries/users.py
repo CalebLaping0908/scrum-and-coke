@@ -64,7 +64,7 @@ class UserRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, email, full_name, password, employee_number
+                        SELECT id, email, full_name, hashed_password, employee_number
                         FROM users
                         ORDER BY id
 
@@ -79,7 +79,7 @@ class UserRepository:
             return {"message": "could not get all users"}
 
 
-    def update(self, user_id: int, user: UserIn) -> Union[Error, UserOut]:
+    def update(self, employee_number: int, user: UserIn) -> Union[Error, UserOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -88,21 +88,22 @@ class UserRepository:
                         UPDATE users
                         SET email = %s
                         , full_name = %s
-                        , password = %s
+                        , hashed_password = %s
                         , employee_number = %s
-                        WHERE id = %s
+                        WHERE employee_number = %s
                         """,
                         [
                             user.email,
                             user.full_name,
                             user.password,
                             user.employee_number,
-                            user_id
+                            employee_number
                         ]
                     )
-                    return self.user_in_to_out(user_id, user)
+                    return self.user_in_to_out(employee_number, user)
 
-        except Exception:
+        except Exception as e:
+            print("ERROROROOROR", e)
             return {"message": "could not update user"}
 
 

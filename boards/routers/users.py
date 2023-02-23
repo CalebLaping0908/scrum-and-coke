@@ -46,13 +46,13 @@ def get_all(
     return repo.get_all()
 
 
-@router.put("/users/{user_id}", response_model=Union[UserOut, Error])
+@router.put("/users/{employee_number}", response_model=Union[UserOut, Error])
 def update_user(
-    user_id: int,
+    employee_number: int,
     user: UserIn,
     repo: UserRepository = Depends(),
 ) -> Union[UserOut, Error]:
-    return repo.update(user_id, user)
+    return repo.update(employee_number, user)
 
 
 @router.delete("/users/{user_id}", response_model=bool)
