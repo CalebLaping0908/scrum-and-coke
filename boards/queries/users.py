@@ -78,8 +78,8 @@ class UserRepository:
         except Exception:
             return {"message": "could not get all users"}
 
-
-    def update(self, user_id: int, user: UserIn) -> Union[Error, UserOut]:
+# code block below is not yet functional
+    def update(self, employee_number: int, user: UserIn, hashed_password: str) -> Union[Error, UserOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -89,20 +89,19 @@ class UserRepository:
                         SET email = %s
                         , full_name = %s
                         , hashed_password = %s
-                        , employee_number = %s
-                        WHERE id = %s
+                        WHERE employee_number = %s
+                        RETURNING id, email, full_name, hashed_password, employee_number
                         """,
                         [
                             user.email,
                             user.full_name,
-                            user.password,
-                            user.employee_number,
-                            user_id
+                            hashed_password,
+                            employee_number,
                         ]
                     )
-                    return self.user_in_to_out(user_id, user)
+                    return self.user_in_to_out(employee_number, user)
 
-        except Exception:
+        except Exception as e:
             return {"message": "could not update user"}
 
 
@@ -149,10 +148,16 @@ class UserRepository:
 
 
 
-    def user_in_to_out(self, id: int, user: UserIn):
+    def user_in_to_out(self, employee_number: int, user: UserIn):
         old_data = user.dict()
-        return UserOut(id=id, **old_data)
-
+        return UserOut(employee_number=employee_number, **old_data)
+                #    record = None
+                #     row = cur.fetchone()
+                #     if row is not None:
+                #         record = {}
+                #         for i, column in enumerate(cur.description):
+                #             record[column.name] = row[i]
+                #     return record
 
     def record_to_user_out(self, record):
         return {

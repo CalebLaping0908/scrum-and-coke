@@ -8,7 +8,6 @@ app = FastAPI()
 app.include_router(users.router)
 app.include_router(boards.router)
 app.include_router(authenticator.router)
-app.include_router(boards.router)
 app.include_router(tasks.router)
 
 app.add_middleware(
