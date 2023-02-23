@@ -64,7 +64,7 @@ class UserRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, email, full_name, password, employee_number
+                        SELECT id, email, full_name, hashed_password, employee_number
                         FROM users
                         ORDER BY id
 
@@ -75,7 +75,8 @@ class UserRepository:
                     for record in result
                 ]
 
-        except Exception:
+        except Exception as e:
+            print(e)
             return {"message": "could not get all users"}
 
 

@@ -3,7 +3,7 @@ steps = [
         # "Up" SQL statement
         """
         ALTER TABLE tasks
-        ADD assignee int,
+        ADD assignee int NULL,
         ADD board int NOT NULL;
 
         """,
