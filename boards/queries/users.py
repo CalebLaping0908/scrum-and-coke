@@ -122,7 +122,7 @@ class UserRepository:
         except Exception:
             return False
 
-    def get_one(self, employee_number: int, ) -> UserOut:
+    def get_one(self, employee_number: int) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
