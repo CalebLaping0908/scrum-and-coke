@@ -75,7 +75,8 @@ class UserRepository:
                     for record in result
                 ]
 
-        except Exception:
+        except Exception as e:
+            print(e)
             return {"message": "could not get all users"}
 
 # code block below is not yet functional
