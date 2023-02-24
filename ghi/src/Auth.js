@@ -8,7 +8,7 @@ export function getToken() {
 }
 
 export async function getTokenInternal() {
-  const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+  const url = "http://localhost:8080/token/";
   try {
     const response = await fetch(url, {
       credentials: "include",
@@ -76,7 +76,7 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-      const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+      const url = "http://localhost:8080/token/";
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
@@ -85,7 +85,7 @@ export function useToken() {
   }
 
   async function login(username, password) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+    const url = "http://localhost:8080/token/";
     const form = new FormData();
     form.append("username", username);
     form.append("password", password);
@@ -103,49 +103,48 @@ export function useToken() {
     return handleErrorMessage(error);
   }
 
-  async function signup(username, password, email, firstName, lastName) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/sign_up`;
+  async function signup(email, full_name, password, employee_number) {
+    const url = "http://localhost:8080/users/";
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify({
-        username,
-        password,
         email,
-        first_name: firstName,
-        last_name: lastName,
+        full_name,
+        password,
+        employee_number
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
     if (response.ok) {
-      await login(username, password);
+      await login(employee_number, password);
     }
     return false;
   }
 
-  async function update(username, password, email, firstName, lastName) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts`;
-    const response = await fetch(url, {
-      method: "patch",
-      body: JSON.stringify({
-        username,
-        password,
-        email,
-        first_name: firstName,
-        last_name: lastName,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      await login(username, password);
-    }
-    return false;
-  }
+//   async function update(username, password, email, firstName, lastName) {
+//     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts`;
+//     const response = await fetch(url, {
+//       method: "patch",
+//       body: JSON.stringify({
+//         username,
+//         password,
+//         email,
+//         first_name: firstName,
+//         last_name: lastName,
+//       }),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+//     if (response.ok) {
+//       await login(username, password);
+//     }
+//     return false;
+//   }
 
-  return { token, login, logout, signup, update };
+  return { token, login, logout, signup };
 }
 
 export const useUser = (token) => {
