@@ -9,12 +9,16 @@ class Error(BaseModel):
 class TaskIn(BaseModel):
     title: str
     description: str
+    assignee: Optional[int]
+    board: int
 
 
 class TaskOut(BaseModel):
     id: int
     title: str
     description: str
+    assignee: Optional[int]
+    board: int
 
 
 class TaskRepository:
@@ -25,14 +29,16 @@ class TaskRepository:
                     result = db.execute(
                         """
                         INSERT INTO tasks
-                        (title, description)
+                        (title, description, assignee, board)
                         VALUES
-                        (%s, %s)
+                        (%s, %s, %s, %s)
                         RETURNING id;
                         """,
                         [
                             task.title,
-                            task.description
+                            task.description,
+                            task.assignee,
+                            task.board,
                         ]
                     )
                     id = result.fetchone()[0]
@@ -48,7 +54,7 @@ class TaskRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, title, description
+                        SELECT id, title, description, assignee, board
                         FROM tasks
                         ORDER BY id
 
@@ -59,7 +65,8 @@ class TaskRepository:
                         for record in result
                     ]
 
-        except Exception:
+        except Exception as e:
+            print(e)
             return {"message": "could not get all tasks"}
 
 
@@ -72,17 +79,22 @@ class TaskRepository:
                         UPDATE tasks
                         SET title = %s
                           , description = %s
+                          , assignee = %s
+                          , board = %s
                         WHERE id = %s
                         """,
                         [
                             task.title,
                             task.description,
+                            task.assignee,
+                            task.board,
                             task_id
                         ]
                     )
                     return self.task_in_to_out(task_id, task)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             return {"message": "could not update task"}
 
 
@@ -112,6 +124,8 @@ class TaskRepository:
                         SELECT id
                             , title
                             , description
+                            , assignee
+                            , board
                         FROM tasks
                         WHERE id = %s
                         """,
@@ -137,4 +151,6 @@ class TaskRepository:
             id=record[0],
             title=record[1],
             description=record[2],
+            assignee=record[3],
+            board=record[4],
         )
