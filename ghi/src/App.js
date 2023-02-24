@@ -49,7 +49,7 @@ function App(props) {
   useEffect (() => {
   // getBoards();
   // getTasks();
-  getUsers(); 
+  getUsers();
 }, [])
 
   return (
@@ -58,7 +58,7 @@ function App(props) {
       <div className="container">
         <Routes>
           {/* <Route path="/" element={<MainPage />} />
-          <Route path="boards/" element={<BoardsList boards={boards} getBoards={getBoards} />} />          
+          <Route path="boards/" element={<BoardsList boards={boards} getBoards={getBoards} />} />
           <Route path="boards/">
           <Route path="new" element={<BoardsForm getBoards={getBoards}/>} />
           </Route>
