@@ -1,4 +1,16 @@
-## February 20, 2023
+## February 23, 2023
+
+- Today, Todd and I worked on finishing up backend authentication. After that, I worked on creating the frontend React components for creating a new board, and viewing a list of all boards.
+
+Today was smooth sailing! Our backend authentication is working. A user can sign up, get a token, logout, and the token is deleted, and they can signin with valid credentials and get a token. I finished 2 frontend views today which I stated above.
+
+## February 22, 2023
+
+- Today, Todd and I worked on authentication. I started working on frontend.
+
+We worked for awhile on backend authentication. It was pretty tough since we're using a new library and it was tough to tell what was going on. We were able to troubleshoot and debug and get our backend auth mostly functioning. After that, I started on one frontend React component, as well as made the main page.
+
+## February 21, 2023
 
 Today, my team and I worked on:
 

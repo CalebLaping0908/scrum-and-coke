@@ -14,6 +14,9 @@ class BoardOut(BaseModel):
     id: int
     name: str
 
+class BoardsOutAll(BaseModel):
+    boards: List[BoardOut]
+
 
 class BoardRepository:
     def create(self, board: BoardIn) -> Union[Error,BoardOut]:
@@ -35,7 +38,7 @@ class BoardRepository:
                 return self.board_in_to_out(id, board)
 
 
-    def get_all(self) -> Union[Error, List[BoardOut]]:
+    def get_all(self) -> Union[Error, BoardsOutAll]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

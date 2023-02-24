@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from typing import List, Union, Optional
-from queries.boards import BoardIn, BoardRepository, BoardOut, Error
+from queries.boards import BoardIn, BoardRepository, BoardOut, Error, BoardsOutAll
 
 router = APIRouter()
 
@@ -12,11 +12,11 @@ def create_board(
     return repo.create(board)
 
 
-@router.get("/boards", response_model=Union[Error, List[BoardOut]])
+@router.get("/boards", response_model=Union[Error, BoardsOutAll])
 def get_all(
     repo: BoardRepository = Depends(),
     ):
-    return repo.get_all()
+    return {"boards": repo.get_all()}
 
 
 @router.put("/boards/{board_id}", response_model=Union[BoardOut, Error])
