@@ -56,7 +56,7 @@ function App(props) {
   // }, [])
 
   useEffect(() => {
-    // getBoards();
+    getBoards();
     // getTasks();
     getUsers();
   }, []);
