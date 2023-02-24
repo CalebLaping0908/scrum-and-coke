@@ -1,35 +1,45 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import Construct from './Construct.js'
-import ErrorNotification from './ErrorNotification';
 import './App.css';
 import UsersList from './Users/UsersList';
 import CreateTask from './tasks/CreateTaskForm';
 import SignupForm from './Users/SignupForm.js';
-import Nav from './Nav';
-
+import MainPage from "./MainPage";
+import ErrorNotification from "./ErrorNotification";
+import "./App.css";
+import BoardForm from "./Boards/BoardForm";
+import Nav from "./Nav";
 
 function App(props) {
-  // const [launch_info, setLaunchInfo] = useState([]);
   const [error, setError] = useState(null);
   const [tasks, setTasks] = useState('');
   // const [boards, setBoards] = useState([]);
+  const [boards, setBoards] = useState([]);
   // const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
 
 
   const getUsers = async () => {
-    const response = await fetch('http://localhost:8080/users/');
+    const response = await fetch("http://localhost:8080/users/");
     if (response.ok) {
       const data = await response.json();
-      const users = data.users
-      console.log(data)
-      setUsers(users)
+      const users = data.users;
+      setUsers(users);
     } else {
-      console.log("drat! something happened")
-      setError("Unable to list all users")
+      console.log("drat! something happened");
+      setError("Unable to list all users");
     }
+  };
+
+  const getBoards = async () => {
+    const response = await fetch("http://localhost:8080/boards/");
+    if (response.ok) {
+      const data = await response.json();
+      const boards = data.boards;
+      setBoards(boards);
     }
+  };
 
     const getTaskList = async () => {
       const TaskListResponse = await fetch('http://localhost:8080/tasks/');
@@ -67,7 +77,6 @@ function App(props) {
   getTaskList();
 }, [])
 
-
   return (
     <BrowserRouter>
       <Nav />
@@ -75,25 +84,36 @@ function App(props) {
         <Routes>
           {/* <Route path="/" element={<MainPage />} />
           <Route path="boards/" element={<BoardsList boards={boards} getBoards={getBoards} />} />
+          <Route path="/" element={<MainPage />} />
+          <Route
+            path="boards/"
+            element={<BoardList boards={boards} getBoards={getBoards} />}
+          />
           <Route path="boards/">
-          <Route path="new" element={<BoardsForm getBoards={getBoards}/>} />
+            <Route path="new" element={<BoardForm getBoards={getBoards} />} />
           </Route>
-          <Route path="tasks/" element={<TaskList tasks={tasks} getTasks={getTasks} />} />
+          {/* <Route
+            path="tasks/"
+            element={<TaskList tasks={tasks} getTasks={getTasks} />}
+          />
           <Route path="tasks">
-          <Route path="new" element={<TaskForm getTasks={getTasks}/>} />
+            <Route path="new" element={<TaskForm getTasks={getTasks} />} />
           </Route> */}
           <Route path="/tasks" >
             <Route path="new" element={<NewTask tasklist={tasklist} getTaskList={getTaskList} /> } />
             <Route path="" element={<getTaskList tasklist={tasklist} getTaskList={getTaskList} /> } />
           </Route>
           <Route path="users/" element={<UsersList users={users} getUsers={getUsers}/>} />
+          <Route
+            path="users/"
+            element={<UsersList users={users} getUsers={getUsers} />}
+          />
           <Route path="users/">
-          <Route path="new" element={<SignupForm getUsers={getUsers}/>} />
+            <Route path="new" element={<SignupForm getUsers={getUsers} />} />
           </Route>
         </Routes>
-      <ErrorNotification error={error} />
-      {/* <Construct info={launch_info} /> */}
-    </div>
+        <ErrorNotification error={error} />
+      </div>
     </BrowserRouter>
   );
 }
