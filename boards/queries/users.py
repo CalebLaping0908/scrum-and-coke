@@ -24,6 +24,9 @@ class UserOut(BaseModel):
     hashed_password: str
     employee_number: int
 
+class UsersOutAll(BaseModel):
+    users: List[UserOut] 
+
 
 # class UserOutWithPassword(UserOut):
 #     hashed_password: str
@@ -58,7 +61,7 @@ class UserRepository:
                 # return self.user_in_to_out(id, user)
 
 
-    def get_all(self) -> Union[Error, List[UserOut]]:
+    def get_all(self) -> Union[Error, UsersOutAll]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

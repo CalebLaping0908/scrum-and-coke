@@ -1,5 +1,10 @@
 ## Todd Compton's Journal
 
+## Feb 23, 2023
+Today I worked on:
+
+Confirming all functionality of authentication functioning except Update a user and login restricted endpoints.  Completed UsersList.js with a built-in Delete User function and tied the front end to the back end.  Finally played around with some CSS background animations thanks to Donald's link.  Fun day!
+
 ## Feb 22, 2023
 Today I worked on:
 
