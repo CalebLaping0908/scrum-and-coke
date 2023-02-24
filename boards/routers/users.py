@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Response, HTTPException, Request, status
 from typing import List, Union, Optional
-from queries.users import UserIn, UserRepository, UserOut, Error, DuplicateUserError
+from queries.users import UserIn, UserRepository, UserOut, Error, DuplicateUserError, UsersOutAll
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 from pydantic import BaseModel
@@ -39,11 +39,13 @@ async def create_user(
     token = await authenticator.login(response, request, form, repo)
     return UserToken(user=account, **token.dict())
 
-@router.get("/users", response_model=Union[Error, List[UserOut]])
+@router.get("/users", response_model=Union[Error, UsersOutAll])
 def get_all(
     repo: UserRepository = Depends(),
     ):
-    return repo.get_all()
+    # return repo.get_all()
+    return {"users": repo.get_all()}
+
 
 # update users not yet functional
 @router.put("/users/{employee_number}")

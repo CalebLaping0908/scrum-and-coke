@@ -2,7 +2,8 @@ import { NavLink } from 'react-router-dom';
 
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success">
+    <div className="layout layout-nav-side">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">      
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">Scrum and Coke</NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +15,7 @@ function Nav() {
               <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
             </li>
             <div className="nav-item dropdown">
-              <NavLink className="btn btn-secondary dropdown-toggle bg-success" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <NavLink className="btn btn-secondary dropdown-toggle bg-secondary" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 Boards
               </NavLink>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -23,7 +24,7 @@ function Nav() {
               </ul>
             </div>
             <div className="nav-item dropdown">
-              <NavLink className="btn btn-secondary dropdown-toggle bg-success" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <NavLink className="btn btn-secondary dropdown-toggle bg-secondary" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 Tasks
               </NavLink>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -32,7 +33,7 @@ function Nav() {
               </ul>
             </div>
             <div className="nav-item dropdown">
-              <NavLink className="btn btn-secondary dropdown-toggle bg-success" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <NavLink className="btn btn-secondary dropdown-toggle bg-secondary" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 Users
               </NavLink>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -44,6 +45,7 @@ function Nav() {
         </div>
       </div>
     </nav>
+    </div>
   )
 }
 export default Nav;

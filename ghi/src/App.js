@@ -20,10 +20,11 @@ function App(props) {
     if (response.ok) {
       const data = await response.json();
       const users = data.users
+      console.log(data)
       setUsers(users)
     } else {
-      // console.log("drat! something happened")
-      // setError("bummer")
+      console.log("drat! something happened")
+      setError("Unable to list all users")
     }
     }
 
@@ -52,10 +53,12 @@ function App(props) {
   getUsers(); 
 }, [])
 
+
+
   return (
     <BrowserRouter>
       <Nav />
-      <div className="container">
+      <div className="gradient-background">
         <Routes>
           {/* <Route path="/" element={<MainPage />} />
           <Route path="boards/" element={<BoardsList boards={boards} getBoards={getBoards} />} />          
