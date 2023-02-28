@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
-export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
+export default function BoardDetail({ tasks, getTasks, boards, getBoards, statuses }){
   const [taskStatus, setTaskStatus] = useState('');
   const [boardNumVar, setBoardNumVar] = useState('');
-
+  
+  
   const updateTask = async (id) => {
     const data = {};
     data.status = taskStatus;
+    console.log("STATUS", data.status)
 
     const taskUrl = `http://localhost:8080/tasks/${id}/`;
     const fetchConfig = {
@@ -29,6 +31,11 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
   }
 
 
+  const handleTaskStatus = async (event) => {
+    const value = event.target.value;
+    setTaskStatus(value);
+    }
+  
   const handleBoardNumVarChange = async (event) => {
     const value = event.target.value;
     setBoardNumVar(value);
@@ -73,13 +80,30 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
           </tr>
         </thead>
         <tbody>
-            <td>Backlog
-                <th>Title</th>
+            {/* <td>Backlog */}
+                {/* <div class="card">
+                <div class="card-body">
+                    {tasks.filter(task => task.status == "Backlog" && task.board.id == boardNumVar).map(task => {
+                            return (
+                    <h5 class="card-title">Task title</h5>
+                    <p class="card-text">Task description.</p>
+                    <a href="#" class="btn btn-primary">
+                    Details
+                    </a>
+
+                </div>
+                </div>
+                    )} */}
+
+
+
+
+                {/* <th>Title</th>
                 <th>Description</th>
                 <th>Assignee</th> 
                 <th>Status</th>
                     <tbody>
-                        {tasks.filter(task => task.status == 1 && task.board.id == boardNumVar).map(task => {
+                        {tasks.filter(task => task.status == "Backlog" && task.board.id == boardNumVar).map(task => {
                             return (
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
@@ -101,14 +125,14 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                             );
                         })}
                     </tbody>
-            </td>
+            </td> 
             <td>To Do
                 <th>Title</th>
                 <th>Description</th>
                 <th>Assignee</th> 
                 <th>Status</th>
                     <tbody>
-                        {tasks.filter(task => task.status == 2 && task.board.id == boardNumVar).map(task => {
+                        {tasks.filter(task => task.status == "To Do" && task.board.id == boardNumVar).map(task => {
                             return (
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
@@ -130,43 +154,44 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                             );
                         })}
                     </tbody>
-            </td>
-            <td>In Progress
+            </td> */}
+            <td>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Assignee</th> 
                 <th>Status</th>
                     <tbody>
-                        {tasks.filter(task => task.status == 3 && task.board.id == boardNumVar).map(task => {
+                        {tasks.filter(task => task.status == "In Progress" && task.board == boardNumVar).map(task => {
                             return (
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
                                 <td>{ task.assignee }</td>
+                                <td>{ task.status }</td>
                                 <td>
                                     <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
                                     <option>Status</option>
-                                    {tasks.map(task => {
+                                    {statuses.map(status => {
                                     return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
+                                    <option key={status.id} value={status.status}>
+                                        {status.status}
                                     </option>
                                     );
                                     })}
                                     </select>
-                                </td>  
+                                </td>   
                             </tr>
                             );
                         })}
                     </tbody>
             </td>
-            <td>In Review/QA
+            {/* <td>In Review/QA
                 <th>Title</th>
                 <th>Description</th>
                 <th>Assignee</th> 
                 <th>Status</th>
                     <tbody>
-                        {tasks.filter(task => task.status == 4 && task.board.id == boardNumVar).map(task => {
+                        {tasks.filter(task => task.status == "In Review / QA" && task.board.id == boardNumVar).map(task => {
                             return (
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
@@ -195,7 +220,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                 <th>Assignee</th> 
                 <th>Status</th>
                     <tbody>
-                        {tasks.filter(task => task.status == 5 && task.board.id == boardNumVar).map(task => {
+                        {tasks.filter(task => task.status == "Completed" && task.board.id == boardNumVar).map(task => {
                             return (
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
@@ -217,7 +242,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                             );
                         })}
                     </tbody>
-            </td>
+            </td> */}
         </tbody>
       </table>      
     </>
