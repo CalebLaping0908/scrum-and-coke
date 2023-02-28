@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Response, HTTPException, Request, status
 from typing import List, Union, Optional
-from queries.users import UserIn, UserRepository, UserOut, Error, DuplicateUserError, UsersOutAll
+from queries.users import UserIn, UserRepository, UserOut, UserOutWithoutPassword, Error, DuplicateUserError, UsersOutAll
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 from pydantic import BaseModel
@@ -11,6 +11,9 @@ class UserForm(BaseModel):
 
 class UserToken(Token):
     user: UserOut
+
+class UserTokenWithoutPassword(Token):
+    user: UserOutWithoutPassword
 
 class HttpError(BaseModel):
     detail: str
@@ -89,3 +92,15 @@ def get_one_user(
 ) -> UserOut:
     user = repo.get_one(user_id)
     return user
+
+@router.get("/token", response_model=UserTokenWithoutPassword | None)
+async def get_token(
+    request: Request,
+    user: UserOutWithoutPassword = Depends(authenticator.try_get_current_account_data)
+) -> UserTokenWithoutPassword | None:
+    print("THIS IS USER", user, "THIS IS REQUEST", request)
+    if user and authenticator.cookie_name in request.cookies:
+        return {"access_token": request.cookies[authenticator.cookie_name],
+                "type": "Bearer",
+                "user": user
+            }
