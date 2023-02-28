@@ -10,15 +10,22 @@ import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import BoardForm from "./Boards/BoardForm";
 import Nav from "./Nav";
-import BoardList from './Boards/BoardList';
-import TaskList from './tasks/TaskList';
+import BoardList from "./Boards/BoardList";
+import LoginForm from "./Users/LoginForm";
+import Logout from "./Users/Logout";
+import { AuthContext, AuthProvider, useToken } from "./Auth";
 
+function GetToken() {
+  useToken();
+  return null;
+}
 
 function App(props) {
   const [error, setError] = useState(null);
   const [boards, setBoards] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
+  const [token, setToken] = useState('');
   const [statuses, setStatuses] = useState([]);
 
 
@@ -73,6 +80,8 @@ function App(props) {
 
   return (
     <BrowserRouter>
+    <AuthProvider>
+      <GetToken />
       <Nav />
       <div className="gradient-background">
         <Routes>
@@ -97,10 +106,13 @@ function App(props) {
           />
           <Route path="users/">
             <Route path="new" element={<SignupForm getUsers={getUsers} />} />
+            <Route path="login" element={<LoginForm />} />
+            <Route path="logout" element={<Logout />} />
           </Route>
         </Routes>
         <ErrorNotification error={error} />
       </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
