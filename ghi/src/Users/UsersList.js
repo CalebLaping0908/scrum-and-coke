@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 
-function UsersList({ users, getUsers }){
-  console.log(users)
+export default function UsersList({ users, getUsers }){
   const deleteUser = async (id) => {
     const response = await fetch(`http://localhost:8080/users/${id}/`, {
       method: "delete",
@@ -45,4 +44,3 @@ function UsersList({ users, getUsers }){
     );
 }
 
-export default UsersList;
