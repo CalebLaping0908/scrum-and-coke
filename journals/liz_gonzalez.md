@@ -1,3 +1,13 @@
+## February 27, 2023
+
+- Today I worked on finishing up the form to be able to create a task on the frontend, as well as created a foreign key on the tasks table to access 5 different possible statuses they could be
+
+We created a status table in the database, which is a foreign key to the task table under "status". We figured out how to insert 5 preset values for the status table. We wanted to be able to keep track of the status of each task, which will be one of the 5 following options: Backlog, To Do, In progress, In review, and completed, which correlates with the columns on the page where you can see your board in detail.
+
+To get this feature functioning, we had to create a StatusOut model, a get all method on the status repository, create a router for the statuses, and make a fetch call from our front end to get all of the statuses. Now, in our form to create a new task we have a select option which shows the 5 preset values, and you're able to select one of those for the task. The task is then saved to the database with the status property set to the value selected on the form.
+
+Today was challenging in a great way. We really got to harness our problem solving skills to come up with a solution to get the outcome we wanted. We had to figure out how to have data already be hard-coded into our app, since we didn't want the values of statuses to come from user input. We ran a migration which directly inserted the values into the statuses table in our database. Today was a big success!!!
+
 ## February 23, 2023
 
 - Today, Todd and I worked on finishing up backend authentication. After that, I worked on creating the frontend React components for creating a new board, and viewing a list of all boards.

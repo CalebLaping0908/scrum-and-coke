@@ -74,6 +74,12 @@ function App(props) {
           <Route path="boards/">
             <Route path="new" element={<BoardForm getBoards={getBoards} />} />
           </Route>
+          {/* <Route path="boards/">
+            <Route
+              path="${id}"
+              element={<BoardDetail getBoards={getBoards} />}
+            />
+          </Route> */}
           {/* <Route
             path="tasks/"
             element={<TaskList tasks={tasks} getTasks={getTasks} />}
