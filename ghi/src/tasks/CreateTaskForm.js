@@ -1,4 +1,6 @@
-import React, {useState } from 'react'
+import React, {useState, useEffect } from 'react';
+import { useToken } from '../Auth';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CreateTask( {getTasks, boards, users, statuses}) {
@@ -7,6 +9,14 @@ export default function CreateTask( {getTasks, boards, users, statuses}) {
     const [assignee, setAssignee] = useState([]);
     const [board, setBoard] = useState([]);
     const [status, setStatus] = useState([]);
+    const [token] = useToken();
+    const navigate = useNavigate();
+
+    useEffect( () => {
+        if (!token) {
+        navigate("/users/login");
+    }
+    }, []);
 
 
     const handleStatusChange = (e) => {
