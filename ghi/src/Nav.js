@@ -40,6 +40,7 @@ function Nav() {
                 <li><NavLink className="dropdown-item" to="/users">List users</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/users/new">Create a new user</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/users/login">Login</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/users/logout">Logout</NavLink></li>
               </ul>
             </div>
           </ul>

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useToken, useAuthContext } from '../Auth';
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
     const [, login] = useToken();
     const {isLoggedIn} = useAuthContext();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleUsernameChange = (event) => {
         const value = event.target.value;
@@ -28,9 +30,9 @@ function LoginForm() {
     if (error) {
         isLoggedIn(false);
     }
-
     setUsername('');
     setPassword('');
+    navigate("/");
 
     };
 

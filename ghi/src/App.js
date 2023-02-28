@@ -9,6 +9,7 @@ import BoardForm from "./Boards/BoardForm";
 import Nav from "./Nav";
 import BoardList from "./Boards/BoardList";
 import LoginForm from "./Users/LoginForm";
+import Logout from "./Users/Logout";
 import { AuthContext, AuthProvider, useToken } from "./Auth";
 
 function GetToken() {
@@ -98,6 +99,7 @@ function App(props) {
           <Route path="users/">
             <Route path="new" element={<SignupForm getUsers={getUsers} />} />
             <Route path="login" element={<LoginForm />} />
+            <Route path="logout" element={<Logout />} />
           </Route>
         </Routes>
         <ErrorNotification error={error} />
