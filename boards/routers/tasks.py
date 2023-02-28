@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from typing import List, Union, Optional
-from queries.tasks import TaskIn, TaskRepository, TaskOut, Error
+from queries.tasks import TaskIn, TaskRepository, TaskOut, Error, StatusOut, StatusIn, StatusRepository
 
 router = APIRouter()
 
@@ -43,3 +43,10 @@ def get_one_task(
 ) -> TaskOut:
     task = repo.get_one(task_id)
     return task
+
+
+@router.get("/status", response_model=Union[Error, List[StatusOut]])
+def get_all(
+    repo: StatusRepository = Depends(),
+    ):
+    return repo.get_all()

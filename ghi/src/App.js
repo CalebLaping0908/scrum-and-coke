@@ -1,15 +1,19 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import Construct from './Construct.js'
+import './App.css';
+import UsersList from './Users/UsersList';
+import CreateTask from './tasks/CreateTaskForm';
+import SignupForm from './Users/SignupForm.js';
 import MainPage from "./MainPage";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
-import UsersList from "./Users/UsersList";
-import SignupForm from "./Users/SignupForm.js";
 import BoardForm from "./Boards/BoardForm";
 import Nav from "./Nav";
 import BoardList from "./Boards/BoardList";
 import LoginForm from "./Users/LoginForm";
 import Logout from "./Users/Logout";
+import TaskList from './tasks/TaskList';
 import { AuthContext, AuthProvider, useToken } from "./Auth";
 
 function GetToken() {
@@ -20,9 +24,11 @@ function GetToken() {
 function App(props) {
   const [error, setError] = useState(null);
   const [boards, setBoards] = useState([]);
-  // const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
   const [token, setToken] = useState('');
+  const [statuses, setStatuses] = useState([]);
+
 
   const getUsers = async () => {
     const response = await fetch("http://localhost:8080/users/");
@@ -36,6 +42,7 @@ function App(props) {
     }
   };
 
+
   const getBoards = async () => {
     const response = await fetch("http://localhost:8080/boards/");
     if (response.ok) {
@@ -45,30 +52,32 @@ function App(props) {
     }
   };
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     let url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/api/launch-details`;
-  //     console.log('fastapi url: ', url);
-  //     let response = await fetch(url);
-  //     console.log("------- hello? -------");
-  //     let data = await response.json();
+    const getTasks = async () => {
+      const TaskListResponse = await fetch('http://localhost:8080/tasks/');
 
-  //     if (response.ok) {
-  //       console.log("got launch data!");
-  //       setLaunchInfo(data.launch_details);
-  //     } else {
-  //       console.log("drat! something happened");
-  //       setError(data.message);
-  //     }
-  //   }
-  //   getData();
-  // }, [])
+      if (TaskListResponse.ok) {
+        const tasks = await TaskListResponse.json();
+        setTasks(tasks);
+      }
+    };
 
-  useEffect(() => {
-    getBoards();
-    // getTasks();
-    getUsers();
-  }, []);
+    const getStatuses = async () => {
+      const StatusResponse = await fetch('http://localhost:8080/status/');
+
+      if (StatusResponse.ok) {
+        const statuses = await StatusResponse.json();
+        setStatuses(statuses);
+      }
+    };
+
+
+  useEffect (() => {
+  getBoards();
+  getTasks();
+  getUsers();
+  getTasks();
+  getStatuses();
+}, [])
 
   return (
     <BrowserRouter>
@@ -78,6 +87,7 @@ function App(props) {
       <div className="gradient-background">
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="boards/" element={<BoardList boards={boards} getBoards={getBoards} />} />
           <Route
             path="boards/"
             element={<BoardList boards={boards} getBoards={getBoards} />}
@@ -85,13 +95,12 @@ function App(props) {
           <Route path="boards/">
             <Route path="new" element={<BoardForm getBoards={getBoards} />} />
           </Route>
-          {/* <Route
-            path="tasks/"
-            element={<TaskList tasks={tasks} getTasks={getTasks} />}
-          />
-          <Route path="tasks">
-            <Route path="new" element={<TaskForm getTasks={getTasks} />} />
-          </Route> */}
+          <Route path="tasks/" >
+            <Route path="" element={<TaskList tasks={tasks} getTasks={getTasks} /> } />
+            <Route path="new" element={<CreateTask tasks={tasks} users={users} boards={boards} getTasks={getTasks} statuses={statuses} /> } />
+
+          </Route>
+          <Route path="users/" element={<UsersList users={users} getUsers={getUsers}/>} />
           <Route
             path="users/"
             element={<UsersList users={users} getUsers={getUsers} />}
