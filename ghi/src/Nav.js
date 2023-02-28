@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 function Nav() {
   return (
     <div className="layout layout-nav-side">
-    <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">      
+    <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">Scrum and Coke</NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,8 @@ function Nav() {
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><NavLink className="dropdown-item" to="/users">List users</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/users/new">Create a new user</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/users/login">Login</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/users/logout">Logout</NavLink></li>
               </ul>
             </div>
           </ul>

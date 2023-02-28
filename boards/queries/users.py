@@ -25,7 +25,15 @@ class UserOut(BaseModel):
     employee_number: int
 
 class UsersOutAll(BaseModel):
-    users: List[UserOut] 
+    users: List[UserOut]
+
+
+class UserOutWithoutPassword(BaseModel):
+    id: int
+    email: str
+    full_name: str
+    employee_number: int
+
 
 
 # class UserOutWithPassword(UserOut):
