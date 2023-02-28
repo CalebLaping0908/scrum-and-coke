@@ -20,7 +20,6 @@ export default function BoardForm({ getBoards }) {
       headers: {
         "Content-Type": "application/json",
       },
-      method: post,
     };
     const response = await fetch(boardUrl, fetchConfig);
     if (response.ok) {
