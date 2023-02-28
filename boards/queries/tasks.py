@@ -2,8 +2,18 @@ from pydantic import BaseModel
 from queries.pool import pool
 from typing import List, Union, Optional
 
+
 class Error(BaseModel):
     message: str
+
+
+class StatusIn(BaseModel):
+    status: str
+
+
+class StatusOut(BaseModel):
+    id: int
+    status: str
 
 
 class TaskIn(BaseModel):
@@ -11,6 +21,7 @@ class TaskIn(BaseModel):
     description: str
     assignee: Optional[int]
     board: int
+    status: str
 
 
 class TaskOut(BaseModel):
@@ -19,6 +30,33 @@ class TaskOut(BaseModel):
     description: str
     assignee: Optional[int]
     board: int
+    status: str
+
+
+class StatusRepository:
+    def get_all(self) -> Union[Error, List[StatusOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id, status
+                        FROM status
+                        ORDER BY id
+
+                        """
+                    )
+                    return [
+                            StatusOut(
+                            id=record[0],
+                            status=record[1],
+                            )
+                            for record in result
+                    ]
+
+        except Exception as e:
+            print(e)
+            return {"message": "could not get statuses"}
 
 
 class TaskRepository:
@@ -29,9 +67,9 @@ class TaskRepository:
                     result = db.execute(
                         """
                         INSERT INTO tasks
-                        (title, description, assignee, board)
+                        (title, description, assignee, board, status)
                         VALUES
-                        (%s, %s, %s, %s)
+                        (%s, %s, %s, %s, %s)
                         RETURNING id;
                         """,
                         [
@@ -39,6 +77,7 @@ class TaskRepository:
                             task.description,
                             task.assignee,
                             task.board,
+                            task.status,
                         ]
                     )
                     id = result.fetchone()[0]
@@ -54,7 +93,7 @@ class TaskRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, title, description, assignee, board
+                        SELECT id, title, description, assignee, board, status
                         FROM tasks
                         ORDER BY id
 
@@ -81,6 +120,7 @@ class TaskRepository:
                           , description = %s
                           , assignee = %s
                           , board = %s
+                          , task.status = %s
                         WHERE id = %s
                         """,
                         [
@@ -88,6 +128,7 @@ class TaskRepository:
                             task.description,
                             task.assignee,
                             task.board,
+                            task.status,
                             task_id
                         ]
                     )
@@ -126,6 +167,7 @@ class TaskRepository:
                             , description
                             , assignee
                             , board
+                            , status
                         FROM tasks
                         WHERE id = %s
                         """,
@@ -153,4 +195,5 @@ class TaskRepository:
             description=record[2],
             assignee=record[3],
             board=record[4],
+            status=record[5],
         )
