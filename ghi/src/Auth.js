@@ -8,7 +8,7 @@ export function getToken() {
 }
 
 export async function getTokenInternal() {
-  const url = "http://localhost:8080/token/";
+  const url = "http://localhost:8080/token";
   try {
     const response = await fetch(url, {
       credentials: "include",
@@ -46,13 +46,15 @@ function handleErrorMessage(error) {
 export const AuthContext = createContext({
   token: null,
   setToken: () => null,
+  isLoggedIn: null,
+  setIsLoggedIn: () => null,
 });
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   return (
-    <AuthContext.Provider value={{ token, setToken }}>
+    <AuthContext.Provider value={{ token, setToken, isLoggedIn, setIsLoggedIn, }}>
       {children}
     </AuthContext.Provider>
   );
@@ -61,7 +63,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuthContext = () => useContext(AuthContext);
 
 export function useToken() {
-  const { token, setToken } = useAuthContext();
+  const { token, setToken, isLoggedIn, setIsLoggedIn } = useAuthContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -76,7 +78,7 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-      const url = "http://localhost:8080/token/";
+      const url = "http://localhost:8080/token";
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
@@ -85,7 +87,7 @@ export function useToken() {
   }
 
   async function login(username, password) {
-    const url = "http://localhost:8080/token/";
+    const url = "http://localhost:8080/token";
     const form = new FormData();
     form.append("username", username);
     form.append("password", password);
@@ -97,9 +99,11 @@ export function useToken() {
     if (response.ok) {
       const token = await getTokenInternal();
       setToken(token);
+      setIsLoggedIn(true);
       return;
     }
     let error = await response.json();
+    setIsLoggedIn(false);
     return handleErrorMessage(error);
   }
 
@@ -144,7 +148,7 @@ export function useToken() {
 //     return false;
 //   }
 
-  return { token, login, logout, signup };
+  return [ token, login, logout, signup ];
 }
 
 export const useUser = (token) => {
