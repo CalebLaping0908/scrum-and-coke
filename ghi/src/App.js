@@ -10,14 +10,16 @@ import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import BoardForm from "./Boards/BoardForm";
 import Nav from "./Nav";
+import BoardList from './Boards/BoardList';
+import TaskList from './tasks/TaskList';
+
 
 function App(props) {
   const [error, setError] = useState(null);
-  const [tasks, setTasks] = useState('');
-  // const [boards, setBoards] = useState([]);
   const [boards, setBoards] = useState([]);
-  // const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
+  const [statuses, setStatuses] = useState([]);
 
 
   const getUsers = async () => {
@@ -32,6 +34,7 @@ function App(props) {
     }
   };
 
+
   const getBoards = async () => {
     const response = await fetch("http://localhost:8080/boards/");
     if (response.ok) {
@@ -41,40 +44,31 @@ function App(props) {
     }
   };
 
-    const getTaskList = async () => {
+    const getTasks = async () => {
       const TaskListResponse = await fetch('http://localhost:8080/tasks/');
 
       if (TaskListResponse.ok) {
-        const data = await TaskListResponse.json();
-        const tasklist = data.tasks;
-        setTasks(tasklist);
+        const tasks = await TaskListResponse.json();
+        setTasks(tasks);
       }
-    }
+    };
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     let url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/api/launch-details`;
-  //     console.log('fastapi url: ', url);
-  //     let response = await fetch(url);
-  //     console.log("------- hello? -------");
-  //     let data = await response.json();
+    const getStatuses = async () => {
+      const StatusResponse = await fetch('http://localhost:8080/status/');
 
-  //     if (response.ok) {
-  //       console.log("got launch data!");
-  //       setLaunchInfo(data.launch_details);
-  //     } else {
-  //       console.log("drat! something happened");
-  //       setError(data.message);
-  //     }
-  //   }
-  //   getData();
-  // }, [])
+      if (StatusResponse.ok) {
+        const statuses = await StatusResponse.json();
+        setStatuses(statuses);
+      }
+    };
+
 
   useEffect (() => {
-  // getBoards();
-  // getTasks();
+  getBoards();
+  getTasks();
   getUsers();
-  getTaskList();
+  getTasks();
+  getStatuses();
 }, [])
 
   return (
@@ -82,9 +76,8 @@ function App(props) {
       <Nav />
       <div className="gradient-background">
         <Routes>
-          {/* <Route path="/" element={<MainPage />} />
-          <Route path="boards/" element={<BoardsList boards={boards} getBoards={getBoards} />} />
           <Route path="/" element={<MainPage />} />
+          <Route path="boards/" element={<BoardList boards={boards} getBoards={getBoards} />} />
           <Route
             path="boards/"
             element={<BoardList boards={boards} getBoards={getBoards} />}
@@ -92,16 +85,10 @@ function App(props) {
           <Route path="boards/">
             <Route path="new" element={<BoardForm getBoards={getBoards} />} />
           </Route>
-          {/* <Route
-            path="tasks/"
-            element={<TaskList tasks={tasks} getTasks={getTasks} />}
-          />
-          <Route path="tasks">
-            <Route path="new" element={<TaskForm getTasks={getTasks} />} />
-          </Route> */}
-          <Route path="/tasks" >
-            {/* <Route path="new" element={<NewTask tasklist={tasklist} getTaskList={getTaskList} /> } /> */}
-            {/* <Route path="" element={<getTaskList tasklist={tasklist} getTaskList={getTaskList} /> } /> */}
+          <Route path="tasks/" >
+            <Route path="" element={<TaskList tasks={tasks} getTasks={getTasks} /> } />
+            <Route path="new" element={<CreateTask tasks={tasks} users={users} boards={boards} getTasks={getTasks} statuses={statuses} /> } />
+
           </Route>
           <Route path="users/" element={<UsersList users={users} getUsers={getUsers}/>} />
           <Route
