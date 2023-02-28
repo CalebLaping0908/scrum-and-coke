@@ -62,6 +62,7 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuthContext = () => useContext(AuthContext);
 
+
 export function useToken() {
   const { token, setToken, isLoggedIn, setIsLoggedIn } = useAuthContext();
   const navigate = useNavigate();
