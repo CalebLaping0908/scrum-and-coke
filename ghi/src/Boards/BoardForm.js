@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useToken } from "../Auth";
+import { useNavigate } from "react-router-dom";
 
 export default function BoardForm({ getBoards }) {
   const [name, setName] = useState("");
+  const [token] = useToken();
+  const navigate = useNavigate();
+
+  useEffect( () => {
+    if (!token) {
+    navigate("/users/login");
+  }
+  }, []);
 
   const handleNameChange = (event) => {
     const value = event.target.value;
