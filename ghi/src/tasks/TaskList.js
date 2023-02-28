@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function TaskList({ tasks, statuses }){
+function TaskList({ tasks }){
   console.log(tasks)
     if (tasks === undefined) {
         return null;

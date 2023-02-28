@@ -13,6 +13,7 @@ import Nav from "./Nav";
 import BoardList from "./Boards/BoardList";
 import LoginForm from "./Users/LoginForm";
 import Logout from "./Users/Logout";
+import TaskList from './tasks/TaskList';
 import { AuthContext, AuthProvider, useToken } from "./Auth";
 
 function GetToken() {
