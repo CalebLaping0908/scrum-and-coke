@@ -3,9 +3,7 @@ steps = [
         # "Up" SQL statement
         """
         ALTER TABLE tasks
-        ADD assignee int NULL,
-        ADD board int NOT NULL,
-        ADD status VARCHAR;
+        ADD FOREIGN KEY (status) REFERENCES status(status);
 
         """,
         # "Down" SQL statement

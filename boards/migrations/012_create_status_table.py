@@ -2,11 +2,10 @@ steps = [
     [
         # "Up" SQL statement
         """
-        ALTER TABLE tasks
-        ADD assignee int NULL,
-        ADD board int NOT NULL,
-        ADD status VARCHAR;
-
+        CREATE TABLE status (
+            id SERIAL PRIMARY KEY NOT NULL,
+            status VARCHAR(150) NOT NULL UNIQUE
+        );
         """,
         # "Down" SQL statement
         """
