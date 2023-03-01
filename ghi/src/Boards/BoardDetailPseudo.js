@@ -7,9 +7,9 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
   
   const updateTask = async (id) => {
     const data = {};
-    console.log("STATUS", data.status);
+    console.log("ID", id);
     data.status = taskStatus;
-    console.log("STATUS", data.status);
+    console.log("DATA", data);
 
     const taskUrl = `http://localhost:8080/tasks/${id}/`;
     const fetchConfig = {
@@ -37,8 +37,6 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
     const value = event.target.value;
     setTaskStatus(value);
     updateTask();
-    console.log("Value", value)
-    console.log("taskStatus", taskStatus)
     }
   
   const handleBoardNumVarChange = async (event) => {
@@ -52,6 +50,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
     getBoards();        
     
   }
+
 
   return (
     <>
@@ -171,21 +170,20 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
-                                <td>{ task.status }</td>
+                                <td>{ task.assignee }</td>                              
                                 <td>
-                                      {/* <form onSubmit={updateTask} id="task-status-form">  */}
-                                        <select onChange={handleTaskStatus} placeholder="Status" required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
+                                      {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
+                                        <select onChange={handleTaskStatus} placeholder= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
                                         <option>Status</option>
                                         {statuses.map(status => {
                                         return (
-                                        <option key={status.id} value={status.status}>
+                                        <option key={status.id} value={task.status}>
                                             {status.status}
                                         </option>
                                         );
                                         })}
                                         </select>
-                                      {/* </form> */}
+                                      {/* </form>                                       */}
                                 </td>   
                             </tr>
                             );
