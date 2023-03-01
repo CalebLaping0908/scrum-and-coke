@@ -98,7 +98,6 @@ async def get_token(
     request: Request,
     user: UserOutWithoutPassword = Depends(authenticator.try_get_current_account_data)
 ) -> UserTokenWithoutPassword | None:
-    print("THIS IS USER", user, "THIS IS REQUEST", request)
     if user and authenticator.cookie_name in request.cookies:
         return {"access_token": request.cookies[authenticator.cookie_name],
                 "type": "Bearer",
