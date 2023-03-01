@@ -120,7 +120,7 @@ class TaskRepository:
                           , description = %s
                           , assignee = %s
                           , board = %s
-                          , task.status = %s
+                          , status = %s
                         WHERE id = %s
                         """,
                         [
