@@ -3,16 +3,17 @@ import React, { useState } from 'react';
 export default function BoardDetail({ tasks, getTasks, boards, getBoards, statuses }){
   const [taskStatus, setTaskStatus] = useState('');
   const [boardNumVar, setBoardNumVar] = useState('');
-  
+
   
   const updateTask = async (id) => {
     const data = {};
+    console.log("STATUS", data.status);
     data.status = taskStatus;
-    console.log("STATUS", data.status)
+    console.log("STATUS", data.status);
 
     const taskUrl = `http://localhost:8080/tasks/${id}/`;
     const fetchConfig = {
-        method: "patch",
+        method: "PATCH",
         body: JSON.stringify(data),
         headers: {
         'Content-Type': 'application/json',
@@ -22,8 +23,9 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
   const response = await fetch(taskUrl, fetchConfig);
   if (response.ok) {
     const task = await response.json();
+    console.log(task);
     setTaskStatus('');
-    getTasks();
+    // getTasks();
   }
   }
   if (tasks === undefined) {
@@ -34,6 +36,9 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
   const handleTaskStatus = async (event) => {
     const value = event.target.value;
     setTaskStatus(value);
+    updateTask();
+    console.log("Value", value)
+    console.log("taskStatus", taskStatus)
     }
   
   const handleBoardNumVarChange = async (event) => {
@@ -169,16 +174,18 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
                                 <td>{ task.assignee }</td>
                                 <td>{ task.status }</td>
                                 <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {statuses.map(status => {
-                                    return (
-                                    <option key={status.id} value={status.status}>
-                                        {status.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
+                                      {/* <form onSubmit={updateTask} id="task-status-form">  */}
+                                        <select onChange={handleTaskStatus} placeholder="Status" required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
+                                        <option>Status</option>
+                                        {statuses.map(status => {
+                                        return (
+                                        <option key={status.id} value={status.status}>
+                                            {status.status}
+                                        </option>
+                                        );
+                                        })}
+                                        </select>
+                                      {/* </form> */}
                                 </td>   
                             </tr>
                             );

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from typing import List, Union, Optional
-from queries.tasks import TaskIn, TaskRepository, TaskOut, Error, StatusOut, StatusIn, StatusRepository
+from queries.tasks import TaskIn, TaskRepository, TaskOut, Error, StatusOut, StatusIn, StatusRepository, TaskInUpdate
 
 router = APIRouter()
 
@@ -23,6 +23,14 @@ def get_all(
 def update_task(
     task_id: int,
     task: TaskIn,
+    repo: TaskRepository = Depends(),
+) -> Union[TaskOut, Error]:
+    return repo.update(task_id, task)
+
+@router.patch("/tasks/{task_id}", response_model=Union[TaskOut, Error])
+def update_task(
+    task_id: int,
+    task: TaskInUpdate,
     repo: TaskRepository = Depends(),
 ) -> Union[TaskOut, Error]:
     return repo.update(task_id, task)
