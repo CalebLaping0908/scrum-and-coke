@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react";
+import { useToken } from "../Auth";
 
-function UsersList({ users, getUsers }) {
+export default function UsersList({ users, getUsers }) {
   const [token] = useToken();
   const navigate = useNavigate();
 
