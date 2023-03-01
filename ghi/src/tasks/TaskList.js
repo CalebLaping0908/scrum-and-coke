@@ -1,11 +1,24 @@
 import React from 'react';
+import { useToken } from '../Auth';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function TaskList({ tasks }){
-  console.log(tasks)
+
+    const [token] = useToken();
+    const navigate = useNavigate();
+
+    useEffect( () => {
+        if (!token) {
+        navigate("/users/login");
+    }
+    }, []);
+
     if (tasks === undefined) {
         return null;
     }
+
   return (
     <div className="container">
         <h1>Current Tasks</h1>

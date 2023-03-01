@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
+function UsersList({ users, getUsers }) {
+  const [token] = useToken();
+  const navigate = useNavigate();
 
-export default function UsersList({ users, getUsers }){
+  useEffect(() => {
+    if (!token) {
+      navigate("/users/login");
+    }
+  }, []);
+
   const deleteUser = async (id) => {
     const response = await fetch(`http://localhost:8080/users/${id}/`, {
       method: "delete",
-    })
-  if (response.ok) {
-    return getUsers()
-  }
-  }
+    });
+    if (response.ok) {
+      return getUsers();
+    }
+  };
   if (users === undefined) {
-     return null
+    return null;
   }
 
   return (
@@ -26,14 +34,21 @@ export default function UsersList({ users, getUsers }){
           </tr>
         </thead>
         <tbody>
-          {users.map(user => {
+          {users.map((user) => {
             return (
               <tr key={user.id}>
-                <td>{ user.email }</td>
-                <td>{ user.full_name }</td>
-                <td>{ user.employee_number }</td>
+                <td>{user.email}</td>
+                <td>{user.full_name}</td>
+                <td>{user.employee_number}</td>
                 <td>
-                  <button type="button" className="btn btn-danger" value={user.employee_number} onClick={() => deleteUser(user.employee_number)}>Delete User</button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    value={user.employee_number}
+                    onClick={() => deleteUser(user.employee_number)}
+                  >
+                    Delete User
+                  </button>
                 </td>
               </tr>
             );
@@ -41,6 +56,5 @@ export default function UsersList({ users, getUsers }){
         </tbody>
       </table>
     </>
-    );
+  );
 }
-
