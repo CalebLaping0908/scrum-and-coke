@@ -1,3 +1,9 @@
+## February 28, 2023
+
+- Today, Todd and I worked on creating the scrum board detail view
+
+This is the most complex page of our whole app, and we've been faced with a few challenges. We want to have 5 columns which are the 5 statuses that a task can be. We want the task to show up in the same column as that tasks' status. We also want to be able to change the status of a task, and have it move to the column relating to the new selected status. We are able to get the information onto the page, but are still trying to figure out how to be able to move tasks from column to column. Tomorrow, we're going to try and use the useEffect react hook to help us accomplish this.
+
 ## February 27, 2023
 
 - Today I worked on finishing up the form to be able to create a task on the frontend, as well as created a foreign key on the tasks table to access 5 different possible statuses they could be
