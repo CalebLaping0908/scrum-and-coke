@@ -15,6 +15,7 @@ import LoginForm from "./Users/LoginForm";
 import Logout from "./Users/Logout";
 import TaskList from './tasks/TaskList';
 import { AuthContext, AuthProvider, useToken } from "./Auth";
+import UpdateTaskForm from "./tasks/UpdateTaskForm";
 
 function GetToken() {
   useToken();
@@ -98,9 +99,9 @@ function App(props) {
           <Route path="tasks/" >
             <Route path="" element={<TaskList tasks={tasks} getTasks={getTasks} /> } />
             <Route path="new" element={<CreateTask tasks={tasks} users={users} boards={boards} getTasks={getTasks} statuses={statuses} /> } />
+            <Route path="update" element={<UpdateTaskForm getTasks={getTasks} users={users} boards={boards} statuses={statuses}/> } />
 
           </Route>
-          <Route path="users/" element={<UsersList users={users} getUsers={getUsers}/>} />
           <Route
             path="users/"
             element={<UsersList users={users} getUsers={getUsers} />}
