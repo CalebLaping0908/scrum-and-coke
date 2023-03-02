@@ -30,7 +30,6 @@ function Nav() {
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><NavLink className="dropdown-item" to="/tasks">List tasks</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/tasks/new">Create a new task</NavLink></li>
-                <li><NavLink className="dropdown-item" to="/tasks/update">Update a task</NavLink></li>
               </ul>
             </div>
             <div className="nav-item dropdown">

@@ -23,6 +23,13 @@ class TaskIn(BaseModel):
     board: int
     status: str
 
+class TaskInUpdate(BaseModel):
+    title: Optional[str]
+    description: Optional[str]
+    assignee: Optional[int]
+    board: Optional[int]
+    status: Optional[str]
+
 
 class TaskOut(BaseModel):
     id: int
@@ -108,31 +115,39 @@ class TaskRepository:
             print(e)
             return {"message": "could not get all tasks"}
 
-
-    def update(self, task_id: int, task: TaskIn) -> Union[Error, TaskOut]:
+                        #   , title = %s
+                        #   , description = %s
+                        #   , assignee = %s
+                        #   , board = %s
+    def update(self, task_id: int, task: TaskInUpdate) -> Union[Error, TaskOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    db.execute(
+                    result = db.execute(
                         """
                         UPDATE tasks
+<<<<<<< HEAD
                         SET title = %s
                           , description = %s
                           , assignee = %s
                           , board = %s
                           , status = %s
+=======
+                        SET status = %s
+>>>>>>> main
                         WHERE id = %s
                         """,
                         [
-                            task.title,
-                            task.description,
-                            task.assignee,
-                            task.board,
+                            # task.title,
+                            # task.description,
+                            # task.assignee,
+                            # task.board,
                             task.status,
                             task_id
                         ]
                     )
-                    return self.task_in_to_out(task_id, task)
+                    print(result)
+                    return self.get_one(task_id)
 
         except Exception as e:
             print(e)

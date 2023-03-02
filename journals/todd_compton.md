@@ -1,5 +1,22 @@
 ## Todd Compton's Journal
 
+## Feb 27, 2023
+Today I worked on:
+
+Further ideation and actual code for the scrum board detail page.  Also, participated in mob programming the task creation form due the extra complexity of foreign keys for users, boards and status.
+
+A big aha moment was creating and defining a status table with all values populated directly from the migration where it was created since these should be constants which are only referenced, but never modified. 
+
+## Feb 25, 2023
+Today I worked on:
+
+Ideation and pseudo code for the scrum board detail page.  Filtered nested tables all on the front end with a drop down board selector is currently my best design.
+
+## Feb 24, 2023
+Today I worked on:
+
+Merging the Boards functionality with the Users functionality I have been working on.  Encountered major GitLab merge issues with a "divergent" branch.  Fortunately, due to our team's habit of pushing and merging to main when we have functional code, I was able to simply clone the repository into a new directory with little progress lost.  We also met as a team to review concepts for the scrum board detail view page and decided that cards for each of the columns similar to Trello is a visually appealing way to proceed.
+
 ## Feb 23, 2023
 Today I worked on:
 
@@ -13,7 +30,7 @@ JWTdown for FastAPI continues to be a struggle.  While awaiting assistance, crea
 ## Feb 21, 2023
 Today I worked on:
 
-Group coding the JWTdow for FastAPI from start to finish with the entire team.  Still no success in overcoming this blocker, so we reached out to HMU and SEIRs.
+Group coding the JWTdown for FastAPI from start to finish with the entire team.  Still no success in overcoming this blocker, so we reached out to HMU and SEIRs.
 
 ## Feb 18, 2023
 Today I worked on:
