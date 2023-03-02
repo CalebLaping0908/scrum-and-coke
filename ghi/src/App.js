@@ -17,6 +17,7 @@ import TaskList from "./tasks/TaskList";
 import { AuthContext, AuthProvider, useToken } from "./Auth";
 import BoardDetail from "./Boards/BoardDetailPseudo";
 import TaskCard from "./Boards/FlexColumns";
+import BoardDetailTest from "./Boards/BoardDetailTest";
 
 function GetToken() {
   useToken();
@@ -101,6 +102,18 @@ function App(props) {
                 path="detail"
                 element={
                   <BoardDetail
+                    getTasks={getTasks}
+                    tasks={tasks}
+                    users={users}
+                    boards={boards}
+                    statuses={statuses}
+                  />
+                }
+              />
+              <Route
+                path="test"
+                element={
+                  <BoardDetailTest
                     getTasks={getTasks}
                     tasks={tasks}
                     users={users}

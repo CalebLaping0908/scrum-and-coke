@@ -113,7 +113,7 @@ export default function BoardDetailTest({
               .map((task) => {
                 return (
                   <div key={task.id}>
-                    <Card className="Card">
+                    <Card>
                       <Card.Body>
                         <Card.Header>{task.title}</Card.Header>
                         <Card.Text>{task.description}</Card.Text>
@@ -156,7 +156,7 @@ export default function BoardDetailTest({
               .map((task) => {
                 return (
                   <div key={task.id}>
-                    <Card className="Card">
+                    <Card>
                       <Card.Body>
                         <Card.Header>{task.title}</Card.Header>
                         <Card.Text>{task.description}</Card.Text>
@@ -200,7 +200,7 @@ export default function BoardDetailTest({
               .map((task) => {
                 return (
                   <div key={task.id}>
-                    <Card className="Card">
+                    <Card>
                       <Card.Body>
                         <Card.Header>{task.title}</Card.Header>
                         <Card.Text>{task.description}</Card.Text>
@@ -244,7 +244,7 @@ export default function BoardDetailTest({
               .map((task) => {
                 return (
                   <div key={task.id}>
-                    <Card className="Card">
+                    <Card>
                       <Card.Body>
                         <Card.Header>{task.title}</Card.Header>
                         <Card.Text>{task.description}</Card.Text>
@@ -288,7 +288,7 @@ export default function BoardDetailTest({
               .map((task) => {
                 return (
                   <div key={task.id}>
-                    <Card className="Card">
+                    <Card>
                       <Card.Body>
                         <Card.Header>{task.title}</Card.Header>
                         <Card.Text>{task.description}</Card.Text>
