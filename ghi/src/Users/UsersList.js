@@ -54,4 +54,3 @@ function UsersList({ users, getUsers }){
     );
 }
 
-export default UsersList;
