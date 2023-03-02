@@ -3,51 +3,31 @@ import React from "react";
 import { useState } from "react";
 import { Card, Table, Button } from "react-bootstrap";
 
-export default function TaskCard({ tasks, boardNumVar }) {
-  const [taskStatus, setTaskStatus] = useState("");
-
-  const handleTaskStatus = (event) => {
-    const [newStatus, taskId] = event.target.value;
-    // Call a function to update the task status with the new status and taskId
-  };
+export default function TaskCard({ task, handleTaskStatus }) {
+  const { id, title, description, assignee, status } = task;
 
   return (
     <Card>
-      <Card.Header>{boardNumVar} Board</Card.Header>
+      <Card.Header>{title}</Card.Header>
       <Card.Body>
-        {tasks
-          .filter(
-            (task) => task.status == "Backlog" && task.board == boardNumVar
-          )
-          .map((task) => {
-            return (
-              <div key={task.id}>
-                <Card.Title>{task.title}</Card.Title>
-                <Card.Text>{task.description}</Card.Text>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {task.assignee}
-                </Card.Subtitle>
-                <select
-                  onChange={handleTaskStatus}
-                  defaultValue={task.status}
-                  required
-                  type="text"
-                  name="taskStatus"
-                  id="taskStatus"
-                  className="form-select"
-                  value={taskStatus}
-                >
-                  <option value={["Backlog", task.id]}>Backlog</option>
-                  <option value={["To Do", task.id]}>To Do</option>
-                  <option value={["In Progress", task.id]}>In Progress</option>
-                  <option value={["In Review / QA", task.id]}>
-                    In Review / QA
-                  </option>
-                  <option value={["Completed", task.id]}>Completed</option>
-                </select>
-              </div>
-            );
-          })}
+        <Card.Text>{description}</Card.Text>
+        <Card.Text>Assignee: {assignee}</Card.Text>
+        <Card.Text>Status:</Card.Text>
+        <select
+          onChange={(e) => handleTaskStatus(e, id)}
+          defaultValue={status}
+          required
+          type="text"
+          name="taskStatus"
+          id="taskStatus"
+          className="form-select"
+        >
+          <option value="Backlog">Backlog</option>
+          <option value="To Do">To Do</option>
+          <option value="In Progress">In Progress</option>
+          <option value="In Review / QA">In Review / QA</option>
+          <option value="Completed">Completed</option>
+        </select>
       </Card.Body>
     </Card>
   );
