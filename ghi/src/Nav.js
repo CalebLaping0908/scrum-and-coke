@@ -21,6 +21,7 @@ function Nav() {
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><NavLink className="dropdown-item" to="/boards">List boards</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/boards/new">Create a new board</NavLink></li>
+                <NavLink className="dropdown-item" to="/boards/detail">My Boards</NavLink>
               </ul>
             </div>
             <div className="nav-item dropdown">

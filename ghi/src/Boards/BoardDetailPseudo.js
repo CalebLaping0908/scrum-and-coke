@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useToken } from "../Auth";
+import { useNavigate } from "react-router-dom";
 
 export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
   const [taskStatus, setTaskStatus] = useState('');
   const [boardNumVar, setBoardNumVar] = useState('');
+  const [token] = useToken();
+  const navigate = useNavigate();
 
-  
+  useEffect( () => {
+    if (!token) {
+    navigate("/users/login");
+  }
+  }, []);
+
+
   const updateTask = async (id, status) => {
     const data = {};
     console.log("ID", id);
@@ -43,7 +53,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
     // setTaskStatus(status);
     updateTask(id, status);
     }
-  
+
   const handleBoardNumVarChange = async (event) => {
     const value = event.target.value;
     setBoardNumVar(value);
@@ -52,8 +62,8 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
   const handleSubmit = async (event) => {
     event.preventDefault();
     setBoardNumVar('');
-    getBoards();        
-    
+    getBoards();
+
   }
 
 //    useEffect(() => {
@@ -79,7 +89,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                 </select>
                 </div>
               </div>
-      </form> 
+      </form>
 
       {/* Once the state of boardNumVar is selected, use it to filter tasks for the board display */}
       <table className="table table-striped align-middle mt-5">
@@ -87,16 +97,16 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
           <tr>
             <th>Backlog</th>
             <th>To Do</th>
-            <th>In Progress</th> 
-            <th>In Review/QA</th> 
-            <th>Complete</th>             
+            <th>In Progress</th>
+            <th>In Review/QA</th>
+            <th>Complete</th>
           </tr>
         </thead>
         <tbody>
             <td>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Assignee</th> 
+                <th>Assignee</th>
                 <th>Status</th>
                     <tbody>
                         {tasks.filter(task => task.status == "Backlog" && task.board == boardNumVar).map(task => {
@@ -104,18 +114,18 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>                          
+                                <td>{ task.assignee }</td>
                                 <td>
                                       {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
                                         <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
                                         <option value={["Backlog", task.id]}>Backlog</option>
-                                        <option value={["To Do", task.id]}>To Do</option>  
-                                        <option value={["In Progress", task.id]}>In Progress</option>                                      
+                                        <option value={["To Do", task.id]}>To Do</option>
+                                        <option value={["In Progress", task.id]}>In Progress</option>
                                         <option value={["In Review / QA", task.id]}>In Review / QA</option>
-                                        <option value={["Completed", task.id]}>Completed</option>                                        
+                                        <option value={["Completed", task.id]}>Completed</option>
                                         </select>
                                       {/* </form>                                       */}
-                                </td>   
+                                </td>
                             </tr>
                             );
                         })}
@@ -124,7 +134,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
             <td>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Assignee</th> 
+                <th>Assignee</th>
                 <th>Status</th>
                     <tbody>
                         {tasks.filter(task => task.status == "To Do" && task.board == boardNumVar).map(task => {
@@ -132,18 +142,18 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>                          
+                                <td>{ task.assignee }</td>
                                 <td>
                                       {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
                                         <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
                                         <option value={["To Do", task.id]}>To Do</option>
                                         <option value={["Backlog", task.id]}>Backlog</option>
-                                        <option value={["In Progress", task.id]}>In Progress</option>                                      
+                                        <option value={["In Progress", task.id]}>In Progress</option>
                                         <option value={["In Review / QA", task.id]}>In Review / QA</option>
-                                        <option value={["Completed", task.id]}>Completed</option>                                        
+                                        <option value={["Completed", task.id]}>Completed</option>
                                         </select>
                                       {/* </form>                                       */}
-                                </td>   
+                                </td>
                             </tr>
                             );
                         })}
@@ -153,7 +163,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
             <td>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Assignee</th> 
+                <th>Assignee</th>
                 <th>Status</th>
                     <tbody>
                         {tasks.filter(task => task.status == "In Progress" && task.board == boardNumVar).map(task => {
@@ -161,18 +171,18 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>                          
+                                <td>{ task.assignee }</td>
                                 <td>
                                       {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
                                         <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
                                         <option value={["In Progress", task.id]}>In Progress</option>
                                         <option value={["Backlog", task.id]}>Backlog</option>
-                                        <option value={["To Do", task.id]}>To Do</option>                                        
+                                        <option value={["To Do", task.id]}>To Do</option>
                                         <option value={["In Review / QA", task.id]}>In Review / QA</option>
-                                        <option value={["Completed", task.id]}>Completed</option>                                        
+                                        <option value={["Completed", task.id]}>Completed</option>
                                         </select>
                                       {/* </form>                                       */}
-                                </td>   
+                                </td>
                             </tr>
                             );
                         })}
@@ -182,7 +192,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
             <td>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Assignee</th> 
+                <th>Assignee</th>
                 <th>Status</th>
                     <tbody>
                         {tasks.filter(task => task.status == "In Review / QA" && task.board == boardNumVar).map(task => {
@@ -190,18 +200,18 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>                          
+                                <td>{ task.assignee }</td>
                                 <td>
                                       {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
                                         <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>                                        
+                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>
                                         <option value={["Backlog", task.id]}>Backlog</option>
-                                        <option value={["To Do", task.id]}>To Do</option>                                        
+                                        <option value={["To Do", task.id]}>To Do</option>
                                         <option value={["In Progress", task.id]}>In Progress</option>
-                                        <option value={["Completed", task.id]}>Completed</option>                                        
+                                        <option value={["Completed", task.id]}>Completed</option>
                                         </select>
                                       {/* </form>                                       */}
-                                </td>   
+                                </td>
                             </tr>
                             );
                         })}
@@ -210,7 +220,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
             <td>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Assignee</th> 
+                <th>Assignee</th>
                 <th>Status</th>
                     <tbody>
                         {tasks.filter(task => task.status == "Completed" && task.board == boardNumVar).map(task => {
@@ -218,27 +228,27 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>                          
+                                <td>{ task.assignee }</td>
                                 <td>
                                       {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
                                         <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                        <option value={["Completed", task.id]}>Completed</option>                                                                                
+                                        <option value={["Completed", task.id]}>Completed</option>
                                         <option value={["Backlog", task.id]}>Backlog</option>
-                                        <option value={["To Do", task.id]}>To Do</option>                                        
+                                        <option value={["To Do", task.id]}>To Do</option>
                                         <option value={["In Progress", task.id]}>In Progress</option>
-                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>                                                                                
+                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>
                                         </select>
                                       {/* </form>                                       */}
-                                </td>   
+                                </td>
                             </tr>
                             );
                         })}
                     </tbody>
             </td>
-            
-            
+
+
         </tbody>
-      </table>      
+      </table>
     </>
     );
 }

@@ -13,7 +13,7 @@ function TaskList({ tasks }){
         if (!token) {
         navigate("/users/login");
     }
-    }, []);
+    },);
 
     if (tasks === undefined) {
         return null;
