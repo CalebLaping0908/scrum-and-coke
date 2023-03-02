@@ -99,7 +99,7 @@ function App(props) {
           <Route path="tasks/" >
             <Route path="" element={<TaskList tasks={tasks} getTasks={getTasks} /> } />
             <Route path="new" element={<CreateTask tasks={tasks} users={users} boards={boards} getTasks={getTasks} statuses={statuses} /> } />
-            <Route path="update" element={<UpdateTaskForm getTasks={getTasks} users={users} boards={boards} statuses={statuses}/> } />
+            <Route path="update" element={<UpdateTaskForm tasks={tasks} getTasks={getTasks} users={users} boards={boards} statuses={statuses}/> } />
 
           </Route>
           <Route

@@ -3,7 +3,7 @@ import { useToken } from '../Auth';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function UpdateTask( {getTasks, users, boards, statuses} ) {
+export default function UpdateTask( {tasks, getTasks, users, boards, statuses} ) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [assignee, setAssignee] = useState([]);
@@ -111,7 +111,16 @@ export default function UpdateTask( {getTasks, users, boards, statuses} ) {
                 <div className="shadow p-4 mt-4">
                     <h1>Create a Task</h1>
                     <form onSubmit={handleTaskSelection} className="input-group" id="filter-task-form">
-                        <input onChange={handleIDChange} value={id} type="search" className="form-control rounded" placeholder="ID" aria-label="Search" aria-describedby="search-addon" />
+                        <select onChange={handleIDChange} value={id} className="form-select" placeholder="ID">
+                        <option value=''>Select a Task</option>
+                        {tasks.map(task => {
+                        return (
+                            <option key={task.id} value={task.id}>
+                            {task.title}
+                            </option>
+                            );
+                        })}
+                        </select>
                         <button className="btn btn-outline-primary">Get Task</button>
                     </form>
                     <form onSubmit={handleSubmit} id="create-task-form">
