@@ -15,6 +15,7 @@ import LoginForm from "./Users/LoginForm";
 import Logout from "./Users/Logout";
 import TaskList from './tasks/TaskList';
 import { AuthContext, AuthProvider, useToken } from "./Auth";
+import BoardDetail from './Boards/BoardDetailPseudo';
 
 function GetToken() {
   useToken();
@@ -94,6 +95,7 @@ function App(props) {
           />
           <Route path="boards/">
             <Route path="new" element={<BoardForm getBoards={getBoards} />} />
+            <Route path="detail" element={<BoardDetail getTasks={getTasks} tasks={tasks} users={users} boards={boards} statuses={statuses}/>} />
           </Route>
           <Route path="tasks/" >
             <Route path="" element={<TaskList tasks={tasks} getTasks={getTasks} /> } />
