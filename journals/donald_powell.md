@@ -8,6 +8,7 @@ Liz has a lot of ideas about the CSS and wanting to make this look super cool. I
 
 Worked on deployment. Had to install a bunch of programs for deployment and I had my 1:1, so that took a few hours.
 Also, the deployment took longer because there were a few instructions missing on how to do the actual deployment.
+Stayed after class with Liz to talk about some CSS ideas. She's a riot!
 
 # 2/27/2023
 
