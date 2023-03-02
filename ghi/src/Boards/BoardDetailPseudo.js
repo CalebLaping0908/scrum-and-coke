@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useToken } from "../Auth";
-import { useNavigate } from "react-router-dom";
-import { Card, Table, Button } from "react-bootstrap";
 
 export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
   const [taskStatus, setTaskStatus] = useState("");
   const [boardNumVar, setBoardNumVar] = useState("");
-  const [token] = useToken();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/users/login");
-    }
-  }, []);
 
   const updateTask = async (id, status) => {
     const data = {};
@@ -111,9 +100,12 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
           </tr>
         </thead>
         <tbody>
-          <Card>
-            <Card.Header>{boardNumVar} Board</Card.Header>
-            <Card.Body>
+          <td>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Assignee</th>
+            <th>Status</th>
+            <tbody>
               {tasks
                 .filter(
                   (task) =>
@@ -121,39 +113,88 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
                 )
                 .map((task) => {
                   return (
-                    <div key={task.id}>
-                      <Card.Title>{task.title}</Card.Title>
-                      <Card.Text>{task.description}</Card.Text>
-                      <Card.Subtitle className="mb-2 text-muted">
-                        {task.assignee}
-                      </Card.Subtitle>
-                      <select
-                        onChange={handleTaskStatus}
-                        defaultValue={task.status}
-                        required
-                        type="text"
-                        name="taskStatus"
-                        id="taskStatus"
-                        className="form-select"
-                        value={taskStatus}
-                      >
-                        <option value={["Backlog", task.id]}>Backlog</option>
-                        <option value={["To Do", task.id]}>To Do</option>
-                        <option value={["In Progress", task.id]}>
-                          In Progress
-                        </option>
-                        <option value={["In Review / QA", task.id]}>
-                          In Review / QA
-                        </option>
-                        <option value={["Completed", task.id]}>
-                          Completed
-                        </option>
-                      </select>
-                    </div>
+                    <tr key={task.id}>
+                      <td>{task.title}</td>
+                      <td>{task.description}</td>
+                      <td>{task.assignee}</td>
+                      <td>
+                        {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
+                        <select
+                          onChange={handleTaskStatus}
+                          defaultValue={task.status}
+                          required
+                          type="text"
+                          name="taskStatus"
+                          id="taskStatus"
+                          className="form-select"
+                          value={taskStatus}
+                        >
+                          <option value={["Backlog", task.id]}>Backlog</option>
+                          <option value={["To Do", task.id]}>To Do</option>
+                          <option value={["In Progress", task.id]}>
+                            In Progress
+                          </option>
+                          <option value={["In Review / QA", task.id]}>
+                            In Review / QA
+                          </option>
+                          <option value={["Completed", task.id]}>
+                            Completed
+                          </option>
+                        </select>
+                        {/* </form>                                       */}
+                      </td>
+                    </tr>
                   );
                 })}
-            </Card.Body>
-          </Card>
+            </tbody>
+          </td>
+          <td>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Assignee</th>
+            <th>Status</th>
+            <tbody>
+              {tasks
+                .filter(
+                  (task) => task.status == "To Do" && task.board == boardNumVar
+                )
+                .map((task) => {
+                  return (
+                    <tr key={task.id}>
+                      <td>{task.title}</td>
+                      <td>{task.description}</td>
+                      <td>{task.assignee}</td>
+                      <td>
+                        {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
+                        <select
+                          onChange={handleTaskStatus}
+                          defaultValue={task.status}
+                          required
+                          type="text"
+                          name="taskStatus"
+                          id="taskStatus"
+                          className="form-select"
+                          value={taskStatus}
+                        >
+                          <option value={["To Do", task.id]}>To Do</option>
+                          <option value={["Backlog", task.id]}>Backlog</option>
+                          <option value={["In Progress", task.id]}>
+                            In Progress
+                          </option>
+                          <option value={["In Review / QA", task.id]}>
+                            In Review / QA
+                          </option>
+                          <option value={["Completed", task.id]}>
+                            Completed
+                          </option>
+                        </select>
+                        {/* </form>                                       */}
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </td>
           {/* In Progress */}
           <td>
             <th>Title</th>
