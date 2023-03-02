@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react";
 import { useToken } from "../Auth";
 
@@ -10,7 +10,7 @@ export default function UsersList({ users, getUsers }) {
     if (!token) {
       navigate("/users/login");
     }
-  }, []);
+  });
 
   const deleteUser = async (id) => {
     const response = await fetch(`http://localhost:8080/users/${id}/`, {
