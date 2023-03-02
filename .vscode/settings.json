@@ -6,6 +6,7 @@
   "cSpell.words": [
     "assigneefetch",
     "boardfetch",
-    "fastapi"
+    "fastapi",
+    "WORKDIR"
   ]
 }
