@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useToken } from '../Auth';
 import { useNavigate } from 'react-router-dom';
 
-function UsersList({ users, getUsers }){
+export default function UsersList({ users, getUsers }){
     const [token] = useToken();
     const navigate = useNavigate();
 
@@ -53,4 +53,3 @@ function UsersList({ users, getUsers }){
     </>
     );
 }
-
