@@ -1,0 +1,13 @@
+version: 2
+schemaVersion: 1
+name: scrum-and-coke
+dockerfileLines: 1
+    FROM node:latest
+    WORKDIR /app
+    COPY . .
+    RUN npm install
+    EXPOSE 3000
+web:
+    context: /
+    port: 3000
+    healthCheckPath: /
