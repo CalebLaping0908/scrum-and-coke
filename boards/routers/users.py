@@ -50,23 +50,13 @@ def get_all(
     return {"users": repo.get_all()}
 
 
-<<<<<<< HEAD
-
-@router.put("/users/{employee_number}", response_model=Union[UserOut, Error])
-def update_user(
-=======
 # update users not yet functional
 @router.put("/users/{employee_number}")
 async def update_user(
->>>>>>> bc95b70a0885d71da50191c32b31bfa8249b23f1
     employee_number: int,
     user: UserIn,
     response: Response,
     repo: UserRepository = Depends(),
-<<<<<<< HEAD
-) -> Union[UserOut, Error]:
-    return repo.update(employee_number, user)
-=======
     account_data: dict = Depends(authenticator.get_current_account_data)
 ):
     hashed_password = authenticator.hash_password(user.password)
@@ -74,7 +64,6 @@ async def update_user(
         return repo.update(employee_number, user, hashed_password)
     else:
         response.status_code = 404
->>>>>>> bc95b70a0885d71da50191c32b31bfa8249b23f1
 
 
 @router.delete("/users/{user_id}", response_model=bool)

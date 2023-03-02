@@ -1,285 +1,117 @@
-import React, { useState } from "react";
+// import { Link } from "react-router-dom";
+// import React, { useEffect, useState } from "react";
+// function ConferenceColumn(props) {
+//   return (
+//     <div className="col">
+//       {props.list.map((data) => {
+//         const conference = data.conference;
+//         return (
+//           <div key={conference.href} className="card mb-3 shadow">
+//             <img
+//               src={conference.location.picture_url}
+//               className="card-img-top"
+//             />
+//             <div className="card-body">
+//               <h5 className="card-title">{conference.name}</h5>
+//               <h6 className="card-subtitle mb-2 text-muted">
+//                 {conference.location.name}
+//               </h6>
+//               <p className="card-text">{conference.description}</p>
+//             </div>
+//             <div className="card-footer">
+//               {new Date(conference.starts).toLocaleDateString()}-
+//               {new Date(conference.ends).toLocaleDateString()}
+//             </div>
+//           </div>
+//         );
+//       })}
+//     </div>
+//   );
+// }
 
-export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
-  const [taskStatus, setTaskStatus] = useState("");
-  const [boardNumVar, setBoardNumVar] = useState("");
-
-  const updateTask = async (id, status) => {
-    const data = {};
-    data.status = taskStatus;
-
-    const taskUrl = `http://localhost:8080/tasks/${id}/`;
-    const fetchConfig = {
-      method: "PATCH",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const response = await fetch(taskUrl, fetchConfig);
-    if (response.ok) {
-      const task = await response.json();
-      console.log(task);
-      setTaskStatus("");
-      // getTasks();
-    }
-  };
-  if (tasks === undefined) {
-    return null;
-  }
-
-  const handleTaskStatus = async (event) => {
-    let statusString = event.target.value;
-    let statusArray = statusString.split(",");
-    let status = statusArray[0];
-    const id = statusArray[1];
-    console.log("status", status);
-    console.log("id", id);
-    setTaskStatus(status);
-    updateTask(id, status);
-  };
-
-  const handleBoardNumVarChange = async (event) => {
-    const value = event.target.value;
-    setBoardNumVar(value);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setBoardNumVar("");
-    getBoards();
-    updateTask();
-  };
-
-  return (
-    <>
-      <div>
-        <br></br>
-      </div>
-      <form onSubmit={handleSubmit} id="select-board-form">
-        <div className="mb-3">
-          <div className="form-floating mb-3">
-            <select
-              onChange={handleBoardNumVarChange}
-              placeholder="Board"
-              required
-              type="text"
-              name="boardNumVar"
-              id="boardNumVar"
-              className="form-select"
-              value={boardNumVar}
-            >
-              <option>Board</option>
-              {boards.map((board) => {
-                return (
-                  <option key={board.id} value={board.id}>
-                    {board.name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </div>
-      </form>
-
-      {/* Once the state of boardNumVar is selected, use it to filter tasks for the board display */}
-      <table className="table table-striped align-middle mt-5">
-        <thead>
-          <tr>
-            <th>Backlog</th>
-            <th>To Do</th>
-            <th>In Progress</th>
-            <th>In Review/QA</th>
-            <th>Complete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* <td>Backlog */}
-          {/* <div class="card">
-                <div class="card-body">
-                    {tasks.filter(task => task.status == "Backlog" && task.board.id == boardNumVar).map(task => {
-                            return (
-                    <h5 class="card-title">Task title</h5>
-                    <p class="card-text">Task description.</p>
-                    <a href="#" class="btn btn-primary">
-                    Details
-                    </a>
-
-                </div>
-                </div>
-                    )} */}
-
-          {/* <th>Title</th>
-                <th>Description</th>
-                <th>Assignee</th>
-                <th>Status</th>
-                    <tbody>
-                        {tasks.filter(task => task.status == "Backlog" && task.board.id == boardNumVar).map(task => {
-                            return (
-                            <tr key={task.id}>
-                                <td>{ task.title }</td>
-                                <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
-                                <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {tasks.map(task => {
-                                    return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
-                                </td>
-                            </tr>
-                            );
-                        })}
-                    </tbody>
-            </td>
-            <td>To Do
-                <th>Title</th>
-                <th>Description</th>
-                <th>Assignee</th>
-                <th>Status</th>
-                    <tbody>
-                        {tasks.filter(task => task.status == "To Do" && task.board.id == boardNumVar).map(task => {
-                            return (
-                            <tr key={task.id}>
-                                <td>{ task.title }</td>
-                                <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
-                                <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {tasks.map(task => {
-                                    return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
-                                </td>
-                            </tr>
-                            );
-                        })}
-                    </tbody>
-            </td> */}
-          <td>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Assignee</th>
-            <th>Status</th>
-            <tbody>
-              {tasks
-                .filter(
-                  (task) =>
-                    task.status == "In Progress" && task.board == boardNumVar
-                )
-                .map((task) => {
-                  return (
-                    <tr key={task.id}>
-                      <td>{task.title}</td>
-                      <td>{task.description}</td>
-                      <td>{task.assignee}</td>
-                      <td>
-                        <form
-                          onSubmit={updateTask(task.id)}
-                          id="task-status-form"
-                        >
-                          <select
-                            onChange={handleTaskStatus}
-                            defaultValue={[task.status, task.id]}
-                            required
-                            type="text"
-                            name="taskStatus"
-                            id="taskStatus"
-                            className="form-select"
-                            value={[task.status, task.id]}
-                          >
-                            <option value={["Backlog", task.id]}>
-                              Backlog
-                            </option>
-                            <option value={["To Do", task.id]}>To Do</option>
-                            <option value={[task.status, task.id]}>
-                              In Progress
-                            </option>
-                            <option value={["In Review / QA", task.id]}>
-                              In Review / QA
-                            </option>
-                            <option value={["Completed", task.id]}>
-                              Completed
-                            </option>
-                          </select>
-                        </form>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </td>
-          {/* <td>In Review/QA
-                <th>Title</th>
-                <th>Description</th>
-                <th>Assignee</th>
-                <th>Status</th>
-                    <tbody>
-                        {tasks.filter(task => task.status == "In Review / QA" && task.board.id == boardNumVar).map(task => {
-                            return (
-                            <tr key={task.id}>
-                                <td>{ task.title }</td>
-                                <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
-                                <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {tasks.map(task => {
-                                    return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
-                                </td>
-                            </tr>
-                            );
-                        })}
-                    </tbody>
-            </td>
-            <td>Complete!
-                <th>Title</th>
-                <th>Description</th>
-                <th>Assignee</th>
-                <th>Status</th>
-                    <tbody>
-                        {tasks.filter(task => task.status == "Completed" && task.board.id == boardNumVar).map(task => {
-                            return (
-                            <tr key={task.id}>
-                                <td>{ task.title }</td>
-                                <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
-                                <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {tasks.map(task => {
-                                    return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
-                                </td>
-                            </tr>
-                            );
-                        })}
-                    </tbody>
-            </td> */}
-        </tbody>
-      </table>
-    </>
-  );
-}
+// const MainPage = (props) => {
+//   const [conferenceColumns, setConferenceColumns] = useState([[], [], []]);
+//   const fetchData = async () => {
+//     const url = "http://localhost:8000/api/conferences/";
+//     try {
+//       const response = await fetch(url);
+//       if (response.ok) {
+//         // Get the list of conferences
+//         const data = await response.json();
+//         // Create a list of for all the requests and
+//         // add all of the requests to it
+//         const requests = [];
+//         for (let conference of data.conferences) {
+//           const detailUrl = `http://localhost:8000${conference.href}`;
+//           requests.push(fetch(detailUrl));
+//         }
+//         // Wait for all of the requests to finish
+//         // simultaneously
+//         const responses = await Promise.all(requests);
+//         // Set up the "columns" to put the conference
+//         // information into
+//         const columns = [[], [], []];
+//         // Loop over the conference detail responses and add
+//         // each to to the proper "column" if the response is
+//         // ok
+//         let i = 0;
+//         for (const conferenceResponse of responses) {
+//           if (conferenceResponse.ok) {
+//             const details = await conferenceResponse.json();
+//             columns[i].push(details);
+//             i = i + 1;
+//             if (i > 2) {
+//               i = 0;
+//             }
+//           } else {
+//             console.error(conferenceResponse);
+//           }
+//         }
+//         // Set the state to the new list of three lists of
+//         // conferences
+//         setConferenceColumns(columns);
+//       }
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   };
+//   useEffect(() => {
+//     fetchData();
+//   }, []);
+//   return (
+//     <>
+//       <div className="px-4 py-5 my-5 mt-0 text-center bg-info">
+//         <img
+//           className="bg-white rounded shadow d-block mx-auto mb-4"
+//           src="/logo.svg"
+//           alt=""
+//           width="600"
+//         />
+//         <h1 className="display-5 fw-bold">Conference GO!</h1>
+//         <div className="col-lg-6 mx-auto">
+//           <p className="lead mb-4">
+//             The only resource you'll ever need to plan an run your in-person or
+//             virtual conference for thousands of attendees and presenters.
+//           </p>
+//           <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+//             <Link
+//               to="/attendees/new"
+//               className="btn btn-primary btn-lg px-4 gap-3"
+//             >
+//               Attend a conference
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="container">
+//         <h2>Upcoming conferences</h2>
+//         <div className="row">
+//           {conferenceColumns.map((conferenceList, index) => {
+//             return <ConferenceColumn key={index} list={conferenceList} />;
+//           })}
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+// export default MainPage;
