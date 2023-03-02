@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function BoardDetail({ tasks, getTasks, boards, getBoards, statuses }){
+export default function BoardDetail({ tasks, getTasks, boards, getBoards }){
   const [taskStatus, setTaskStatus] = useState('');
   const [boardNumVar, setBoardNumVar] = useState('');
 
   
-  const updateTask = async (id) => {
+  const updateTask = async (id, status) => {
     const data = {};
     console.log("ID", id);
     data.status = taskStatus;
-    console.log("DATA", data);
+    console.log("STATUS!!!!!!!!!!", status);
 
     const taskUrl = `http://localhost:8080/tasks/${id}/`;
     const fetchConfig = {
         method: "PATCH",
-        body: JSON.stringify(data),
+        body: JSON.stringify({"status": status}),
         headers: {
         'Content-Type': 'application/json',
         },
@@ -25,7 +25,7 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
     const task = await response.json();
     console.log(task);
     setTaskStatus('');
-    // getTasks();
+    getTasks();
   }
   }
   if (tasks === undefined) {
@@ -34,9 +34,14 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
 
 
   const handleTaskStatus = async (event) => {
-    const value = event.target.value;
-    setTaskStatus(value);
-    updateTask();
+    let statusString = event.target.value;
+    let statusArray = statusString.split(",");
+    const status = statusArray[0];
+    const id = statusArray[1];
+    console.log("status", status);
+    console.log("id", id);
+    // setTaskStatus(status);
+    updateTask(id, status);
     }
   
   const handleBoardNumVarChange = async (event) => {
@@ -51,13 +56,17 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
     
   }
 
+//    useEffect(() => {
+//      getTasks();
+//    }, []);
+
 
   return (
     <>
           <div><br></br></div>
       <form onSubmit={handleSubmit} id="select-board-form">
               <div className="mb-3">
-                <div className="form-floating mb-3">
+                <div className="form-floating mb-1">
                 <select onChange={handleBoardNumVarChange} placeholder="Board" required type="text"  name="boardNumVar" id="boardNumVar" className="form-select" value={boardNumVar}>
                   <option>Board</option>
                   {boards.map(board => {
@@ -84,81 +93,63 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
           </tr>
         </thead>
         <tbody>
-            {/* <td>Backlog */}
-                {/* <div class="card">
-                <div class="card-body">
-                    {tasks.filter(task => task.status == "Backlog" && task.board.id == boardNumVar).map(task => {
-                            return (
-                    <h5 class="card-title">Task title</h5>
-                    <p class="card-text">Task description.</p>
-                    <a href="#" class="btn btn-primary">
-                    Details
-                    </a>
-
-                </div>
-                </div>
-                    )} */}
-
-
-
-
-                {/* <th>Title</th>
-                <th>Description</th>
-                <th>Assignee</th> 
-                <th>Status</th>
-                    <tbody>
-                        {tasks.filter(task => task.status == "Backlog" && task.board.id == boardNumVar).map(task => {
-                            return (
-                            <tr key={task.id}>
-                                <td>{ task.title }</td>
-                                <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
-                                <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {tasks.map(task => {
-                                    return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
-                                </td>   
-                            </tr>
-                            );
-                        })}
-                    </tbody>
-            </td> 
-            <td>To Do
+            <td>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Assignee</th> 
                 <th>Status</th>
                     <tbody>
-                        {tasks.filter(task => task.status == "To Do" && task.board.id == boardNumVar).map(task => {
+                        {tasks.filter(task => task.status == "Backlog" && task.board == boardNumVar).map(task => {
                             return (
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
+                                <td>{ task.assignee }</td>                          
                                 <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {tasks.map(task => {
-                                    return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
-                                </td>  
+                                      {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
+                                        <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
+                                        <option value={["Backlog", task.id]}>Backlog</option>
+                                        <option value={["To Do", task.id]}>To Do</option>  
+                                        <option value={["In Progress", task.id]}>In Progress</option>                                      
+                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>
+                                        <option value={["Completed", task.id]}>Completed</option>                                        
+                                        </select>
+                                      {/* </form>                                       */}
+                                </td>   
                             </tr>
                             );
                         })}
                     </tbody>
-            </td> */}
+            </td>
+            <td>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Assignee</th> 
+                <th>Status</th>
+                    <tbody>
+                        {tasks.filter(task => task.status == "To Do" && task.board == boardNumVar).map(task => {
+                            return (
+                            <tr key={task.id}>
+                                <td>{ task.title }</td>
+                                <td>{ task.description }</td>
+                                <td>{ task.assignee }</td>                          
+                                <td>
+                                      {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
+                                        <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
+                                        <option value={["To Do", task.id]}>To Do</option>
+                                        <option value={["Backlog", task.id]}>Backlog</option>
+                                        <option value={["In Progress", task.id]}>In Progress</option>                                      
+                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>
+                                        <option value={["Completed", task.id]}>Completed</option>                                        
+                                        </select>
+                                      {/* </form>                                       */}
+                                </td>   
+                            </tr>
+                            );
+                        })}
+                    </tbody>
+            </td>
+            {/* In Progress */}
             <td>
                 <th>Title</th>
                 <th>Description</th>
@@ -170,18 +161,15 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>                              
+                                <td>{ task.assignee }</td>                          
                                 <td>
                                       {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
-                                        <select onChange={handleTaskStatus} placeholder= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                        <option>Status</option>
-                                        {statuses.map(status => {
-                                        return (
-                                        <option key={status.id} value={task.status}>
-                                            {status.status}
-                                        </option>
-                                        );
-                                        })}
+                                        <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
+                                        <option value={["In Progress", task.id]}>In Progress</option>
+                                        <option value={["Backlog", task.id]}>Backlog</option>
+                                        <option value={["To Do", task.id]}>To Do</option>                                        
+                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>
+                                        <option value={["Completed", task.id]}>Completed</option>                                        
                                         </select>
                                       {/* </form>                                       */}
                                 </td>   
@@ -190,64 +178,65 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards, status
                         })}
                     </tbody>
             </td>
-            {/* <td>In Review/QA
+            {/* In Review / QA */}
+            <td>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Assignee</th> 
                 <th>Status</th>
                     <tbody>
-                        {tasks.filter(task => task.status == "In Review / QA" && task.board.id == boardNumVar).map(task => {
+                        {tasks.filter(task => task.status == "In Review / QA" && task.board == boardNumVar).map(task => {
                             return (
                             <tr key={task.id}>
                                 <td>{ task.title }</td>
                                 <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
+                                <td>{ task.assignee }</td>                          
                                 <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {tasks.map(task => {
-                                    return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
-                                </td>  
-                            </tr>
-                            );
-                        })}
-                    </tbody>
-            </td>
-            <td>Complete!
-                <th>Title</th>
-                <th>Description</th>
-                <th>Assignee</th> 
-                <th>Status</th>
-                    <tbody>
-                        {tasks.filter(task => task.status == "Completed" && task.board.id == boardNumVar).map(task => {
-                            return (
-                            <tr key={task.id}>
-                                <td>{ task.title }</td>
-                                <td>{ task.description }</td>
-                                <td>{ task.assignee }</td>
-                                <td>
-                                    <select onChange={updateTask(task.id)} placeholder= { task.status } required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
-                                    <option>Status</option>
-                                    {tasks.map(task => {
-                                    return (
-                                    <option key={task.id} value={task.status}>
-                                        {task.status}
-                                    </option>
-                                    );
-                                    })}
-                                    </select>
+                                      {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
+                                        <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
+                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>                                        
+                                        <option value={["Backlog", task.id]}>Backlog</option>
+                                        <option value={["To Do", task.id]}>To Do</option>                                        
+                                        <option value={["In Progress", task.id]}>In Progress</option>
+                                        <option value={["Completed", task.id]}>Completed</option>                                        
+                                        </select>
+                                      {/* </form>                                       */}
                                 </td>   
                             </tr>
                             );
                         })}
                     </tbody>
-            </td> */}
+            </td>
+            <td>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Assignee</th> 
+                <th>Status</th>
+                    <tbody>
+                        {tasks.filter(task => task.status == "Completed" && task.board == boardNumVar).map(task => {
+                            return (
+                            <tr key={task.id}>
+                                <td>{ task.title }</td>
+                                <td>{ task.description }</td>
+                                <td>{ task.assignee }</td>                          
+                                <td>
+                                      {/* <form onSubmit={updateTask(task.id)} id="task-status-form">   */}
+                                        <select onChange={handleTaskStatus} defaultValue= {task.status} required type="text"  name="taskStatus" id="taskStatus" className="form-select" value={taskStatus}>
+                                        <option value={["Completed", task.id]}>Completed</option>                                                                                
+                                        <option value={["Backlog", task.id]}>Backlog</option>
+                                        <option value={["To Do", task.id]}>To Do</option>                                        
+                                        <option value={["In Progress", task.id]}>In Progress</option>
+                                        <option value={["In Review / QA", task.id]}>In Review / QA</option>                                                                                
+                                        </select>
+                                      {/* </form>                                       */}
+                                </td>   
+                            </tr>
+                            );
+                        })}
+                    </tbody>
+            </td>
+            
+            
         </tbody>
       </table>      
     </>
