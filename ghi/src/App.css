@@ -62,9 +62,11 @@
 }
 
 .board {
-  border: 2px solid gray;
+  background-color: transparent;
 }
 
 .select-board {
-  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 8em;
 }
