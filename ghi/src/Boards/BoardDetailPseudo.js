@@ -68,10 +68,9 @@ export default function BoardDetailTest({
       <div>
         <br></br>
       </div>
-      <h1>HELLLLOOOOOOOOOOOOOOOOO</h1>
       <form onSubmit={handleSubmit} id="select-board-form">
         <div className="mb-3">
-          <div className="form-floating mb-1">
+          <div className="select-board">
             <select
               onChange={handleBoardNumVarChange}
               placeholder="Board"
@@ -79,7 +78,7 @@ export default function BoardDetailTest({
               type="text"
               name="boardNumVar"
               id="boardNumVar"
-              className="form-select"
+              className="board"
               value={boardNumVar}
             >
               <option>Board</option>
@@ -98,14 +97,14 @@ export default function BoardDetailTest({
       {/* Once<Cole state of boardNumVar is selected, use it to filter tasks for<Cole board display */}
       <Container>
         <Row>
-          <Col>Backlog</Col>
-          <Col>To Do</Col>
-          <Col>In Progress</Col>
-          <Col>In Review/QA</Col>
-          <Col>Complete</Col>
+          <Col className="ColName">Backlog</Col>
+          <Col className="ColName">To Do</Col>
+          <Col className="ColName">In Progress</Col>
+          <Col className="ColName">In Review/QA</Col>
+          <Col className="ColName">Complete</Col>
         </Row>
         <Row>
-          <Col>
+          <Col className="Col">
             {tasks
               .filter(
                 (task) => task.status == "Backlog" && task.board == boardNumVar
@@ -115,8 +114,12 @@ export default function BoardDetailTest({
                   <div key={task.id}>
                     <Card className="Card">
                       <Card.Body>
-                        <Card.Header>{task.title}</Card.Header>
-                        <Card.Text>{task.description}</Card.Text>
+                        <Card.Header className="CardHead">
+                          {task.title}
+                        </Card.Header>
+                        <Card.Text className="CardText">
+                          {task.description}
+                        </Card.Text>
                         <Card.Subtitle className="mb-2 text-muted">
                           {task.assignee}
                         </Card.Subtitle>
@@ -148,7 +151,7 @@ export default function BoardDetailTest({
                 );
               })}
           </Col>
-          <Col>
+          <Col className="Col">
             {tasks
               .filter(
                 (task) => task.status == "To Do" && task.board == boardNumVar
@@ -158,8 +161,12 @@ export default function BoardDetailTest({
                   <div key={task.id}>
                     <Card className="Card">
                       <Card.Body>
-                        <Card.Header>{task.title}</Card.Header>
-                        <Card.Text>{task.description}</Card.Text>
+                        <Card.Header className="CardHead">
+                          {task.title}
+                        </Card.Header>
+                        <Card.Text className="CardText">
+                          {task.description}
+                        </Card.Text>
                         <Card.Subtitle className="mb-2 text-muted">
                           {task.assignee}
                         </Card.Subtitle>
@@ -191,7 +198,7 @@ export default function BoardDetailTest({
                 );
               })}
           </Col>
-          <Col>
+          <Col className="Col">
             {tasks
               .filter(
                 (task) =>
@@ -202,8 +209,12 @@ export default function BoardDetailTest({
                   <div key={task.id}>
                     <Card className="Card">
                       <Card.Body>
-                        <Card.Header>{task.title}</Card.Header>
-                        <Card.Text>{task.description}</Card.Text>
+                        <Card.Header className="CardHead">
+                          {task.title}
+                        </Card.Header>
+                        <Card.Text className="CardText">
+                          {task.description}
+                        </Card.Text>
                         <Card.Subtitle className="mb-2 text-muted">
                           {task.assignee}
                         </Card.Subtitle>
@@ -235,7 +246,7 @@ export default function BoardDetailTest({
                 );
               })}
           </Col>
-          <Col>
+          <Col className="Col">
             {tasks
               .filter(
                 (task) =>
@@ -246,8 +257,12 @@ export default function BoardDetailTest({
                   <div key={task.id}>
                     <Card className="Card">
                       <Card.Body>
-                        <Card.Header>{task.title}</Card.Header>
-                        <Card.Text>{task.description}</Card.Text>
+                        <Card.Header className="CardHead">
+                          {task.title}
+                        </Card.Header>
+                        <Card.Text className="CardText">
+                          {task.description}
+                        </Card.Text>
                         <Card.Subtitle className="mb-2 text-muted">
                           {task.assignee}
                         </Card.Subtitle>
@@ -279,7 +294,7 @@ export default function BoardDetailTest({
                 );
               })}
           </Col>
-          <Col>
+          <Col className="Col">
             {tasks
               .filter(
                 (task) =>
@@ -290,8 +305,12 @@ export default function BoardDetailTest({
                   <div key={task.id}>
                     <Card className="Card">
                       <Card.Body>
-                        <Card.Header>{task.title}</Card.Header>
-                        <Card.Text>{task.description}</Card.Text>
+                        <Card.Header className="CardHead">
+                          {task.title}
+                        </Card.Header>
+                        <Card.Text className="CardText">
+                          {task.description}
+                        </Card.Text>
                         <Card.Subtitle className="mb-2 text-muted">
                           {task.assignee}
                         </Card.Subtitle>

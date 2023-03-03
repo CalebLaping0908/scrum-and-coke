@@ -14,6 +14,57 @@
 }
 
 .Card {
-  border: 10px;
-  box-shadow: gray;
+  border: 2px solid gray;
+  margin-top: 15px;
+  box-shadow: 5px 3px 3px gray;
+  border-radius: 5px;
+}
+
+.ColName {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+.Col {
+  background-color: rgb(238, 237, 237);
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 4px;
+  padding-bottom: 10px;
+}
+
+.CardText {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.8);
+  -webkit-font-smoothing: antialiased;
+}
+
+.CardHead {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.8);
+  -webkit-font-smoothing: antialiased;
+}
+
+.board {
+  border: 2px solid gray;
+}
+
+.select-board {
+  justify-content: center;
 }
