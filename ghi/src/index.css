@@ -9,7 +9,14 @@ body {
   font-size: 20px;
   padding: 70px;
   background: #2d545e;
-  background: linear-gradient(45deg, #f2bfbb, #7b80d2, #5990d9, #f2bfbb 100%);
+  background: linear-gradient(
+    70deg,
+    #f2bfbb,
+    #7b80d2,
+    rgb(229, 229, 229),
+    #5990d9,
+    #f2bfbb 100%
+  );
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto;

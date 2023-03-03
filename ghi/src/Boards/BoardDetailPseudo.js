@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card, Row, Col, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Card, Row, Col, Container, Badge, Button } from "react-bootstrap";
 
 export default function BoardDetailTest({
   tasks,
@@ -65,9 +66,7 @@ export default function BoardDetailTest({
 
   return (
     <>
-      <div>
-        <br></br>
-      </div>
+      <div>{/* <br></br> */}</div>
       <form onSubmit={handleSubmit} id="select-board-form">
         <div className="mb-3">
           <div className="select-board">
@@ -96,15 +95,14 @@ export default function BoardDetailTest({
 
       {/* Once<Cole state of boardNumVar is selected, use it to filter tasks for<Cole board display */}
       <Container>
-        <Row>
-          <Col className="ColName">Backlog</Col>
-          <Col className="ColName">To Do</Col>
-          <Col className="ColName">In Progress</Col>
-          <Col className="ColName">In Review/QA</Col>
-          <Col className="ColName">Complete</Col>
-        </Row>
+        <Link to="/tasks/new">
+          <Button className="EditButton" variant="outline-light" size="lg">
+            Create Task
+          </Button>
+        </Link>
         <Row>
           <Col className="Col">
+            <h2 className="Header">Backlog</h2>
             {tasks
               .filter(
                 (task) => task.status == "Backlog" && task.board == boardNumVar
@@ -120,9 +118,9 @@ export default function BoardDetailTest({
                         <Card.Text className="CardText">
                           {task.description}
                         </Card.Text>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          {task.assignee}
-                        </Card.Subtitle>
+                        <Badge pill bg="info">
+                          {/* {task.assignee} */} Mochi B
+                        </Badge>
                         <select
                           onChange={handleTaskStatus}
                           defaultValue={task.status}
@@ -152,6 +150,7 @@ export default function BoardDetailTest({
               })}
           </Col>
           <Col className="Col">
+            <h2 className="Header">To Do</h2>
             {tasks
               .filter(
                 (task) => task.status == "To Do" && task.board == boardNumVar
@@ -167,9 +166,9 @@ export default function BoardDetailTest({
                         <Card.Text className="CardText">
                           {task.description}
                         </Card.Text>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          {task.assignee}
-                        </Card.Subtitle>
+                        <Badge pill bg="info">
+                          {/* {task.assignee} */} Rue G
+                        </Badge>
                         <select
                           onChange={handleTaskStatus}
                           defaultValue={task.status}
@@ -199,6 +198,7 @@ export default function BoardDetailTest({
               })}
           </Col>
           <Col className="Col">
+            <h2 className="Header">In Progress</h2>
             {tasks
               .filter(
                 (task) =>
@@ -215,9 +215,9 @@ export default function BoardDetailTest({
                         <Card.Text className="CardText">
                           {task.description}
                         </Card.Text>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          {task.assignee}
-                        </Card.Subtitle>
+                        <Badge pill bg="info">
+                          {/* {task.assignee} */} Jane D
+                        </Badge>
                         <select
                           onChange={handleTaskStatus}
                           defaultValue={task.status}
@@ -247,6 +247,7 @@ export default function BoardDetailTest({
               })}
           </Col>
           <Col className="Col">
+            <h2 className="Header">In Review / QA</h2>
             {tasks
               .filter(
                 (task) =>
@@ -263,9 +264,9 @@ export default function BoardDetailTest({
                         <Card.Text className="CardText">
                           {task.description}
                         </Card.Text>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          {task.assignee}
-                        </Card.Subtitle>
+                        <Badge pill bg="info">
+                          {/* {task.assignee} */} Bunny B
+                        </Badge>
                         <select
                           onChange={handleTaskStatus}
                           defaultValue={task.status}
@@ -295,6 +296,7 @@ export default function BoardDetailTest({
               })}
           </Col>
           <Col className="Col">
+            <h2 className="Header">Completed</h2>
             {tasks
               .filter(
                 (task) =>
@@ -311,9 +313,9 @@ export default function BoardDetailTest({
                         <Card.Text className="CardText">
                           {task.description}
                         </Card.Text>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          {task.assignee}
-                        </Card.Subtitle>
+                        <Badge pill bg="info">
+                          {/* {task.assignee} */} Liz G
+                        </Badge>
                         <select
                           onChange={handleTaskStatus}
                           defaultValue={task.status}

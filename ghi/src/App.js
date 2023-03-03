@@ -9,7 +9,7 @@ import MainPage from "./MainPage";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import BoardForm from "./Boards/BoardForm";
-import Nav from "./Nav";
+import NavBar from "./Nav";
 import BoardList from "./Boards/BoardList";
 import LoginForm from "./Users/LoginForm";
 import Logout from "./Users/Logout";
@@ -83,7 +83,7 @@ function App(props) {
     <BrowserRouter>
       <AuthProvider>
         <GetToken />
-        <Nav />
+        <NavBar />
         <div className="gradient-background">
           <Routes>
             <Route path="/" element={<MainPage />} />
