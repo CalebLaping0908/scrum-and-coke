@@ -13,26 +13,139 @@
   color: white;
 }
 
-/* ADDED CODE BELOW HERE FOR FUN TC 2-23-2023 */
-
-body {
-  display: flex;
-  min-height: 100vh;
-  margin: 0;
-  /* align-items: center; */
-  justify-content: center; 
-  background-color: #bfdfec;
-  /* font-family: system-ui, calibri, serif; */
-  background-repeat: repeat-x;
-  background-image: url("https://i.stack.imgur.com/b7z29.png");
-  animation: movement 10s linear infinite;
+.Card {
+  border: 2px solid gray;
+  margin-top: 15px;
+  box-shadow: 3px 2px 2px gray;
+  border-radius: 5px;
 }
 
-@keyframes movement {
-  0% {
-    background-position: 0px 0px;
+.Col {
+  background-color: rgb(238, 237, 237, 0.7);
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 4px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.CardText {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.8);
+  -webkit-font-smoothing: antialiased;
+}
+
+.CardHead {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.8);
+  -webkit-font-smoothing: antialiased;
+}
+
+.board {
+  background-color: transparent;
+  color: white;
+}
+
+.select-board-form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 8em;
+  border: none;
+  outline: none;
+}
+.select-board {
+  border: none;
+  outline: none;
+}
+
+.Header {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.EditButton {
+  margin-bottom: 20px;
+}
+
+.Navigation {
+  margin-top: -70px;
+}
+
+.NavLink {
+  font-size: 20px;
+}
+
+.NavLink2 {
+  font-size: 20px;
+}
+
+.HomeButton {
+  font-size: 30px;
+}
+
+.InputText {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.8);
+  -webkit-font-smoothing: antialiased;
+}
+
+.Signup {
+  margin-right: 5px;
+  margin-top: -240px;
+}
+
+.Login {
+  margin-left: 5px;
+  margin-top: -240px;
+}
+
+.Wrapper {
+  height: 40vh;
+  display: grid;
+  place-items: center;
+}
+
+.Slogan {
+  width: 48ch;
+  animation: typing 2s steps(48), blink 0.5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 23px;
+  margin-top: -120px;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
   }
-  100% {
-    background-position: 560px 0px;
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
   }
 }
