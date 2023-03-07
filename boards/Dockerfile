@@ -43,8 +43,8 @@ COPY package.json /usr/src/app/
 RUN npm install --production && npm cache clean --force
 COPY ./ /usr/src/app
 ENV NODE_ENV production
-ENV PORT 80
-EXPOSE 80
+ENV PORT 90
+EXPOSE 90
 
 CMD [ "npm", "start" ]
 # FROM php:7.3-apache  1
