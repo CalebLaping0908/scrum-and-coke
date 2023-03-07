@@ -1,23 +1,4 @@
-{
+ {
   "schemaVersion": 2,
-  "dockerfileLines": [
-    "FROM node:latest",
-    "WORKDIR /app",
-    "COPY . .",
-    "RUN npm install",
-    "EXPOSE 3000"
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "port": 3000,
-  "deployPath": "/",
-  "preDeployFunction": "npm install",
-  "postDeployFunction": "npm start",
-  "healthcheck": {
-    "test": "curl -f http://localhost:3000/ || exit 1",
-    "interval": 30,
-    "timeout": 10,
-    "retries": 3
-  }
-}
+  "templateId": "node/8.7.0"
+ }
