@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useToken } from '../Auth';
+import { useNavigate } from "react-router-dom";
 
 function SignupForm({getUsers}) {
 
+    const [, , , signup] = useToken();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [fullName, setFullName] = useState('');
     const [password, setPassword] = useState('');
@@ -29,32 +33,23 @@ function SignupForm({getUsers}) {
 
     const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const data = {};
     data.email = email;
     data.full_name = fullName;
-    data.password = password; 
+    data.password = password;
     data.employee_number = employeeNumber;
-    
-    const usersUrl = 'http://localhost:8080/users/';
-    const fetchConfig = {
-        method: "post",
-        body: JSON.stringify(data),
-        headers: {
-        'Content-Type': 'application/json',
-        },
+
+    const signupRequest = await signup(email, fullName, password, employeeNumber)
+
+    setEmail('');
+    setFullName('');
+    setPassword('');
+    setEmployeeNumber('');
+    getUsers();
+    navigate("/");
+
     };
-    
-    const response = await fetch(usersUrl, fetchConfig);
-    if (response.ok) {
-        const newUser = await response.json();
-        setEmail('');
-        setFullName('');
-        setPassword('');
-        setEmployeeNumber('');
-        getUsers();        
-    }
-    }
 
     return (
         <div className="row">
