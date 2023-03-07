@@ -47,3 +47,5 @@ ENV PORT 80
 EXPOSE 80
 
 CMD [ "npm", "start" ]
+# FROM php:7.3-apache  1
+# COPY ./ /var/www/html/  1
