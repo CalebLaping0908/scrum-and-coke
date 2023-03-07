@@ -38,7 +38,7 @@ RUN apk update && apk upgrade && \
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY ../ghi/src/package.json /usr/app/
+COPY ../ghi/package.json /usr/src/app/
 RUN npm install --production && npm cache clean --force
 COPY ./ /usr/src/app
 ENV NODE_ENV production
