@@ -15,7 +15,7 @@ COPY ./ /usr/src/app
 
 EXPOSE 90
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:90"]
 
 # FROM python:3.10-bullseye
 # RUN python -m pip install --upgrade pip
