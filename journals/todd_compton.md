@@ -3,6 +3,10 @@
 ## Feb 27, 2023
 Today I worked on:
 
+
+## Feb 27, 2023
+Today I worked on:
+
 Further ideation and actual code for the scrum board detail page.  Also, participated in mob programming the task creation form due the extra complexity of foreign keys for users, boards and status.
 
 A big aha moment was creating and defining a status table with all values populated directly from the migration where it was created since these should be constants which are only referenced, but never modified. 
