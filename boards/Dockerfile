@@ -19,7 +19,7 @@
 
 # RUN python -m pip install -r requirements.txt  1
 # CMD uvicorn main:app --host 0.0.0.0 --port $PORT
-CMD uvicorn main:app --host 0.0.0.0
+# CMD uvicorn main:app --host 0.0.0.0
 # CMD uvicorn main:app --host 0.0.0.0  1
 
 # If you're using a relational database and want migrations
