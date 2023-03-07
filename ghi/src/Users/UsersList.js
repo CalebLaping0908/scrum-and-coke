@@ -1,13 +1,16 @@
-import { useNavigate } from "react";
-import { useToken } from "../Auth";
+import React, { useEffect } from 'react';
+import { useToken } from '../Auth';
+import { useNavigate } from 'react-router-dom';
 
-export default function UsersList({ users, getUsers }) {
-  const [token] = useToken();
-  const navigate = useNavigate();
+export default function UsersList({ users, getUsers }){
+    const [token] = useToken();
+    const navigate = useNavigate();
 
-  if (!token) {
-    navigate("/users/login");
-  }
+    useEffect( () => {
+        if (!token) {
+        navigate("/users/login");
+    }
+    }, );
 
   const deleteUser = async (id) => {
     const response = await fetch(`http://localhost:8080/users/${id}/`, {
