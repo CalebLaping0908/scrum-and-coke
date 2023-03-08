@@ -1,40 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap");
 
-body {
-  font-family: "Muli", sans-serif;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 400;
-  line-height: 1.58;
-  letter-spacing: -0.003em;
-  font-size: 20px;
-  padding: 70px;
-  background: #2d545e;
-  background: linear-gradient(
-    70deg,
-    #f2bfbb,
-    #7b80d2,
-    rgb(229, 229, 229),
-    #5990d9,
-    #f2bfbb 100%
-  );
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 200% 200%;
-  height: 100%;
-  min-height: auto;
-}
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap");
 
-h1,
-p,
-nav,
-th,
-select {
+body {
   font-family: "Quicksand", sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
-  font-size: 38px;
+  font-size: 30px;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: rgba(0, 0, 0, 0.8);
-  -webkit-font-smoothing: antialiased;
+}
+.background {
+  padding: 70px;
+  background: #fdfdfd;
+  background-image: radial-gradient(
+      at 61% 99%,
+      hsl(321, 100%, 88%) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 75% 35%, hsl(180, 72%, 80%) 0px, transparent 50%),
+    radial-gradient(at 45% 68%, hsl(262, 68%, 81%) 0px, transparent 90%),
+    radial-gradient(at 14% 9%, hsl(247, 92%, 63%) 0px, transparent 90%),
+    radial-gradient(at 40% 2%, hsl(287, 47%, 93%) 0px, transparent 50%);
+  min-height: 100vh;
+  width: 100%;
 }

@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from queries.pool import pool
 from typing import List, Union, Optional
 
+
 class Error(BaseModel):
     message: str
 
@@ -14,12 +15,13 @@ class BoardOut(BaseModel):
     id: int
     name: str
 
+
 class BoardsOutAll(BaseModel):
     boards: List[BoardOut]
 
 
 class BoardRepository:
-    def create(self, board: BoardIn) -> Union[Error,BoardOut]:
+    def create(self, board: BoardIn) -> Union[Error, BoardOut]:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -32,11 +34,10 @@ class BoardRepository:
                     """,
                     [
                         board.name,
-                    ]
+                    ],
                 )
                 id = result.fetchone()[0]
                 return self.board_in_to_out(id, board)
-
 
     def get_all(self) -> Union[Error, BoardsOutAll]:
         try:
@@ -51,13 +52,11 @@ class BoardRepository:
                         """
                     )
                     return [
-                        self.record_to_board_out(record)
-                        for record in result
+                        self.record_to_board_out(record) for record in result
                     ]
 
         except Exception:
             return {"message": "could not get all boards"}
-
 
     def update(self, board_id: int, board: BoardIn) -> Union[Error, BoardOut]:
         try:
@@ -69,16 +68,12 @@ class BoardRepository:
                         SET name = %s
                         WHERE id = %s
                         """,
-                        [
-                            board.name,
-                            board_id
-                        ]
+                        [board.name, board_id],
                     )
                     return self.board_in_to_out(board_id, board)
 
         except Exception:
             return {"message": "could not update board"}
-
 
     def delete(self, board_id: int) -> bool:
         try:
@@ -89,13 +84,12 @@ class BoardRepository:
                         DELETE FROM boards
                         WHERE id = %s
                         """,
-                        [board_id]
+                        [board_id],
                     )
                     return True
 
         except Exception:
             return False
-
 
     def get_one(self, board_id: int) -> Optional[BoardOut]:
         try:
@@ -108,7 +102,7 @@ class BoardRepository:
                         FROM boards
                         WHERE id = %s
                         """,
-                        [board_id]
+                        [board_id],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -119,11 +113,9 @@ class BoardRepository:
             print(e)
             return {"message": "could not get that board"}
 
-
     def board_in_to_out(self, id: int, board: BoardIn):
         old_data = board.dict()
         return BoardOut(id=id, **old_data)
-
 
     def record_to_board_out(self, record):
         return BoardOut(

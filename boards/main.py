@@ -18,8 +18,6 @@ app.add_middleware(
         "http://localhost:8080",
         os.environ.get("CORS_HOST", "http://localhost:3000"),
         os.environ.get("CORS_HOST", "http://localhost:8080"),
-        "http://localhost:8080",
-        "http://localhost:3000",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -36,6 +34,6 @@ def launch_details():
             "day": "10",
             "hour": 19,
             "min": 0,
-            "tz:": "PST"
+            "tz:": "PST",
         }
     }

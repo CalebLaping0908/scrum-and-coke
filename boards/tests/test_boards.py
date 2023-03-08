@@ -4,9 +4,11 @@ from queries.boards import BoardRepository
 
 client = TestClient(app)
 
+
 class EmptyBoardQueries:
     def get_all(self):
         return []
+
 
 class CreateBoardQueries:
     def create(self, board):
@@ -27,21 +29,16 @@ def test_get_all_boards():
     app.dependency_overrides = {}
 
     assert response.status_code == 200
-    assert response.json() == {"boards":[]}
+    assert response.json() == {"boards": []}
 
 
 def test_create_board():
 
     app.dependency_overrides[BoardRepository] = CreateBoardQueries
 
-    json = {
-        "name": "My board"
-    }
+    json = {"name": "My board"}
 
-    expected = {
-        "id": 1,
-        "name": "My board"
-    }
+    expected = {"id": 1, "name": "My board"}
 
     response = client.post("/boards", json=json)
 
