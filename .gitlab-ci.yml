@@ -43,7 +43,6 @@ build-front-end-job:
   artifacts:
     paths:
       - ghi/build/
-
 # Deploy the React/JavaScript front-end to GitLab pages
 pages:
   stage: deploy
