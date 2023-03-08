@@ -24,7 +24,7 @@ services:
     volumes:
       - ./boards:/app
     environment:
-      SIGNING_KEY: ${SIGNING_KEY}
+      SIGNING_KEY: hello
       DATABASE_URL: postgresql://boards:password@postgres/boards
       WAIT_HOSTS: postgres:5432
 
