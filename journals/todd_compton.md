@@ -1,7 +1,49 @@
 ## Todd Compton's Journal
 
-## Feb 27, 2023
+## Mar 07, 2023
 Today I worked on:
+
+A brief review of deployment with the team to see if any glaring errors jumped out and implementing delete a task to ensure we have full CRUD on our app.  Liz and I also decided to begin tackling Atlassian's react-beautiful-dnd, but have hit a frustrating dead-end where tasks will no longer render on the screen after applying DragDropContext, Draggable and Droppable tags.
+
+Today's aha is that if it were easy, everyone would be doing this.
+
+## Mar 06, 2023
+Today I worked on:
+
+With the limited time due to the practice exam in the schedule, additional styling was applied and we changed task assignee on the cards to display the users full name rather than the employee number.  This was accomplished by pulling in users, mapping through them and filtering to display where user.employee number = task.assignee and then displaying user.full_name.
+
+Today's aha was that I love using React and find it very intuitive to simply pull in the data needed and display what is desired, but with all of the data now being passed down from App.js, I do wonder when the appropriate time to use Redux would be?
+
+## Mar 05, 2023
+Today I worked on:
+
+Watching React Drag and Drop tutorial.
+
+## Mar 03, 2023
+Today I worked on:
+
+Writing unit test for users and styling the app.
+
+Today's aha was that a unit test to create a user would be exceedingly difficult with the Authenticator.py and hashed_password returns since predicting what the returned hashed_password would be is nearly impossible, as it should be.
+
+## Mar 02, 2023
+Today I worked on:
+
+Pair coding with Liz and sharing some of the CSS tricks I employed on my project Alpha during the stretch goal week.  We now have an attractive gradient background and a card component for each task with bootstrap applied.
+
+Today's aha moment was realizing just how much fun styling is once you have struggled through some functionality.  This instant gratification of applying some styling changes is a welcome change to the struggle of simply attempting to update the status of a task!
+
+## Mar 01, 2023
+Today I worked on:
+
+Woohoo!  Fixing the patch request, by passing id and status to the update task function from the on status change function and simply calling the JSON for the patch JSON.stringify({ status: status }) and finally calling getTasks after if the patch response is successful so that tasks immediately update on the DOM.  Finally!  What a relief to know that we now have a functioning app for our final project.
+
+## Feb 28, 2023
+Today I worked on:
+
+The board detail page with the idea of 5 nested tables in a main table with all tasks mapped in each, but filtered by task.status for each of the 5 statuses we have selected for our scrum/Kanban board.  It was a long day with a lot of code generated, but unfortunately the patch request simply is not yet working.  
+
+To be certain, it is frustrating to conceive an idea (nested tables) and struggle to implement it, but I am confident in the logic and believe Liz and I will fight through the details.
 
 
 ## Feb 27, 2023
