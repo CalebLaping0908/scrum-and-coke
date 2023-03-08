@@ -2,7 +2,7 @@ async def migrate():
     from . import down, up, LATEST, ZERO
     import os
     import sys
-
+    print('I HAVE GOTTEN INSIDE OF MIGRATIONS/MAIN.PY')
     db_url = os.environ["DATABASE_URL"]
     print(db_url, 'THIS IS OUR DB URL INSIDE MIGRATIONS/MAIN.PY')
     if len(sys.argv) < 2:
