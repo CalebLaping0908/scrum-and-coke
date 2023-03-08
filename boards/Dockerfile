@@ -6,6 +6,7 @@ WORKDIR /app
 # Modify these instructions to do that
 COPY requirements.txt requirements.txt
 COPY main.py main.py
+COPY authenticator.py authenticator.py
 COPY routers routers
 COPY queries queries
 
