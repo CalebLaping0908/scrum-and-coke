@@ -54,7 +54,9 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   return (
-    <AuthContext.Provider value={{ token, setToken, isLoggedIn, setIsLoggedIn, }}>
+    <AuthContext.Provider
+      value={{ token, setToken, isLoggedIn, setIsLoggedIn }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -62,8 +64,8 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuthContext = () => useContext(AuthContext);
 
-
 export function useToken() {
+  // eslint-disable-next-line no-unused-vars
   const { token, setToken, isLoggedIn, setIsLoggedIn } = useAuthContext();
   const navigate = useNavigate();
 
@@ -116,7 +118,7 @@ export function useToken() {
         email,
         full_name,
         password,
-        employee_number
+        employee_number,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -128,28 +130,7 @@ export function useToken() {
     return false;
   }
 
-//   async function update(username, password, email, firstName, lastName) {
-//     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/accounts`;
-//     const response = await fetch(url, {
-//       method: "patch",
-//       body: JSON.stringify({
-//         username,
-//         password,
-//         email,
-//         first_name: firstName,
-//         last_name: lastName,
-//       }),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-//     if (response.ok) {
-//       await login(username, password);
-//     }
-//     return false;
-//   }
-
-  return [ token, login, logout, signup ];
+  return [token, login, logout, signup];
 }
 
 export const useUser = (token) => {
@@ -175,4 +156,4 @@ export const useUser = (token) => {
   }, [token]);
 
   return user;
-}
+};

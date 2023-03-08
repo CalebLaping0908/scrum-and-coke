@@ -4,7 +4,13 @@ import { Card, Row, Col, Container, Badge, Button } from "react-bootstrap";
 import { useToken } from "../Auth";
 import { useNavigate } from "react-router-dom";
 
-export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
+export default function BoardDetail({
+  tasks,
+  getTasks,
+  boards,
+  getBoards,
+  users,
+}) {
   const [taskStatus, setTaskStatus] = useState("");
   const [boardNumVar, setBoardNumVar] = useState("");
   const [token] = useToken();
@@ -31,10 +37,12 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
     const response = await fetch(taskUrl, fetchConfig);
     if (response.ok) {
       const task = await response.json();
+      console.log(task);
       setTaskStatus("");
       getTasks();
     }
   };
+
   if (tasks === undefined) {
     return null;
   }
@@ -57,65 +65,81 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
     setBoardNumVar("");
     getBoards();
   };
-
   return (
     <>
-      <div></div>
-      <form
-        onSubmit={handleSubmit}
-        className="select-board-form"
-        id="select-board-form"
-      >
-        <div className="mb-3">
-          <div className="select-board">
-            <select
-              onChange={handleBoardNumVarChange}
-              placeholder="Board"
-              required
-              type="text"
-              name="boardNumVar"
-              id="boardNumVar"
-              className="board"
-              value={boardNumVar}
-            >
-              <option>Board</option>
-              {boards.map((board) => {
-                return (
-                  <option key={board.id} value={board.id}>
-                    {board.name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </div>
-      </form>
-      <Container>
-        <Link to="/newtask">
-          <Button className="EditButton" variant="outline-light" size="lg">
+      <Container className="BoardContainer">
+        <Row className="BoardDropDownMenu">
+          <form
+            onSubmit={handleSubmit}
+            className="select-board-form"
+            id="select-board-form"
+          >
+            <div className="mb-3">
+              <div className="select-board">
+                <select
+                  onChange={handleBoardNumVarChange}
+                  placeholder="Board"
+                  required
+                  type="text"
+                  name="boardNumVar"
+                  id="boardNumVar"
+                  className="board custom-select"
+                  value={boardNumVar}
+                >
+                  <option>Board</option>
+                  {boards.map((board) => {
+                    return (
+                      <option key={board.id} value={board.id}>
+                        {board.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </div>
+          </form>
+        </Row>
+        <Link to="/tasks/new">
+          <Button
+            className="CreateTaskButton"
+            variant="outline-light"
+            size="lg"
+          >
             Create Task
           </Button>
         </Link>
-        <Row>
-          <Col className="Col">
+        <Row className="row d-flex flex-row justify-content-between align-items-start">
+          <Col className="col d-flex flex-column align-items-center">
             <h2 className="Header">Backlog</h2>
             {tasks
               .filter(
+                // eslint-disable-next-line eqeqeq
                 (task) => task.status == "Backlog" && task.board == boardNumVar
               )
               .map((task) => {
                 return (
-                  <div key={task.id}>
-                    <Card className="Card">
+                  <div
+                    className="CardDiv"
+                    style={{ width: "100%" }}
+                    key={task.id}
+                  >
+                    <Card
+                      className="Card mb-3 flex-fill"
+                      style={{ flexBasis: 0 }}
+                    >
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          {task.title}
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                            {task.title}
+                          </Link>
                         </Card.Header>
-                        <Card.Text className="CardText">
-                          {task.description}
-                        </Card.Text>
-                        <Badge pill bg="info">
-                          {/* {task.assignee} */} Mochi B
+
+                        <Badge pill bg="info" className="BadgeAssignee">
+                          {users
+                            .filter(
+                              (user) => task.assignee === user.employee_number
+                            )
+                            .map((user) => user.full_name)}
                         </Badge>
                         <select
                           onChange={handleTaskStatus}
@@ -145,25 +169,33 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
                 );
               })}
           </Col>
-          <Col className="Col">
+          <Col className="d-flex flex-column align-items-center">
             <h2 className="Header">To Do</h2>
             {tasks
               .filter(
+                // eslint-disable-next-line eqeqeq
                 (task) => task.status == "To Do" && task.board == boardNumVar
               )
               .map((task) => {
                 return (
-                  <div key={task.id}>
-                    <Card className="Card">
+                  <div
+                    className="CardDiv"
+                    style={{ width: "100%" }}
+                    key={task.id}
+                  >
+                    <Card className="Card mb-3">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          {task.title}
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                            {task.title}
+                          </Link>
                         </Card.Header>
-                        <Card.Text className="CardText">
-                          {task.description}
-                        </Card.Text>
-                        <Badge pill bg="info">
-                          {/* {task.assignee} */} Rue G
+                        <Badge pill bg="info" className="BadgeAssignee">
+                          {users
+                            .filter(
+                              (user) => task.assignee === user.employee_number
+                            )
+                            .map((user) => user.full_name)}
                         </Badge>
                         <select
                           onChange={handleTaskStatus}
@@ -193,26 +225,35 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
                 );
               })}
           </Col>
-          <Col className="Col">
+          <Col className="d-flex flex-column align-items-center">
             <h2 className="Header">In Progress</h2>
             {tasks
               .filter(
                 (task) =>
+                  // eslint-disable-next-line eqeqeq
                   task.status == "In Progress" && task.board == boardNumVar
               )
               .map((task) => {
                 return (
-                  <div key={task.id}>
-                    <Card className="Card">
+                  <div
+                    className="CardDiv"
+                    style={{ width: "100%" }}
+                    key={task.id}
+                  >
+                    <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          {task.title}
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                            {task.title}
+                          </Link>
                         </Card.Header>
-                        <Card.Text className="CardText">
-                          {task.description}
-                        </Card.Text>
-                        <Badge pill bg="info">
-                          {/* {task.assignee} */} Jane D
+
+                        <Badge pill bg="info" className="BadgeAssignee">
+                          {users
+                            .filter(
+                              (user) => task.assignee === user.employee_number
+                            )
+                            .map((user) => user.full_name)}
                         </Badge>
                         <select
                           onChange={handleTaskStatus}
@@ -242,26 +283,34 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
                 );
               })}
           </Col>
-          <Col className="Col">
+          <Col className="d-flex flex-column align-items-center">
             <h2 className="Header">In Review / QA</h2>
             {tasks
               .filter(
                 (task) =>
+                  // eslint-disable-next-line eqeqeq
                   task.status == "In Review / QA" && task.board == boardNumVar
               )
               .map((task) => {
                 return (
-                  <div key={task.id}>
-                    <Card className="Card">
+                  <div
+                    className="CardDiv"
+                    style={{ width: "100%" }}
+                    key={task.id}
+                  >
+                    <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          {task.title}
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                            {task.title}
+                          </Link>
                         </Card.Header>
-                        <Card.Text className="CardText">
-                          {task.description}
-                        </Card.Text>
-                        <Badge pill bg="info">
-                          {/* {task.assignee} */} Bunny B
+                        <Badge pill bg="info" className="BadgeAssignee">
+                          {users
+                            .filter(
+                              (user) => task.assignee === user.employee_number
+                            )
+                            .map((user) => user.full_name)}
                         </Badge>
                         <select
                           onChange={handleTaskStatus}
@@ -291,26 +340,34 @@ export default function BoardDetail({ tasks, getTasks, boards, getBoards }) {
                 );
               })}
           </Col>
-          <Col className="Col">
+          <Col className="d-flex flex-column align-items-center">
             <h2 className="Header">Completed</h2>
             {tasks
               .filter(
                 (task) =>
+                  // eslint-disable-next-line eqeqeq
                   task.status == "Completed" && task.board == boardNumVar
               )
               .map((task) => {
                 return (
-                  <div key={task.id}>
-                    <Card className="Card">
+                  <div
+                    className="CardDiv"
+                    style={{ width: "100%" }}
+                    key={task.id}
+                  >
+                    <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          {task.title}
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                            {task.title}
+                          </Link>
                         </Card.Header>
-                        <Card.Text className="CardText">
-                          {task.description}
-                        </Card.Text>
-                        <Badge pill bg="info">
-                          {/* {task.assignee} */} Liz G
+                        <Badge pill bg="info" className="BadgeAssignee">
+                          {users
+                            .filter(
+                              (user) => task.assignee === user.employee_number
+                            )
+                            .map((user) => user.full_name)}
                         </Badge>
                         <select
                           onChange={handleTaskStatus}

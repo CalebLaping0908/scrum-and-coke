@@ -23,6 +23,7 @@ class TaskIn(BaseModel):
     board: int
     status: str
 
+
 class TaskInUpdate(BaseModel):
     title: Optional[str]
     description: Optional[str]
@@ -54,11 +55,11 @@ class StatusRepository:
                         """
                     )
                     return [
-                            StatusOut(
+                        StatusOut(
                             id=record[0],
                             status=record[1],
-                            )
-                            for record in result
+                        )
+                        for record in result
                     ]
 
         except Exception as e:
@@ -67,7 +68,7 @@ class StatusRepository:
 
 
 class TaskRepository:
-    def create(self, task: TaskIn) -> Union[Error,TaskOut]:
+    def create(self, task: TaskIn) -> Union[Error, TaskOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -85,14 +86,13 @@ class TaskRepository:
                             task.assignee,
                             task.board,
                             task.status,
-                        ]
+                        ],
                     )
                     id = result.fetchone()[0]
                     return self.task_in_to_out(id, task)
 
         except Exception:
             return {"message": "could not create task"}
-
 
     def get_all(self) -> Union[Error, List[TaskOut]]:
         try:
@@ -107,19 +107,16 @@ class TaskRepository:
                         """
                     )
                     return [
-                        self.record_to_task_out(record)
-                        for record in result
+                        self.record_to_task_out(record) for record in result
                     ]
 
         except Exception as e:
             print(e)
             return {"message": "could not get all tasks"}
 
-                        #   , title = %s
-                        #   , description = %s
-                        #   , assignee = %s
-                        #   , board = %s
-    def update(self, task_id: int, task: TaskInUpdate) -> Union[Error, TaskOut]:
+    def update(
+        self, task_id: int, task: TaskInUpdate
+    ) -> Union[Error, TaskOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -130,13 +127,9 @@ class TaskRepository:
                         WHERE id = %s
                         """,
                         [
-                            # task.title,
-                            # task.description,
-                            # task.assignee,
-                            # task.board,
                             task.status,
-                            task_id
-                        ]
+                            task_id,
+                        ],
                     )
                     print(result)
                     return self.get_one(task_id)
@@ -145,6 +138,35 @@ class TaskRepository:
             print(e)
             return {"message": "could not update task"}
 
+    def edit(self, task_id: int, task: TaskIn) -> Union[Error, TaskOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        UPDATE tasks
+                        SET title = %s,
+                            description = %s,
+                            assignee = %s,
+                            board = %s,
+                            status = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            task.title,
+                            task.description,
+                            task.assignee,
+                            task.board,
+                            task.status,
+                            task_id,
+                        ],
+                    )
+                    print(result)
+                    return self.get_one(task_id)
+
+        except Exception as e:
+            print(e)
+            return {"message": "could not update task"}
 
     def delete(self, task_id: int) -> bool:
         try:
@@ -155,13 +177,12 @@ class TaskRepository:
                         DELETE FROM tasks
                         WHERE id = %s
                         """,
-                        [task_id]
+                        [task_id],
                     )
                     return True
 
         except Exception:
             return False
-
 
     def get_one(self, task_id: int) -> Optional[TaskOut]:
         try:
@@ -178,7 +199,7 @@ class TaskRepository:
                         FROM tasks
                         WHERE id = %s
                         """,
-                        [task_id]
+                        [task_id],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -189,11 +210,9 @@ class TaskRepository:
             print(e)
             return {"message": "could not get that task"}
 
-
     def task_in_to_out(self, id: int, task: TaskIn):
         old_data = task.dict()
         return TaskOut(id=id, **old_data)
-
 
     def record_to_task_out(self, record):
         return TaskOut(

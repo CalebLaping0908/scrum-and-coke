@@ -9,6 +9,6 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE tasks;
-        """
+        """,
     ]
 ]

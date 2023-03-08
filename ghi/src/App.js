@@ -5,13 +5,14 @@ import CreateTask from "./tasks/CreateTaskForm";
 import SignupForm from "./Users/SignupForm.js";
 import MainPage from "./MainPage";
 import ErrorNotification from "./ErrorNotification";
-import "./App.css";
 import BoardForm from "./Boards/BoardForm";
 import NavBar from "./Nav";
 import LoginForm from "./Users/LoginForm";
 import Logout from "./Users/Logout";
 import { AuthProvider, useToken } from "./Auth";
 import BoardDetail from "./Boards/BoardDetail";
+import TaskDetail from "./tasks/TaskDetail";
+import EditTask from "./tasks/UpdateTaskForm";
 
 function GetToken() {
   useToken();
@@ -48,7 +49,6 @@ function App(props) {
 
   const getTasks = async () => {
     const TaskListResponse = await fetch("http://localhost:8080/tasks/");
-
     if (TaskListResponse.ok) {
       const tasks = await TaskListResponse.json();
       setTasks(tasks);
@@ -57,7 +57,6 @@ function App(props) {
 
   const getStatuses = async () => {
     const StatusResponse = await fetch("http://localhost:8080/status/");
-
     if (StatusResponse.ok) {
       const statuses = await StatusResponse.json();
       setStatuses(statuses);
@@ -68,7 +67,6 @@ function App(props) {
     getBoards();
     getTasks();
     getUsers();
-    getTasks();
     getStatuses();
   }, []);
 
@@ -95,9 +93,9 @@ function App(props) {
               />
               <Route path="new" element={<BoardForm getBoards={getBoards} />} />
             </Route>
-            <Route path="newtask/">
+            <Route path="tasks/">
               <Route
-                path=""
+                path="new"
                 element={
                   <CreateTask
                     tasks={tasks}
@@ -105,6 +103,30 @@ function App(props) {
                     boards={boards}
                     getTasks={getTasks}
                     statuses={statuses}
+                  />
+                }
+              />
+              <Route
+                path=":id"
+                element={
+                  <TaskDetail
+                    tasks={tasks}
+                    users={users}
+                    boards={boards}
+                    statuses={statuses}
+                    getTasks={getTasks}
+                  />
+                }
+              />
+              <Route
+                path=":id/edit"
+                element={
+                  <EditTask
+                    tasks={tasks}
+                    users={users}
+                    boards={boards}
+                    statuses={statuses}
+                    getTasks={getTasks}
                   />
                 }
               />
