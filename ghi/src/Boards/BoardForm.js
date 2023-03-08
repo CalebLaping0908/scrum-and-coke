@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useToken } from "../Auth";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 export default function BoardForm({ getBoards }) {
   const [name, setName] = useState("");
@@ -33,7 +34,10 @@ export default function BoardForm({ getBoards }) {
     const response = await fetch(boardUrl, fetchConfig);
     if (response.ok) {
       const newBoard = await response.json();
+      console.log(newBoard);
       setName("");
+
+      navigate(`/boards`);
       getBoards();
     }
   };
@@ -41,9 +45,9 @@ export default function BoardForm({ getBoards }) {
     <div className="row">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
-          <h1>Create a board</h1>
+          <h1 className="FormLabel">Create a board</h1>
           <form onSubmit={handleSubmit} id="create-board-form">
-            <div className="form-floating mb-3">
+            <div className="InputText">
               <input
                 onChange={handleNameChange}
                 placeholder="Name"
@@ -54,9 +58,11 @@ export default function BoardForm({ getBoards }) {
                 className="form-control"
                 value={name}
               />
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name"></label>
             </div>
-            <button className="btn btn-primary">Submit</button>
+            <Button className="FormButton" variant="primary" type="submit">
+              Create
+            </Button>
           </form>
         </div>
       </div>

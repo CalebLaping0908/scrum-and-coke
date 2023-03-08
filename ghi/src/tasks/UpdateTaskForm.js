@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useToken } from "../Auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function CreateTask({ getTasks, boards, users, statuses }) {
+export default function EditTask({ getTasks, boards, users, statuses }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [assignee, setAssignee] = useState([]);
   const [board, setBoard] = useState([]);
   const [status, setStatus] = useState([]);
+  const { id } = useParams();
   const [token] = useToken();
   const navigate = useNavigate();
 
@@ -15,6 +16,30 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
     console.log("token", token);
     navigate("/users/login");
   }
+
+  useEffect(() => {
+    async function fetchTask() {
+      const taskDetailUrl = `http://localhost:8080/tasks/${id}`;
+      const fetchDetailConfig = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      };
+      const detailResponse = fetch(taskDetailUrl, fetchDetailConfig);
+      if (detailResponse.ok) {
+        const taskData = detailResponse.json();
+
+        setTitle(taskData.title);
+        setDescription(taskData.description);
+        setAssignee(taskData.assignee);
+        setBoard(taskData.board);
+        setStatus(taskData.status);
+      }
+    }
+    fetchTask();
+  }, [id]);
 
   const handleStatusChange = (e) => {
     const value = e.target.value;
@@ -44,15 +69,16 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {};
+    console.log("data", data);
     data.title = title;
     data.description = description;
     data.assignee = assignee;
     data.board = board;
     data.status = status;
 
-    const tasklistUrl = "http://localhost:8080/tasks/";
+    const tasklistUrl = `http://localhost:8080/tasks/${id}`;
     const fetchConfig = {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
@@ -63,16 +89,15 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
     const response = await fetch(tasklistUrl, fetchConfig);
     if (response.ok) {
       const newTask = await response.json();
-      console.log("new task", newTask);
+      console.log(newTask);
 
       setTitle("");
       setDescription("");
       setAssignee("");
       setBoard("");
       setStatus("");
-
-      navigate(`/boards`);
       getTasks();
+      navigate(`/boards`);
     }
   };
 
@@ -80,7 +105,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
     <div className="row">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
-          <h1 className="FormLabel">Create a Task</h1>
+          <h1 className="FormLabel">Edit this Task</h1>
           <form onSubmit={handleSubmit} id="create-task-form">
             <div className="InputText">
               <input
@@ -91,7 +116,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
                 name="title"
                 id="title"
                 className="form-control"
-                value={title}
+                defaultValue={title}
               />
               <label htmlFor="title"></label>
             </div>

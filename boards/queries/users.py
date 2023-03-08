@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from queries.pool import pool
-from typing import List, Union, Optional
+from typing import List, Union
+
 
 class Error(BaseModel):
     message: str
@@ -24,6 +25,7 @@ class UserOut(BaseModel):
     hashed_password: str
     employee_number: int
 
+
 class UsersOutAll(BaseModel):
     users: List[UserOut]
 
@@ -34,10 +36,6 @@ class UserOutWithoutPassword(BaseModel):
     full_name: str
     employee_number: int
 
-
-
-# class UserOutWithPassword(UserOut):
-#     hashed_password: str
 
 class UserRepository:
     def create(self, user: UserIn, hashed_password: str) -> UserOut:
@@ -55,8 +53,8 @@ class UserRepository:
                         user.email,
                         user.full_name,
                         hashed_password,
-                        user.employee_number
-                    ]
+                        user.employee_number,
+                    ],
                 )
                 id = result.fetchone()[0]
                 return UserOut(
@@ -64,10 +62,8 @@ class UserRepository:
                     email=user.email,
                     full_name=user.full_name,
                     hashed_password=hashed_password,
-                    employee_number=user.employee_number
-                    )
-                # return self.user_in_to_out(id, user)
-
+                    employee_number=user.employee_number,
+                )
 
     def get_all(self) -> Union[Error, UsersOutAll]:
         try:
@@ -82,16 +78,16 @@ class UserRepository:
                         """
                     )
                     return [
-                        self.record_to_user_out(record)
-                    for record in result
-                ]
+                        self.record_to_user_out(record) for record in result
+                    ]
 
         except Exception as e:
             print(e)
             return {"message": "could not get all users"}
 
-# code block below is not yet functional
-    def update(self, employee_number: int, user: UserIn, hashed_password: str) -> Union[Error, UserOut]:
+    def update(
+        self, employee_number: int, user: UserIn, hashed_password: str
+    ) -> Union[Error, UserOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -109,13 +105,12 @@ class UserRepository:
                             user.full_name,
                             hashed_password,
                             employee_number,
-                        ]
+                        ],
                     )
                     return self.user_in_to_out(employee_number, user)
 
         except Exception as e:
             return {"message": "could not update user"}
-
 
     def delete(self, user_id: int) -> bool:
         try:
@@ -126,7 +121,7 @@ class UserRepository:
                         DELETE FROM users
                         WHERE id = %s
                         """,
-                        [user_id]
+                        [user_id],
                     )
                     return True
 
@@ -147,7 +142,7 @@ class UserRepository:
                         FROM users
                         WHERE employee_number = %s
                         """,
-                        [employee_number]
+                        [employee_number],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -158,31 +153,15 @@ class UserRepository:
             print(e)
             return {"message": "could not get that user"}
 
-
-
     def user_in_to_out(self, employee_number: int, user: UserIn):
         old_data = user.dict()
         return UserOut(employee_number=employee_number, **old_data)
-                #    record = None
-                #     row = cur.fetchone()
-                #     if row is not None:
-                #         record = {}
-                #         for i, column in enumerate(cur.description):
-                #             record[column.name] = row[i]
-                #     return record
 
     def record_to_user_out(self, record):
         return {
-            "id":record[0],
-            "email":record[1],
-            "full_name":record[2],
-            "hashed_password":record[3],
-            "employee_number":record[4]
-            }
-    #     return UserOut(
-            # id=record[0],
-            # email=record[1],
-            # full_name=record[2],
-            # hashed_password=record[3],
-            # employee_number=record[4]
-    #     )
+            "id": record[0],
+            "email": record[1],
+            "full_name": record[2],
+            "hashed_password": record[3],
+            "employee_number": record[4],
+        }

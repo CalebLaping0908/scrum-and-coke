@@ -1,21 +1,25 @@
 from fastapi import APIRouter, Depends
-from typing import List, Union, Optional
-from queries.boards import BoardIn, BoardRepository, BoardOut, Error, BoardsOutAll
+from typing import Union, Optional
+from queries.boards import (
+    BoardIn,
+    BoardRepository,
+    BoardOut,
+    Error,
+    BoardsOutAll,
+)
 
 router = APIRouter()
 
+
 @router.post("/boards", response_model=Union[BoardOut, Error])
-def create_board(
-    board: BoardIn,
-    repo: BoardRepository = Depends()
-):
+def create_board(board: BoardIn, repo: BoardRepository = Depends()):
     return repo.create(board)
 
 
 @router.get("/boards", response_model=Union[Error, BoardsOutAll])
 def get_all(
     repo: BoardRepository = Depends(),
-    ):
+):
     return {"boards": repo.get_all()}
 
 
@@ -36,7 +40,9 @@ def delete_board(
     return repo.delete(board_id)
 
 
-@router.get("/boards/{board_id}", response_model=Optional[Union[Error, BoardOut]])
+@router.get(
+    "/boards/{board_id}", response_model=Optional[Union[Error, BoardOut]]
+)
 def get_one_board(
     board_id: int,
     repo: BoardRepository = Depends(),

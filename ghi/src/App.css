@@ -14,26 +14,40 @@
 }
 
 .Card {
-  border: 2px solid gray;
   margin-top: 15px;
   box-shadow: 3px 2px 2px gray;
   border-radius: 5px;
 }
 
-.Col {
-  background-color: rgb(238, 237, 237, 0.7);
-  margin-left: 5px;
-  margin-right: 5px;
+.CardDiv {
+  margin-bottom: -15px;
+}
+.Row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.col {
+  background-color: rgba(238, 237, 237, 0.7);
   border-radius: 4px;
-  padding-bottom: 15px;
-  padding-top: 15px;
+  padding: 15px;
+  height: auto;
+  margin: 0 5px;
 }
 
 .CardText {
   font-family: "Quicksand", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-style: normal;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: rgba(0, 0, 0, 0.8);
@@ -44,7 +58,7 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
   font-style: normal;
-  font-size: 22px;
+  font-size: 19px;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: rgba(0, 0, 0, 0.8);
@@ -57,15 +71,16 @@
 }
 
 .select-board-form {
-  margin-left: auto;
-  margin-right: auto;
-  width: 8em;
+  width: auto;
   border: none;
   outline: none;
 }
-.select-board {
-  border: none;
-  outline: none;
+
+.custom-select {
+  margin-top: 5px;
+  border: 1px white !important;
+  text-align: center;
+  border-color: 1px solid white !important;
 }
 
 .Header {
@@ -76,6 +91,7 @@
   line-height: 1.15;
   letter-spacing: -0.02em;
   text-align: center;
+  color: rgb(90, 90, 90);
 }
 
 .EditButton {
@@ -96,6 +112,7 @@
 
 .HomeButton {
   font-size: 30px;
+  color: white !important;
 }
 
 .InputText {
@@ -112,11 +129,13 @@
 .Signup {
   margin-right: 5px;
   margin-top: -240px;
+  border-width: 2px;
 }
 
 .Login {
   margin-left: 5px;
   margin-top: -240px;
+  border-width: 2px;
 }
 
 .Wrapper {
@@ -131,11 +150,16 @@
   white-space: nowrap;
   overflow: hidden;
   border-right: 3px solid;
-  font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 23px;
-  margin-top: -120px;
+  color: white;
+  margin: 0;
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 15px;
 }
 
 @keyframes typing {
@@ -148,4 +172,159 @@
   50% {
     border-color: transparent;
   }
+}
+
+.TitleLink {
+  text-decoration: none;
+  color: black;
+}
+
+.TitleLink:hover {
+  color: rgb(193, 92, 244);
+  transition: 0.2s;
+}
+
+.TaskDetailCard {
+  margin-left: 350px;
+  margin-right: 350px;
+  margin-top: 50px;
+  box-shadow: 3px 2px 2px gray;
+  border-radius: 5px;
+}
+
+.CardTitleText {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.CardDescriptionText {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.CardAssigneeText {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.CreateTaskButton {
+  border-width: 2px;
+  margin-bottom: 9px;
+  margin-top: 15px;
+}
+
+.BadgeStatusText {
+  color: rgb(200, 134, 233);
+  font-size: 17px;
+}
+
+.FormLabel {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 25px;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.UpdateTaskStatusField {
+  margin-bottom: 20px;
+}
+
+.UpdateTaskCard {
+  margin-top: 20px;
+  margin-left: 300px;
+  margin-right: 300px;
+  padding: 20px;
+  box-shadow: 3px 2px 2px gray;
+  border-radius: 5px;
+}
+
+.BoardContainer {
+  margin: auto;
+  justify-content: center;
+}
+
+.SignupPrompt {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.15;
+  margin-bottom: 7px;
+  margin-top: 9px;
+}
+
+.TaskFormLabel {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  margin-bottom: -2px;
+}
+
+.BadgeAssignee {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.MainPageTitle {
+  color: white;
+  font-weight: 900;
+  font-size: 55px;
+  margin: 0;
+  position: absolute;
+  margin-bottom: 30px;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.MainPageButtons {
+  margin: 0;
+  position: absolute;
+  top: calc(65% + 50px);
+  left: 50%;
+  margin-top: 35px;
+  transform: translate(-50%, -50%);
+}
+
+.UpdateTaskButton {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.BoardMenu {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.BoardDropDownMenu {
+  justify-content: center;
+  margin-bottom: -35px;
+}
+
+.DeleteTaskButton {
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.EditTaskButton {
+  margin-bottom: 5px;
+  margin-left: 5px;
 }
