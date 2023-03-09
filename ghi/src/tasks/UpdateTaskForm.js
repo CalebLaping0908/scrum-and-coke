@@ -89,6 +89,7 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
     const response = await fetch(tasklistUrl, fetchConfig);
     if (response.ok) {
       const newTask = await response.json();
+      console.log(newTask)
       setTitle("");
       setDescription("");
       setAssignee("");

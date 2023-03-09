@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Row, Col, Container, Badge, Button } from "react-bootstrap";
 import { useToken } from "../Auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function BoardDetail({
   tasks,
@@ -11,8 +11,9 @@ export default function BoardDetail({
   getBoards,
   users,
 }) {
+  const { id } = useParams();
   const [taskStatus, setTaskStatus] = useState("");
-  const [boardNumVar, setBoardNumVar] = useState("");
+  const [boardNumVar, setBoardNumVar] = useState(id);
   const [token] = useToken();
   const navigate = useNavigate();
 

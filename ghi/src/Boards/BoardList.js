@@ -1,6 +1,6 @@
 import React from "react";
 import { useToken } from "../Auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function BoardList({ boards }) {
   const [token] = useToken();
@@ -23,7 +23,9 @@ export default function BoardList({ boards }) {
           {boards.map((board) => {
             return (
               <tr key={board.id}>
+                <Link className="BoardLink" to={`/boards/${board.id}`}>
                 <td>{board.name}</td>
+                </Link>
               </tr>
             );
           })}
@@ -32,3 +34,5 @@ export default function BoardList({ boards }) {
     </div>
   );
 }
+
+

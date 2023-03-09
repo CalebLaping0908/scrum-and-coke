@@ -13,6 +13,7 @@ import { AuthProvider, useToken } from "./Auth";
 import BoardDetail from "./Boards/BoardDetail";
 import TaskDetail from "./tasks/TaskDetail";
 import EditTask from "./tasks/UpdateTaskForm";
+import BoardList from "./Boards/BoardList";
 
 function GetToken() {
   useToken();
@@ -82,7 +83,7 @@ function App(props) {
               <Route
                 path=""
                 element={
-                  <BoardDetail
+                  <BoardList
                     getTasks={getTasks}
                     tasks={tasks}
                     users={users}
@@ -92,6 +93,18 @@ function App(props) {
                 }
               />
               <Route path="new" element={<BoardForm getBoards={getBoards} />} />
+              <Route
+                path=":id"
+                element={
+                  <BoardDetail
+                    tasks={tasks}
+                    users={users}
+                    boards={boards}
+                    statuses={statuses}
+                    getTasks={getTasks}
+                  />
+                }
+              />
             </Route>
             <Route path="tasks/">
               <Route
