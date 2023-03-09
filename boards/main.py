@@ -12,7 +12,10 @@ app.include_router(tasks.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        os.environ.get("CORS_HOST", "https://404-waffle.gitlab.io/scrum-and-coke"),
+        os.environ.get("CORS_HOST", "https://boards-service.nov-pt-2.mod3projects.com"),
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
