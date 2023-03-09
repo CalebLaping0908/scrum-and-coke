@@ -19,14 +19,14 @@ export default function BoardDetail({
 
   if (!token) {
     console.log("token", token);
-    navigate("/users/login");
+    navigate("/scrum-and-coke/users/login");
   }
 
   const updateTask = async (id, status) => {
     const data = {};
     data.status = taskStatus;
 
-    const taskUrl = `http://localhost:8080/tasks/${id}/`;
+    const taskUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`;
     const fetchConfig = {
       method: "PATCH",
       body: JSON.stringify({ status: status }),
@@ -100,7 +100,7 @@ export default function BoardDetail({
             </div>
           </form>
         </Row>
-        <Link to="/tasks/new">
+        <Link to="/scrum-and-coke/tasks/new">
           <Button
             className="CreateTaskButton"
             variant="outline-light"
@@ -130,7 +130,7 @@ export default function BoardDetail({
                     >
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
@@ -187,7 +187,7 @@ export default function BoardDetail({
                     <Card className="Card mb-3">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
@@ -244,7 +244,7 @@ export default function BoardDetail({
                     <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
@@ -302,7 +302,7 @@ export default function BoardDetail({
                     <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
@@ -359,7 +359,7 @@ export default function BoardDetail({
                     <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>

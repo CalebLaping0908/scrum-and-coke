@@ -10,7 +10,7 @@ export default function BoardForm({ getBoards }) {
 
   if (!token) {
     console.log("token", token);
-    navigate("/users/login");
+    navigate("/scrum-and-coke/users/login");
   }
 
   const handleNameChange = (event) => {
@@ -23,7 +23,7 @@ export default function BoardForm({ getBoards }) {
     const data = {};
     data.name = name;
 
-    const boardUrl = "http://localhost:8080/boards/";
+    const boardUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/boards`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -37,7 +37,7 @@ export default function BoardForm({ getBoards }) {
       console.log(newBoard);
       setName("");
 
-      navigate(`/boards`);
+      navigate(`/scrum-and-coke/boards`);
       getBoards();
     }
   };

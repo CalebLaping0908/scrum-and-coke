@@ -12,7 +12,7 @@ export default function TaskDetail({ getTasks }) {
 
   useEffect(() => {
     async function fetchTask() {
-      const taskUrl = `http://localhost:8080/tasks/${id}/`;
+      const taskUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`;
       const fetchConfig = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -23,7 +23,7 @@ export default function TaskDetail({ getTasks }) {
         const taskData = await response.json();
         const userId = taskData.assignee;
         setTask(taskData);
-        const userUrl = `http://localhost:8080/users/${userId}/`;
+        const userUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/users/${userId}`;
         const fetchUserConfig = {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,12 +42,12 @@ export default function TaskDetail({ getTasks }) {
   }, [id, token]);
 
   const deleteTask = async (id) => {
-    const taskResponse = await fetch(`http://localhost:8080/tasks/${id}/`, {
+    const taskResponse = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`, {
       method: "delete",
     });
     if (taskResponse.ok) {
       getTasks();
-      navigate("/boards");
+      navigate("/scrum-and-coke/boards");
     }
   };
   if (!task) {
@@ -69,7 +69,7 @@ export default function TaskDetail({ getTasks }) {
         </Badge>
       </Card.Body>
       <div>
-        <Link to={`/tasks/${id}/edit`}>
+        <Link to={`/scrum-and-coke/tasks/${id}/edit`}>
           <Button
             className="EditTaskButton"
             variant="outline-secondary"

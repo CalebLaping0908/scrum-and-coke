@@ -33,7 +33,7 @@ function LoginForm() {
     }
     setUsername("");
     setPassword("");
-    navigate("/");
+    navigate("/scrum-and-coke/");
   };
 
   return (

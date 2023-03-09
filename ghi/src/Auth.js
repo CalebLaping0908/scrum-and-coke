@@ -8,7 +8,7 @@ export function getToken() {
 }
 
 export async function getTokenInternal() {
-  const url = "http://localhost:8080/token";
+  const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
   try {
     const response = await fetch(url, {
       credentials: "include",
@@ -81,16 +81,16 @@ export function useToken() {
 
   async function logout() {
     if (token) {
-      const url = "http://localhost:8080/token";
+      const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
       await fetch(url, { method: "delete", credentials: "include" });
       internalToken = null;
       setToken(null);
-      navigate("/");
+      navigate("/scrum-and-coke/");
     }
   }
 
   async function login(username, password) {
-    const url = "http://localhost:8080/token";
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
     const form = new FormData();
     form.append("username", username);
     form.append("password", password);
@@ -111,7 +111,7 @@ export function useToken() {
   }
 
   async function signup(email, full_name, password, employee_number) {
-    const url = "http://localhost:8080/users/";
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/users`;
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify({

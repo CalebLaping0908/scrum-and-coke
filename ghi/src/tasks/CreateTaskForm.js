@@ -13,7 +13,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
 
   if (!token) {
     console.log("token", token);
-    navigate("/users/login");
+    navigate("/scrum-and-coke/users/login");
   }
 
   const handleStatusChange = (e) => {
@@ -50,7 +50,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
     data.board = board;
     data.status = status;
 
-    const tasklistUrl = "http://localhost:8080/tasks/";
+    const tasklistUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks`;
     const fetchConfig = {
       method: "POST",
       body: JSON.stringify(data),
@@ -71,7 +71,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
       setBoard("");
       setStatus("");
 
-      navigate(`/boards`);
+      navigate(`/scrum-and-coke/boards`);
       getTasks();
     }
   };

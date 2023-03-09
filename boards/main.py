@@ -13,9 +13,8 @@ app.include_router(tasks.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        os.environ.get("CORS_HOST"),
-        "http://localhost:3000",
-        "http://localhost:8080",
+        os.environ.get("CORS_HOST", "https://404-waffle.gitlab.io"),
+        os.environ.get("CORS_HOST", "https://boards-service.nov-pt-2.mod3projects.com"),
         os.environ.get("CORS_HOST", "http://localhost:3000"),
         os.environ.get("CORS_HOST", "http://localhost:8080"),
     ],
@@ -37,3 +36,9 @@ def launch_details():
             "tz:": "PST",
         }
     }
+
+#         os.environ.get("CORS_HOST"),
+#         "http://localhost:3000",
+#         "http://localhost:8080",
+#         os.environ.get("CORS_HOST", "http://localhost:3000"),
+#         os.environ.get("CORS_HOST", "http://localhost:8080"),

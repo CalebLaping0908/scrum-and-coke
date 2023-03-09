@@ -14,12 +14,13 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
   const navigate = useNavigate();
 
   if (!token) {
-    navigate("/users/login");
+    console.log("token", token);
+    navigate("/scrum-and-coke/users/login");
   }
 
   useEffect(() => {
     async function fetchTask() {
-      const taskDetailUrl = `http://localhost:8080/tasks/${id}`;
+      const taskDetailUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`;
       const fetchDetailConfig = {
         method: "GET",
         headers: {
@@ -76,7 +77,7 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
     data.board = board;
     data.status = status;
 
-    const tasklistUrl = `http://localhost:8080/tasks/${id}`;
+    const tasklistUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`;
     const fetchConfig = {
       method: "PUT",
       body: JSON.stringify(data),
@@ -96,7 +97,7 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
       setBoard("");
       setStatus("");
       getTasks();
-      navigate(`/boards`);
+      navigate(`/scrum-and-coke/boards`);
     }
   };
 
