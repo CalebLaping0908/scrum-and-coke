@@ -23,7 +23,7 @@ export default function BoardForm({ getBoards }) {
     const data = {};
     data.name = name;
 
-    const boardUrl = "http://localhost:8080/boards/";
+    const boardUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/boards`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),

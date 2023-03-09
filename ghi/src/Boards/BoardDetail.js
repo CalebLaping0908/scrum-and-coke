@@ -25,7 +25,7 @@ export default function BoardDetail({
     const data = {};
     data.status = taskStatus;
 
-    const taskUrl = `http://localhost:8080/tasks/${id}/`;
+    const taskUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`;
     const fetchConfig = {
       method: "PATCH",
       body: JSON.stringify({ status: status }),

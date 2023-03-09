@@ -27,7 +27,7 @@ function App(props) {
   const [statuses, setStatuses] = useState([]);
 
   const getUsers = async () => {
-    const response = await fetch("http://localhost:8080/users/");
+    const response = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/users`);
     if (response.ok) {
       const data = await response.json();
       const users = data.users;
@@ -39,7 +39,7 @@ function App(props) {
   };
 
   const getBoards = async () => {
-    const response = await fetch("http://localhost:8080/boards/");
+    const response = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/boards`);
     if (response.ok) {
       const data = await response.json();
       const boards = data.boards;
@@ -48,7 +48,7 @@ function App(props) {
   };
 
   const getTasks = async () => {
-    const TaskListResponse = await fetch("http://localhost:8080/tasks/");
+    const TaskListResponse = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/tasks`);
     if (TaskListResponse.ok) {
       const tasks = await TaskListResponse.json();
       setTasks(tasks);
@@ -56,7 +56,7 @@ function App(props) {
   };
 
   const getStatuses = async () => {
-    const StatusResponse = await fetch("http://localhost:8080/status/");
+    const StatusResponse = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/status`);
     if (StatusResponse.ok) {
       const statuses = await StatusResponse.json();
       setStatuses(statuses);

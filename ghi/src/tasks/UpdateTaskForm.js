@@ -19,7 +19,7 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
 
   useEffect(() => {
     async function fetchTask() {
-      const taskDetailUrl = `http://localhost:8080/tasks/${id}`;
+      const taskDetailUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`;
       const fetchDetailConfig = {
         method: "GET",
         headers: {
@@ -76,7 +76,7 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
     data.board = board;
     data.status = status;
 
-    const tasklistUrl = `http://localhost:8080/tasks/${id}`;
+    const tasklistUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`;
     const fetchConfig = {
       method: "PUT",
       body: JSON.stringify(data),

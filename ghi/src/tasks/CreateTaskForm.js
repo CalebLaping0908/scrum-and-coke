@@ -50,7 +50,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
     data.board = board;
     data.status = status;
 
-    const tasklistUrl = "http://localhost:8080/tasks/";
+    const tasklistUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks`;
     const fetchConfig = {
       method: "POST",
       body: JSON.stringify(data),

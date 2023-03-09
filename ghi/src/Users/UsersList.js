@@ -13,7 +13,7 @@ export default function UsersList({ users, getUsers }) {
   }, []);
 
   const deleteUser = async (id) => {
-    const response = await fetch(`http://localhost:8080/users/${id}/`, {
+    const response = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/users/${id}`, {
       method: "delete",
     });
     if (response.ok) {
