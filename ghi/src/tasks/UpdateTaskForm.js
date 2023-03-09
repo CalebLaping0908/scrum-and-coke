@@ -8,12 +8,12 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
   const [assignee, setAssignee] = useState([]);
   const [board, setBoard] = useState([]);
   const [status, setStatus] = useState([]);
+  const [task, setTask] = useState("");
   const { id } = useParams();
   const [token] = useToken();
   const navigate = useNavigate();
 
   if (!token) {
-    console.log("token", token);
     navigate("/users/login");
   }
 
@@ -27,10 +27,10 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
         },
         credentials: "include",
       };
-      const detailResponse = fetch(taskDetailUrl, fetchDetailConfig);
+      const detailResponse = await fetch(taskDetailUrl, fetchDetailConfig);
       if (detailResponse.ok) {
-        const taskData = detailResponse.json();
-
+        const taskData = await detailResponse.json();
+        setTask(taskData);
         setTitle(taskData.title);
         setDescription(taskData.description);
         setAssignee(taskData.assignee);
@@ -89,8 +89,6 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
     const response = await fetch(tasklistUrl, fetchConfig);
     if (response.ok) {
       const newTask = await response.json();
-      console.log(newTask);
-
       setTitle("");
       setDescription("");
       setAssignee("");
@@ -107,23 +105,23 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
         <div className="shadow p-4 mt-4">
           <h1 className="FormLabel">Edit this Task</h1>
           <form onSubmit={handleSubmit} id="create-task-form">
-            <div className="InputText">
+            <div className="InputText">              
               <input
                 onChange={handleTitleChange}
-                placeholder="Title"
+                placeholder={task.title}
                 required
                 type="text"
                 name="title"
                 id="title"
                 className="form-control"
-                defaultValue={title}
+                value={title}
               />
               <label htmlFor="title"></label>
             </div>
             <div className="InputText">
               <input
                 onChange={handleDescriptionChange}
-                placeholder="Description"
+                placeholder={task.description}
                 required
                 type="text"
                 name="description"
@@ -150,7 +148,7 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
                     </option>
                   );
                 })}
-              </select>
+              </select>              
             </div>
             <div className="mb-3">
               <select
