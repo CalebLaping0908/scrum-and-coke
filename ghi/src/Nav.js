@@ -27,7 +27,7 @@ export default function NavBar() {
                   Create Board
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link className="NavLink2" href="/users/logout">
+              <Nav.Link className="NavLink2" href="/scrum-and-coke/users/logout">
                 Logout
               </Nav.Link>
             </Nav>

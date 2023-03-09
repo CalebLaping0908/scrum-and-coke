@@ -21,7 +21,7 @@ function GetToken() {
 
 function App(props) {
   const domain = /https:\/\/[^/]+/;
-  const basename = process.env.PUBLIC_URL.replace(domain, '/scrum-and-coke/');
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
   const [error, setError] = useState(null);
   const [boards, setBoards] = useState([]);
   const [tasks, setTasks] = useState([]);
