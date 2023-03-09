@@ -8,7 +8,7 @@ export default function UsersList({ users, getUsers }) {
 
   useEffect(() => {
     if (!token) {
-      navigate("/users/login");
+      navigate("/scrum-and-coke/users/login");
     }
   }, []);
 

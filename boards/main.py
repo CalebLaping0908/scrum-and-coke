@@ -15,6 +15,8 @@ app.add_middleware(
     allow_origins=[
         os.environ.get("CORS_HOST", "https://404-waffle.gitlab.io"),
         os.environ.get("CORS_HOST", "https://boards-service.nov-pt-2.mod3projects.com"),
+        os.environ.get("CORS_HOST", "http://localhost:3000"),
+        os.environ.get("CORS_HOST", "http://localhost:8080"),
     ],
     allow_credentials=True,
     allow_methods=["*"],

@@ -14,7 +14,7 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
 
   if (!token) {
     console.log("token", token);
-    navigate("/users/login");
+    navigate("/scrum-and-coke/users/login");
   }
 
   useEffect(() => {
@@ -97,7 +97,7 @@ export default function EditTask({ getTasks, boards, users, statuses }) {
       setBoard("");
       setStatus("");
       getTasks();
-      navigate(`/boards`);
+      navigate(`/scrum-and-coke/boards`);
     }
   };
 
