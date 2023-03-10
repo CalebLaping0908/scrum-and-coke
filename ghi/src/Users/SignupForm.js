@@ -52,7 +52,7 @@ function SignupForm({ getUsers }) {
     setPassword("");
     setEmployeeNumber("");
     getUsers();
-    navigate("/scrum-and-coke/");
+    navigate("/");
   };
 
   return (

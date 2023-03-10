@@ -10,7 +10,7 @@ export default function BoardForm({ getBoards }) {
 
   if (!token) {
     console.log("token", token);
-    navigate("/scrum-and-coke/users/login");
+    navigate("/users/login");
   }
 
   const handleNameChange = (event) => {
@@ -37,7 +37,7 @@ export default function BoardForm({ getBoards }) {
       console.log(newBoard);
       setName("");
 
-      navigate(`/scrum-and-coke/boards`);
+      navigate(`/boards`);
       getBoards();
     }
   };

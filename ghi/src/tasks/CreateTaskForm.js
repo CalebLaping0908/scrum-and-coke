@@ -13,7 +13,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
 
   if (!token) {
     console.log("token", token);
-    navigate("/scrum-and-coke/users/login");
+    navigate("/users/login");
   }
 
   const handleStatusChange = (e) => {
@@ -71,7 +71,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
       setBoard("");
       setStatus("");
 
-      navigate(`/scrum-and-coke/boards`);
+      navigate(`/boards`);
       getTasks();
     }
   };

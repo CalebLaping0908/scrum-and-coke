@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useToken, useAuthContext } from "../Auth";
+import { useToken } from "../Auth";
 import { useNavigate, Link } from "react-router-dom";
 import { Button, Row } from "react-bootstrap";
 
 function LoginForm() {
   const [, login] = useToken();
-  const { isLoggedIn } = useAuthContext();
+  const [error, setError] = useState('');
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -27,13 +27,15 @@ function LoginForm() {
     data.username = username;
     data.password = password;
 
-    const error = await login(username, password);
-    if (error) {
-      isLoggedIn(false);
+    const response = await login(username, password);
+
+    if (response === "<br>detail: Incorrect username or password") {
+      setError('Inccorect username or password');
+    } else {
+      setUsername("");
+      setPassword("");
+      navigate("/");
     }
-    setUsername("");
-    setPassword("");
-    navigate("/scrum-and-coke/");
   };
 
   return (
@@ -52,6 +54,7 @@ function LoginForm() {
                 id="username"
                 className="form-control"
                 value={username}
+                maxLength='4'
               />
               <label htmlFor="username"></label>
             </div>
@@ -80,6 +83,7 @@ function LoginForm() {
               </Link>
             </Row>
           </form>
+          <h4>{error}</h4>
         </div>
       </div>
     </div>

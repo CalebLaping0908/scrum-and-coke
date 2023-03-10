@@ -47,7 +47,7 @@ export default function TaskDetail({ getTasks }) {
     });
     if (taskResponse.ok) {
       getTasks();
-      navigate("/scrum-and-coke/boards");
+      navigate("/boards");
     }
   };
   if (!task) {
@@ -69,7 +69,7 @@ export default function TaskDetail({ getTasks }) {
         </Badge>
       </Card.Body>
       <div>
-        <Link to={`/scrum-and-coke/tasks/${id}/edit`}>
+        <Link to={`/tasks/${id}/edit`}>
           <Button
             className="EditTaskButton"
             variant="outline-secondary"

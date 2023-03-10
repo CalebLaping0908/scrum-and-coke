@@ -12,6 +12,7 @@ class MyAuthenticator(Authenticator):
     ):
         return repo.get_one(employee_number)
 
+
     def get_account_getter(
         self,
         repo: UserRepository = Depends(),

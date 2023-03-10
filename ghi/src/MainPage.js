@@ -26,12 +26,12 @@ function MainPage() {
           </p>
         </div>
         <div className="MainPageButtons">
-          <Link to="/scrum-and-coke/users/new">
+          <Link to="/users/new">
             <Button className="Signup" variant="outline-light" size="lg">
               Sign up
             </Button>
           </Link>
-          <Link to="/scrum-and-coke/users/login">
+          <Link to="/users/login">
             <Button className="Login" variant="outline-light" size="lg">
               Login
             </Button>

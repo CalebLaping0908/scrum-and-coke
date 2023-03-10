@@ -7,7 +7,7 @@ function TaskList({ tasks, getTask }) {
   const navigate = useNavigate();
 
   if (!token) {
-    navigate("/scrum-and-coke/users/login");
+    navigate("/users/login");
   }
 
   if (tasks === undefined) {

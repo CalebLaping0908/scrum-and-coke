@@ -7,7 +7,7 @@ export default function BoardList({ boards }) {
   const navigate = useNavigate();
 
   if (!token) {
-    navigate("/scrum-and-coke/users/login");
+    navigate("/users/login");
   }
 
   return (

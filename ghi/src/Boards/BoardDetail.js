@@ -18,7 +18,7 @@ export default function BoardDetail({
 
   if (!token) {
     console.log("token", token);
-    navigate("/scrum-and-coke/users/login");
+    navigate("/users/login");
   }
 
   const updateTask = async (id, status) => {
@@ -99,7 +99,7 @@ export default function BoardDetail({
             </div>
           </form>
         </Row>
-        <Link to="/scrum-and-coke/tasks/new">
+        <Link to="/tasks/new">
           <Button
             className="CreateTaskButton"
             variant="outline-light"
@@ -129,7 +129,7 @@ export default function BoardDetail({
                     >
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
@@ -186,7 +186,7 @@ export default function BoardDetail({
                     <Card className="Card mb-3">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
@@ -243,7 +243,7 @@ export default function BoardDetail({
                     <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
@@ -301,7 +301,7 @@ export default function BoardDetail({
                     <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
@@ -358,7 +358,7 @@ export default function BoardDetail({
                     <Card className="Card mb-3 flex-grow-1">
                       <Card.Body>
                         <Card.Header className="CardHead">
-                          <Link className="TitleLink" to={`/scrum-and-coke/tasks/${task.id}`}>
+                          <Link className="TitleLink" to={`/tasks/${task.id}`}>
                             {task.title}
                           </Link>
                         </Card.Header>
