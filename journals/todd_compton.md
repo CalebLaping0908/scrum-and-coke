@@ -1,5 +1,26 @@
 ## Todd Compton's Journal
 
+## Mar 10, 2023
+Today I worked on:
+
+Deploying final changes and presenting our fantastic work to the instructional team.
+
+Today's realization is that I am really going to miss working with this team of talented engineers.
+
+## Mar 09, 2023
+Today I worked on:
+
+The entire team focused on deployment until lunch.  Alex was a fantastic help today and we are very relieved to have achieved a deployed front and back end.  In the afternoon, Liz and I pair programmed some additional functionality so that after creating or editing a task, the user is directed back to the board they were working on.  Additionally, we changed the functionality of the board detail page so that the board selection drop down is no longer present on the page and instead created hyperlinks to the board detail pages from the boards list page.
+
+Today's aha is that I am really enjoying React and feel more and more confident that I know how to implement the functionality in at least one way for every change we feel like making.
+
+## Mar 08, 2023
+Today I worked on:
+
+Figuring out how to populate the update task form with the current task data whilst allowing user input to overwrite it.
+
+Today's learning opportunity was that if you want the form to populate with the current data before rendering the form, you must await the fetch.
+
 ## Mar 07, 2023
 Today I worked on:
 
