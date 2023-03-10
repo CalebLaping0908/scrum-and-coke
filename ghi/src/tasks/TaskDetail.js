@@ -3,10 +3,9 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Card, Button, Badge } from "react-bootstrap";
 import { useToken } from "../Auth";
 
-export default function TaskDetail({ getTasks }) {
+export default function TaskDetail({ getTasks, users }) {
   const { id } = useParams();
   const [task, setTask] = useState(null);
-  const [user, setUser] = useState("");
   const [token] = useToken();
   const [board, setBoard] = useState("");
   const navigate = useNavigate();
@@ -22,20 +21,8 @@ export default function TaskDetail({ getTasks }) {
       const response = await fetch(taskUrl, fetchConfig);
       if (response.ok) {
         const taskData = await response.json();
-        const userId = taskData.assignee;
         setBoard(taskData.board);
         setTask(taskData);
-        const userUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/users/${userId}`;
-        const fetchUserConfig = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        const userResponse = await fetch(userUrl, fetchUserConfig);
-        if (userResponse.ok) {
-          const userData = await userResponse.json();
-          setUser(userData);
-        }
       } else {
         console.log("Error fetching task data");
       }
@@ -44,9 +31,12 @@ export default function TaskDetail({ getTasks }) {
   }, [id, token]);
 
   const deleteTask = async (id) => {
-    const taskResponse = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`, {
-      method: "delete",
-    });
+    const taskResponse = await fetch(
+      `${process.env.REACT_APP_ACCOUNTS_HOST}/tasks/${id}`,
+      {
+        method: "delete",
+      }
+    );
     if (taskResponse.ok) {
       getTasks();
       navigate(`/boards/${board}`);
@@ -64,7 +54,10 @@ export default function TaskDetail({ getTasks }) {
           {task.description}
         </Card.Text>
         <Card.Text className="CardAssigneeText">
-          Assignee: {user.full_name}
+          Assignee:
+          {users
+            .filter((user) => task.assignee === user.employee_number)
+            .map((user) => user.full_name)}
         </Card.Text>
         <Badge bg="light" className="BadgeStatusText">
           {task.status}

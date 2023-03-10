@@ -1,6 +1,6 @@
 # APIs
 
-Send and view data for API endpoints at: http://localhost:8080/docs#/
+Send and view data for API endpoints at: https://boards-service.nov-pt-2.mod3projects.com/docs
 
 ## Boards
 

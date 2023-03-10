@@ -27,7 +27,7 @@ docker-compose up
 ```
 
 - Make sure all of your docker containers are running
-- View the app in your browser: http://localhost:3000/
+- View the app in your browser: https://404-waffle.gitlab.io/scrum-and-coke/
 
 ## The Design
 
