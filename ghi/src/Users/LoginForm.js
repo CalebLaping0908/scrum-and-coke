@@ -29,7 +29,7 @@ function LoginForm() {
 
     const response = await login(username, password);
 
-    if (response === "<br>detail: Incorrect employee number or password") {
+    if (response === "<br>detail: Incorrect username or password") {
       setError("Incorrect employee number or password");
     } else {
       setUsername("");
