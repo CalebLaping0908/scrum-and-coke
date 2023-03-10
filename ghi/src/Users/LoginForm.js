@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 
 function LoginForm() {
   const [, login] = useToken();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -29,8 +29,8 @@ function LoginForm() {
 
     const response = await login(username, password);
 
-    if (response === "<br>detail: Incorrect username or password") {
-      setError('Inccorect username or password');
+    if (response === "<br>detail: Incorrect employee number or password") {
+      setError("Incorrect employee number or password");
     } else {
       setUsername("");
       setPassword("");
@@ -57,7 +57,7 @@ function LoginForm() {
                 id="username"
                 className="form-control"
                 value={username}
-                maxLength='4'
+                maxLength="4"
               />
               <label htmlFor="username"></label>
             </div>
