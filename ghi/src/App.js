@@ -79,8 +79,8 @@ function App(props) {
         <NavBar />
         <div className="gradient-background">
           <Routes>
-            <Route path="/scrum-and-coke" element={<MainPage />} />
-            <Route path="/scrum-and-coke/boards/">
+            <Route path="/" element={<MainPage />} />
+            <Route path="boards/">
               <Route
                 path=""
                 element={
@@ -95,7 +95,7 @@ function App(props) {
               />
               <Route path="new" element={<BoardForm getBoards={getBoards} />} />
             </Route>
-            <Route path="/scrum-and-coke/tasks/">
+            <Route path="tasks/">
               <Route
                 path="new"
                 element={
@@ -133,7 +133,7 @@ function App(props) {
                 }
               />
             </Route>
-            <Route path="/scrum-and-coke/users/">
+            <Route path="users/">
               <Route path="new" element={<SignupForm getUsers={getUsers} />} />
               <Route path="login" element={<LoginForm />} />
               <Route path="logout" element={<Logout />} />

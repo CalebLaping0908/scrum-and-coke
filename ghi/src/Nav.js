@@ -11,7 +11,7 @@ export default function NavBar() {
     return (
       <Navbar className="Navigation" bg="transparent" expand="lg">
         <Container>
-          <Navbar.Brand className="HomeButton" href="/">
+          <Navbar.Brand className="HomeButton" href="/scrum-and-coke/">
             Scrum & Coke
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -22,12 +22,12 @@ export default function NavBar() {
                 title="Boards"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item href="/boards">My Boards</NavDropdown.Item>
-                <NavDropdown.Item href="/boards/new">
+                <NavDropdown.Item href="/scrum-and-coke/boards">My Boards</NavDropdown.Item>
+                <NavDropdown.Item href="/scrum-and-coke/boards/new">
                   Create Board
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link className="NavLink2" href="/users/logout">
+              <Nav.Link className="NavLink2" href="/scrum-and-coke/users/logout">
                 Logout
               </Nav.Link>
             </Nav>
