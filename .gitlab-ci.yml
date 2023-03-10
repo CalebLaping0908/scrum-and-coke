@@ -21,6 +21,9 @@ api-unit-test-job:
     - cd boards
     - pip install -r requirements.txt
     - python -m pytest
+  variables:
+    DATABASE_URL: ""
+    SIGNING_KEY: ""
 
 # Build the React/JavaScript front-end
 build-front-end-job:
