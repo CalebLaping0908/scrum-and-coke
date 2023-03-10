@@ -31,7 +31,7 @@ docker-compose up
 
 ## The Design
 
-- Users can sign up for an account, logout, and login
+- Users can sign up for an account, logout, and login.
 - Inside of the boards dropdown menu in the navigation bar, there is a link to a form that allows you to create a new board. After creation, the board will now be accessible inside of the "My boards" page on the navigation bar.
 - The "My boards" page holds all of the boards that a user has. They can click on any board to view that board in detail, which will be the page that they can create and view tasks. On this page, each task shows a title, assignee, and the current status of the task.
 - On the board detail page, there is a 'create task' button which brings you to a form where you can create a new task. After creation, the task is populated onto the associated board, and you are redirected back to that same board.

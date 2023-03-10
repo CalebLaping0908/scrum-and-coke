@@ -54,7 +54,7 @@ export default function TaskDetail({ getTasks, users }) {
           {task.description}
         </Card.Text>
         <Card.Text className="CardAssigneeText">
-          Assignee:
+          Assignee:{" "}
           {users
             .filter((user) => task.assignee === user.employee_number)
             .map((user) => user.full_name)}
