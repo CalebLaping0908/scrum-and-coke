@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useToken } from "../Auth";
 import { useNavigate, Link } from "react-router-dom";
-import { Button, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 function LoginForm() {
   const [, login] = useToken();
@@ -43,6 +43,9 @@ function LoginForm() {
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1 className="FormLabel">Login</h1>
+          <p className="SignupPrompt">
+            Don't have an account? <Link to="/users/new">Sign up</Link>
+          </p>
           <form onSubmit={handleSubmit} id="login-form">
             <div className="InputText">
               <input
@@ -74,14 +77,6 @@ function LoginForm() {
             <Button className="FormButton" variant="primary" type="submit">
               Login
             </Button>
-            <Row>
-              <p className="SignupPrompt">Don't have an account?</p>
-              <Link to="/users/new">
-                <Button className="SignupRedirect" variant="primary">
-                  Sign up here
-                </Button>
-              </Link>
-            </Row>
           </form>
           <h4>{error}</h4>
         </div>

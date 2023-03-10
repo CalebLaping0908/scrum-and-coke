@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Row, Col, Container, Badge, Button } from "react-bootstrap";
 import { useToken } from "../Auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function BoardDetail({
-  tasks,
-  getTasks,
-  boards,
-  getBoards,
-  users,
-}) {
+export default function BoardDetail({ tasks, getTasks, boards, users }) {
+  const { id } = useParams();
   const [taskStatus, setTaskStatus] = useState("");
-  const [boardNumVar, setBoardNumVar] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [boardNumVar, setBoardNumVar] = useState(id);
   const [token] = useToken();
   const navigate = useNavigate();
 
@@ -55,49 +51,16 @@ export default function BoardDetail({
     updateTask(id, status);
   };
 
-  const handleBoardNumVarChange = async (event) => {
-    const value = event.target.value;
-    setBoardNumVar(value);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setBoardNumVar("");
-    getBoards();
-  };
   return (
     <>
       <Container className="BoardContainer">
         <Row className="BoardDropDownMenu">
-          <form
-            onSubmit={handleSubmit}
-            className="select-board-form"
-            id="select-board-form"
-          >
-            <div className="mb-3">
-              <div className="select-board">
-                <select
-                  onChange={handleBoardNumVarChange}
-                  placeholder="Board"
-                  required
-                  type="text"
-                  name="boardNumVar"
-                  id="boardNumVar"
-                  className="board custom-select"
-                  value={boardNumVar}
-                >
-                  <option>Board</option>
-                  {boards.map((board) => {
-                    return (
-                      <option key={board.id} value={board.id}>
-                        {board.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-            </div>
-          </form>
+          <h1 className="BoardPageTitle">
+            {boards
+              // eslint-disable-next-line eqeqeq
+              .filter((board) => board.id == id)
+              .map((board) => board.name)}
+          </h1>
         </Row>
         <Link to="/tasks/new">
           <Button

@@ -100,6 +100,7 @@
 
 .Navigation {
   margin-top: -70px;
+  margin-bottom: 20px;
 }
 
 .NavLink {
@@ -185,8 +186,10 @@
 }
 
 .TaskDetailCard {
-  margin-left: 350px;
-  margin-right: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+
   margin-top: 50px;
   box-shadow: 3px 2px 2px gray;
   border-radius: 5px;
@@ -217,6 +220,7 @@
   font-size: 20px;
   line-height: 1.15;
   letter-spacing: -0.02em;
+  color: black;
 }
 
 .CreateTaskButton {
@@ -262,10 +266,10 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.15;
   margin-bottom: 7px;
-  margin-top: 9px;
+  margin-top: 0px;
 }
 
 .TaskFormLabel {
@@ -327,4 +331,72 @@
 .EditTaskButton {
   margin-bottom: 5px;
   margin-left: 5px;
+}
+
+.BoardList {
+  background-color: transparent !important;
+  border-radius: 4px !important;
+}
+
+.custom-bg-transparent {
+  background-color: rgba(238, 237, 237, 0.7);
+  border-radius: 4px !important;
+}
+
+.BoardLink {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.BoardLink:hover .BoardListItem {
+  color: rgb(193, 92, 244);
+  transition: 0.2s;
+}
+
+.BoardListItem:hover {
+  background-color: #f0f0f0;
+}
+
+.BoardListItem {
+  text-align: center;
+  font-weight: 400;
+  color: rgb(83, 83, 83);
+  width: 100%;
+  max-width: 400px;
+  margin-top: 5px;
+}
+
+.BoardListTitle {
+  text-align: center;
+  font-weight: 500;
+  font-size: 40px;
+  color: white;
+}
+
+.BoardPageTitle {
+  text-align: center;
+  color: white;
+  margin-bottom: -25px;
+}
+
+.NoBoardsText {
+  text-align: center;
+  margin-top: 60px;
+  font-weight: 500;
+  font-size: 30px;
+  color: white;
+}
+
+.CreateBoardButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.TaskDetailButtons {
+  margin-left: auto;
+  margin-right: auto;
 }

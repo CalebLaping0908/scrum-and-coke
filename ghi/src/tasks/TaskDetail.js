@@ -8,6 +8,7 @@ export default function TaskDetail({ getTasks }) {
   const [task, setTask] = useState(null);
   const [user, setUser] = useState("");
   const [token] = useToken();
+  const [board, setBoard] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function TaskDetail({ getTasks }) {
       if (response.ok) {
         const taskData = await response.json();
         const userId = taskData.assignee;
+        setBoard(taskData.board);
         setTask(taskData);
         const userUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/users/${userId}`;
         const fetchUserConfig = {
@@ -47,7 +49,7 @@ export default function TaskDetail({ getTasks }) {
     });
     if (taskResponse.ok) {
       getTasks();
-      navigate("/boards");
+      navigate(`/boards/${board}`);
     }
   };
   if (!task) {
@@ -68,7 +70,7 @@ export default function TaskDetail({ getTasks }) {
           {task.status}
         </Badge>
       </Card.Body>
-      <div>
+      <div className="TaskDetailButtons">
         <Link to={`/tasks/${id}/edit`}>
           <Button
             className="EditTaskButton"
@@ -79,7 +81,7 @@ export default function TaskDetail({ getTasks }) {
           </Button>
         </Link>
         <Button
-          variant="outline-secondary"
+          variant="outline-danger"
           size="sm"
           className="DeleteTaskButton"
           onClick={() => deleteTask(task.id)}

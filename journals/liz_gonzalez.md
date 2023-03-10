@@ -1,8 +1,20 @@
+## March 9th, 2023
+
+- Today I worked on completing the README, adding a couple of features, and going through stage 3 of deployment with my team
+
+I refactored some of our code to include the following features: After creating a task, you are now redirected to the board that the task is assigned to, and after updating a task you also get redirected back to the board with that specific task. Also implemented the same process for redirecting after deleting a task.
+
+## March 8th, 2023
+
+- Today I worked on writing documentation for our application and cleaning up code
+
+I wrote the documentation for our API design, the data model, and the main README file. In addition to completing those things, my teammate and I worked on cleaning up dead code and fixing lifting issues that were causing the pipeline to fail.
+
 ## March 7th, 2023
 
 - Today I worked on adding a couple more features and playing around with a drag and drop library.
 
-I changed the react-bootstrap column properties to only be as long as the contents inside of them. Before, when one column grew longer, they all grew longer. I was able to find a flex-column property that allowed for the desired change. Although, implementing this new property made the card components inside of the columns inconsitent in width. I was able to make them all the same width by setting a style property that sets the width to 100% directly onto the div tag that is wrapped around each card component. I also added a button on the task detail page that lets you delete a task. The functionality is working just as intended. I hid the sign up and log in buttons on the home page for users who are already logged in. I also got started on writing the documentation for our app.
+I changed the react-bootstrap column properties to only be as long as the contents inside of them. Before, when one column grew longer, they all grew longer. I was able to find a flex-column property that allowed for the desired change. Although, implementing this new property made the card components inside of the columns inconsistent in width. I was able to make them all the same width by setting a style property that sets the width to 100% directly onto the div tag that is wrapped around each card component. I also added a button on the task detail page that lets you delete a task. The functionality is working just as intended. I hid the sign up and log in buttons on the home page for users who are already logged in. I also got started on writing the documentation for our app.
 
 The library that my teammate and I pulled in is called React Beautiful DND. We got a start on refactoring our code to make the task cards draggable components, and the status columns droppable components. It was a bit of a challenge to bring in a new library that has a syntax we haven't seen before, into our already complex code. I believe we made some progress and our instructor gave us confirmation that we're on the right track. Currently, we have our elements wrapped in droppable and draggable components, but are not able to see the draggable element inside of the droppable component yet. Tomorrow we are going to continue working on implementing drag and drop by debugging to see where things are going wrong.
 

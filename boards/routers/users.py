@@ -86,15 +86,15 @@ async def update_user(
         response.status_code = 404
 
 
-@router.delete("/users/{user_id}", response_model=bool)
+@router.delete("/users/{employee_number}", response_model=bool)
 def delete_user(
-    user_id: int,
+    employee_number: int,
     repo: UserRepository = Depends(),
 ) -> bool:
-    return repo.delete(user_id)
+    return repo.delete(employee_number)
 
 
-@router.get("/users/{user_id}", response_model=Optional[Union[Error, UserOut]])
+@router.get("/users/{employee_number}", response_model=Optional[Union[Error, UserOut]])
 def get_one_user(
     user_id: int,
     repo: UserRepository = Depends(),

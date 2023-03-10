@@ -71,7 +71,7 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
       setBoard("");
       setStatus("");
 
-      navigate(`/boards`);
+      navigate(`/boards/${board}`);
       getTasks();
     }
   };

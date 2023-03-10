@@ -112,19 +112,18 @@ class UserRepository:
         except Exception as e:
             return {"message": "could not update user"}
 
-    def delete(self, user_id: int) -> bool:
+    def delete(self, employee_number: int) -> bool:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
                         DELETE FROM users
-                        WHERE id = %s
+                        WHERE employee_number = %s
                         """,
-                        [user_id],
+                        [employee_number],
                     )
                     return True
-
         except Exception:
             return False
 
