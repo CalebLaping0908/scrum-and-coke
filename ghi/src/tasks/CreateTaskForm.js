@@ -96,15 +96,15 @@ export default function CreateTask({ getTasks, boards, users, statuses }) {
               <label htmlFor="title"></label>
             </div>
             <div className="InputText">
-              <input
+              <textarea
                 onChange={handleDescriptionChange}
                 placeholder="Description"
                 required
-                type="text"
-                name="description"
-                id="description"
-                className="form-control"
                 value={description}
+                id="description"
+                name="description"
+                className="form-control"
+                rows="4"
               />
               <label htmlFor="description"></label>
             </div>

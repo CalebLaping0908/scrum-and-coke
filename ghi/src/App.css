@@ -238,7 +238,7 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 600;
   font-style: normal;
-  font-size: 25px;
+  font-size: 30px;
   line-height: 1.15;
   margin-bottom: 12px;
   color: white;
@@ -399,4 +399,13 @@
 .TaskDetailButtons {
   margin-left: auto;
   margin-right: auto;
+}
+
+.LoginFail {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 10px;
+  color: white;
+  font-size: 18px;
 }

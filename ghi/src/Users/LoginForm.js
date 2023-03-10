@@ -78,7 +78,7 @@ function LoginForm() {
               Login
             </Button>
           </form>
-          <h4>{error}</h4>
+          <p className="LoginFail">{error}</p>
         </div>
       </div>
     </div>
