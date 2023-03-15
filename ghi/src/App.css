@@ -146,8 +146,8 @@
 }
 
 .Slogan {
-  width: 48ch;
-  animation: typing 2s steps(48), blink 0.5s step-end infinite alternate;
+  width: 655px;
+  animation: typing 2s steps(60), blink 0.5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
   border-right: 3px solid;
